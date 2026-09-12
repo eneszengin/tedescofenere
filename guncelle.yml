@@ -1,0 +1,39 @@
+name: Fikstürü güncelle
+
+on:
+  schedule:
+    # 48 saatte bir, 06:00 UTC (Türkiye saatiyle 09:00)
+    # Ayın tek günlerinde çalışır: 1, 3, 5, ... 31
+    - cron: "0 6 */2 * *"
+  workflow_dispatch:        # "Run workflow" düğmesiyle elle de çalıştırılabilir
+
+permissions:
+  contents: write
+
+jobs:
+  guncelle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Gerekli paketler
+        run: pip install requests beautifulsoup4
+
+      - name: Fikstürü çek ve index.html'i güncelle
+        run: python3 scripts/guncelle.py
+
+      - name: Değişiklik varsa commit'le
+        run: |
+          if [[ -z "$(git status --porcelain index.html)" ]]; then
+            echo "Değişiklik yok, commit atlanıyor."
+            exit 0
+          fi
+          git config user.name  "fikstur-bot"
+          git config user.email "actions@github.com"
+          git add index.html
+          git commit -m "Fikstür güncellendi ($(date +%d.%m.%Y))"
+          git push
