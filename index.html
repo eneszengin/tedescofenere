@@ -63,7 +63,7 @@ body{
   font-variant-numeric:tabular-nums;
   -webkit-font-smoothing:antialiased;
 }
-.sayfa{max-width:880px;margin:0 auto;padding:0 24px}
+.sayfa{width:calc(100% - 48px);max-width:1200px;margin:0 auto;padding:0}
 h1,h2,h3{font-family:Archivo,system-ui,sans-serif;font-weight:700;letter-spacing:-.02em}
 p{margin:0 0 1em}
 a{color:var(--lacivert)}
@@ -220,16 +220,23 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 .rapor-not{font-size:13px;color:var(--soluk);margin:0 0 18px}
 
 /* ---------- anketler ---------- */
-.anketler{display:grid;gap:18px;margin-bottom:4px}
-.anket{
-  background:#fff;border:1px solid var(--cizgi);padding:22px 24px;
+.anket-kaydir{width:100%;overflow-x:auto;padding-bottom:8px}
+.anketler{
+  display:grid;grid-template-columns:400px 800px;
+  width:1200px;gap:0;margin-bottom:4px;align-items:stretch;
 }
-.anket h3{font-size:20px;line-height:1.25;color:var(--lacivert);margin:0 0 16px}
-.anket-form fieldset{border:0;margin:0;padding:0}
+.anket{
+  min-width:0;background:#fff;border:1px solid var(--cizgi);padding:24px;
+  font-family:Archivo,system-ui,sans-serif;font-size:14.5px;line-height:1.6;
+}
+.anket h3{font-family:inherit;font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.3;color:var(--lacivert);margin:0 0 20px}
+.anket-form fieldset{border:0;margin:0;padding:0;min-width:0}
+.anket[data-anket="aday"] fieldset{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.anket[data-anket="aday"] .anket-secenek + .anket-secenek{margin-top:0}
 .anket-form fieldset:disabled{opacity:.7}
 .anket-secenek{
   display:flex;align-items:center;gap:10px;min-height:42px;
-  padding:9px 12px;border:1px solid var(--cizgi);color:var(--murekkep);
+  padding:9px 12px;border:1px solid var(--cizgi);color:var(--lacivert);font:500 14.5px/1.5 Archivo,system-ui,sans-serif;
   cursor:pointer;transition:background .15s,border-color .15s;
 }
 .anket-secenek + .anket-secenek{margin-top:7px}
@@ -237,12 +244,12 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 .anket-secenek input{accent-color:var(--lacivert);margin:0;width:16px;height:16px;flex:0 0 auto}
 .anket-dugme{
   appearance:none;border:1px solid var(--lacivert);background:var(--lacivert);
-  color:#fff;cursor:pointer;font:600 14px/1.3 Archivo,sans-serif;
+  color:#fff;cursor:pointer;font:600 14px/1.3 Archivo,system-ui,sans-serif;
   padding:10px 16px;margin-top:15px;transition:background .15s,color .15s;
 }
 .anket-dugme:hover{background:var(--lacivert-acik)}
 .anket-dugme:disabled{cursor:default;opacity:.65}
-.anket-notu{font-size:12.5px;color:var(--soluk);margin:12px 0 0}
+.anket-notu{font-size:13px;color:var(--soluk);margin:12px 0 0}
 .anket-sonuclar{margin-top:20px;padding-top:16px;border-top:1px solid var(--cizgi)}
 .anket-sonuclar[hidden]{display:none}
 .anket-sonuclar-baslik{font-size:12px;font-weight:600;color:var(--soluk);margin:0 0 10px}
@@ -349,7 +356,9 @@ footer a:hover{border-bottom-color:var(--sari)}
 <section aria-labelledby="anketler-baslik">
   <h2 id="anketler-baslik">Taraftar anketleri</h2>
   <p class="alt">Görüşünüzü paylaşın. Her ankette bir seçenek işaretleyebilirsiniz.</p>
-  <div class="anketler" id="anketler"></div>
+  <div class="anket-kaydir" role="region" aria-label="Yan yana taraftar anketleri, dar ekranda yatay kaydırılabilir" tabindex="0">
+    <div class="anketler" id="anketler"></div>
+  </div>
 </section>
 
 <section>
