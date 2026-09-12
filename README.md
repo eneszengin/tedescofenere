@@ -1,1 +1,1 @@
-# tedescofenere
+# tedescofenere.com bir tarafta projesidir.
