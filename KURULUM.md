@@ -86,6 +86,36 @@ gerekir — bu kısım elle ya da bana sorarak yapılır.
 **Sezon biterse.** Yeni sezonun sayfa adresi değişir. `DONEMLER` içindeki
 `url` ve `baslangic` alanlarını güncellemen gerekir.
 
+## Geri doldurma (tek seferlik)
+
+`scripts/geri_doldur.py`, 2010-11'den 2025-26'ya kadarki 16 sezonu tarar,
+maçları teknik direktör dönemlerine böler ve `veriler.json` dosyasını üretir.
+Site bu dosyayı yalnızca ziyaretçi eski bir dönem seçtiğinde indirir, yani
+sayfa hafif kalır.
+
+**En kolay yol: GitHub üzerinden çalıştır.** Bilgisayarına hiçbir şey
+kurman gerekmez.
+
+1. Repoda **Actions** sekmesine gir
+2. Soldan **Geri doldur (tek seferlik)** işini seç
+3. Sağdaki **Run workflow** düğmesine bas
+4. Açılan kutucukta **"Önce deneme yap"** işaretli kalsın, çalıştır
+
+Bu deneme hiçbir dosya yazmaz, sadece raporlar. İş bitince üstüne tıklayıp
+adımları aç ve logu oku.
+
+Çıktıda her dönem için "bulunan" ve "beklenen" maç sayısı yan yana gelir.
+Hepsi "tamam" diyorsa tarihler doğrudur. O zaman işi bir kez daha çalıştır,
+bu sefer **"Önce deneme yap" kutucuğunun işaretini kaldır**. Betik
+`veriler.json`'u üretip repoya kendisi commit'ler.
+
+Bir dönemde "FARK" yazıyorsa devir tarihi yanlıştır. `geri_doldur.py`
+içindeki `DONEMLER` listesinde o dönemin `bas`/`bit` tarihini düzelt ve
+tekrar dene. Sayılar tutmadan betik dosyayı yazmaz — bu kasıtlı.
+
+Bu betik bir kez çalışır, sonra bir daha gerekmez. Güncel sezonu
+`guncelle.py` takip ediyor.
+
 ## Elle çalıştırma (bilgisayarında)
 
 ```bash
