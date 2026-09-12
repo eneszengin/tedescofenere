@@ -1,0 +1,47 @@
+name: Geri doldur (tek seferlik)
+
+# Zamanlayıcı yok — yalnızca Actions sekmesinden elle çalıştırılır.
+on:
+  workflow_dispatch:
+    inputs:
+      kuru:
+        description: "Önce deneme yap (dosya yazılmaz, sadece rapor)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  geri-doldur:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Gerekli paketler
+        run: pip install requests beautifulsoup4
+
+      - name: Deneme çalıştırması (dosya yazılmaz)
+        if: ${{ inputs.kuru }}
+        run: python3 scripts/geri_doldur.py --kuru
+
+      - name: Gerçek çalıştırma (veriler.json üretilir)
+        if: ${{ !inputs.kuru }}
+        run: python3 scripts/geri_doldur.py
+
+      - name: veriler.json'u commit'le
+        if: ${{ !inputs.kuru }}
+        run: |
+          if [[ -z "$(git status --porcelain veriler.json)" ]]; then
+            echo "veriler.json üretilmedi ya da değişmedi."
+            exit 0
+          fi
+          git config user.name  "fikstur-bot"
+          git config user.email "actions@github.com"
+          git add veriler.json
+          git commit -m "Geri doldurma: veriler.json üretildi ($(date +%d.%m.%Y))"
+          git push
