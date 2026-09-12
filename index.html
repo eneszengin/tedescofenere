@@ -220,6 +220,8 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 .rapor-not{font-size:13px;color:var(--soluk);margin:0 0 18px}
 
 /* ---------- anketler ---------- */
+#anketler-baslik{font-size:14px;font-weight:600;line-height:1.3;letter-spacing:0}
+#anketler-baslik + .alt{font-size:12px}
 .anket-kaydir{width:100%;overflow-x:auto;padding-bottom:8px}
 .anketler{
   display:grid;grid-template-columns:400px 800px;
@@ -227,16 +229,16 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 }
 .anket{
   min-width:0;background:#fff;border:1px solid var(--cizgi);padding:24px;
-  font-family:Archivo,system-ui,sans-serif;font-size:14.5px;line-height:1.6;
+  font-family:Archivo,system-ui,sans-serif;font-size:14px;line-height:1.6;
 }
-.anket h3{font-family:inherit;font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.3;color:var(--lacivert);margin:0 0 20px}
+.anket h3{font-family:inherit;font-size:14px;font-weight:600;letter-spacing:0;line-height:1.3;color:var(--lacivert);margin:0 0 16px}
 .anket-form fieldset{border:0;margin:0;padding:0;min-width:0}
 .anket[data-anket="aday"] fieldset{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .anket[data-anket="aday"] .anket-secenek + .anket-secenek{margin-top:0}
-.anket-form fieldset:disabled{opacity:.7}
+.anket-form fieldset:disabled .anket-secenek{cursor:default}
 .anket-secenek{
   display:flex;align-items:center;gap:10px;min-height:42px;
-  padding:9px 12px;border:1px solid var(--cizgi);color:var(--lacivert);font:500 14.5px/1.5 Archivo,system-ui,sans-serif;
+  padding:9px 12px;border:1px solid var(--cizgi);color:var(--lacivert);font:500 14px/1.3 Archivo,system-ui,sans-serif;
   cursor:pointer;transition:background .15s,border-color .15s;
 }
 .anket-secenek + .anket-secenek{margin-top:7px}
@@ -249,17 +251,14 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 }
 .anket-dugme:hover{background:var(--lacivert-acik)}
 .anket-dugme:disabled{cursor:default;opacity:.65}
-.anket-notu{font-size:13px;color:var(--soluk);margin:12px 0 0}
-.anket-sonuclar{margin-top:20px;padding-top:16px;border-top:1px solid var(--cizgi)}
-.anket-sonuclar[hidden]{display:none}
-.anket-sonuclar-baslik{font-size:12px;font-weight:600;color:var(--soluk);margin:0 0 10px}
-.anket-sonuc{display:grid;grid-template-columns:minmax(120px,30%) 1fr auto;align-items:center;gap:10px;font-size:13px;margin-top:8px}
-.anket-sonuc-ad{overflow-wrap:anywhere}
-.anket-bar{height:8px;background:#E8EBF2;overflow:hidden}
-.anket-bar i{display:block;height:100%;background:var(--lacivert)}
-.anket-sonuc.secili .anket-sonuc-ad{font-weight:600;color:var(--lacivert)}
-.anket-sonuc.secili .anket-bar i{background:var(--sari)}
-.anket-yuzde{font-weight:600;color:var(--lacivert);text-align:right;min-width:38px}
+.anket-notu{font-size:12px;color:var(--soluk);margin:12px 0 0}
+.anket-dogrulama{margin-top:16px;min-height:65px}
+.anket-gizlilik{font-size:12px;color:var(--soluk);margin:10px 0 0;max-width:100ch}
+.anket-yenile{appearance:none;font:500 12px/1.4 Archivo,sans-serif;color:var(--lacivert);background:#fff;border:1px solid var(--cizgi);padding:6px 10px;cursor:pointer}
+.anket-secenek-metin{min-width:0;overflow-wrap:anywhere}
+.anket-secenek-oy{font-weight:400;color:var(--soluk);white-space:nowrap}
+.anket-secenek input:checked + .anket-secenek-metin{font-weight:600}
+.anket-toplam{font-size:12px;font-weight:600;color:var(--lacivert);margin:8px 0 0}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* ---------- teknik direktörler ---------- */
@@ -359,6 +358,10 @@ footer a:hover{border-bottom-color:var(--sari)}
   <div class="anket-kaydir" role="region" aria-label="Yan yana taraftar anketleri, dar ekranda yatay kaydırılabilir" tabindex="0">
     <div class="anketler" id="anketler"></div>
   </div>
+  <p class="anket-gizlilik">Oylar ortak veritabanında saklanır. Her IP adresi, her ankette bir oy kullanabilir; aynı ağı paylaşan kişiler bu sınıra takılabilir. Tekrar oy kontrolü için IP adresinin gizli anahtarla üretilen özeti saklanır. Bot doğrulaması Cloudflare Turnstile ile yapılır.</p>
+  <p class="anket-notu" id="anket-sonuc-durumu" role="status">Sonuçlar yükleniyor…</p>
+  <button class="anket-yenile" id="anket-sonuc-yenile" type="button">Sonuçları yenile</button>
+  <noscript><p>Anketi kullanmak için JavaScript’i etkinleştiriniz.</p></noscript>
 </section>
 
 <section>
@@ -613,45 +616,79 @@ const ANKETLER = [
   }
 ];
 
-const ANKET_BELLEK = {};
-const anketAnahtari = id => `tedesco-fener-anket-${id}`;
+// These values are public. Secret values belong only in Worker settings.
+const ANKET_API = "https://fenerbahce-anket-api.eneszengin.workers.dev";
+const TURNSTILE_SITE_KEY = "0x4AAAAAAExwVcpPD-6zv92w";
+const ANKET_DURUMLARI = new Map();
+let anketSonucIstegi = 0;
 
-function anketOku(anket){
-  let kayit = null;
-  try { kayit = JSON.parse(localStorage.getItem(anketAnahtari(anket.id)) || "null"); }
-  catch(e) { kayit = ANKET_BELLEK[anketAnahtari(anket.id)] || null; }
-
-  const sayilar = anket.secenekler.map((_,i) => {
-    const n = kayit && Array.isArray(kayit.sayilar) ? Number(kayit.sayilar[i]) : 0;
-    return Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
-  });
-  const secili = kayit && Number.isInteger(kayit.secili) && kayit.secili >= 0 && kayit.secili < anket.secenekler.length
-    ? kayit.secili : null;
-  return {sayilar, secili};
+async function anketIstek(yol, options = {}){
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(ANKET_API + yol, {
+      ...options, credentials:"omit", cache:"no-store", signal:controller.signal
+    });
+    let data;
+    try { data = await response.json(); }
+    catch { throw new Error("Anket sunucusundan geçerli yanıt alınamadı."); }
+    if(!response.ok || data.ok !== true){
+      const messages = {
+        already_voted:"Bu IP adresinden bu ankete daha önce oy verilmiş. İkinci oy kabul edilmez.",
+        verification_failed:"Güvenlik doğrulaması geçersiz veya süresi dolmuş. Yeniden doğrulayınız.",
+        verification_required:"Lütfen güvenlik doğrulamasını tamamlayınız.",
+        verification_unavailable:"Doğrulama hizmetine ulaşılamadı. Biraz sonra tekrar deneyiniz.",
+        configuration_error:"Anket sunucusunun kurulumu henüz tamamlanmamış.",
+        origin_not_allowed:"Ankete tedescofenere.com üzerinden erişiniz.",
+        invalid_vote:"Geçerli bir seçenek işaretleyiniz."
+      };
+      const error = new Error(messages[data.error] || "İşlem tamamlanamadı. Biraz sonra tekrar deneyiniz.");
+      error.code = data.error;
+      throw error;
+    }
+    return data;
+  } finally { clearTimeout(timer); }
 }
 
-function anketYaz(anket, veri){
-  const kayit = JSON.stringify(veri);
-  ANKET_BELLEK[anketAnahtari(anket.id)] = veri;
-  try { localStorage.setItem(anketAnahtari(anket.id), kayit); }
-  catch(e) { /* Tarayıcı depolamayı engellerse oturum içinde çalışmaya devam eder. */ }
+function anketDugmesi(durum){
+  durum.kart.querySelector(".anket-dugme").disabled = durum.kilitli || durum.gonderiliyor || !durum.token;
+}
+
+async function anketSonuclariYukle(){
+  const istek = ++anketSonucIstegi;
+  const bildirim = document.getElementById("anket-sonuc-durumu");
+  const yenile = document.getElementById("anket-sonuc-yenile");
+  yenile.disabled = true;
+  bildirim.textContent = "Sonuçlar yükleniyor…";
+  try {
+    const data = await anketIstek("/results");
+    if(istek !== anketSonucIstegi) return;
+    // Validate the complete response before painting any results.
+    const records = ANKETLER.map(anket => {
+      const p = data.polls?.[anket.id];
+      if(!p || !Array.isArray(p.counts) || p.counts.length !== anket.secenekler.length ||
+         p.counts.some(n => !Number.isSafeInteger(n) || n < 0) ||
+         p.total !== p.counts.reduce((a,b) => a+b, 0)) throw new Error("Sonuç verisi geçersiz.");
+      return {anket, p};
+    });
+    records.forEach(({anket,p}) => {
+      const durum = ANKET_DURUMLARI.get(anket.id);
+      anketSonuclariniCiz(durum.kart, anket, {sayilar:p.counts, secili:durum.secili});
+    });
+    bildirim.textContent = "Ortak sonuçlar güncellendi.";
+  } catch(error){
+    if(istek === anketSonucIstegi) bildirim.textContent = "Sonuçlar yenilenemedi. Görünen değerler varsa son alınan sonuçlardır. Yeniden deneyiniz.";
+  } finally { if(istek === anketSonucIstegi) yenile.disabled = false; }
 }
 
 function anketSonuclariniCiz(kart, anket, veri){
   const toplam = veri.sayilar.reduce((a,b) => a+b, 0);
-  const sonucEl = kart.querySelector(".anket-sonuclar");
-  if(!toplam){ sonucEl.hidden = true; return; }
-
-  sonucEl.hidden = false;
-  sonucEl.innerHTML = `<p class="anket-sonuclar-baslik">Mevcut sonuçlar · ${toplam} oy</p>` +
-    anket.secenekler.map((secenek,i) => {
-      const yuzde = Math.round(veri.sayilar[i] * 100 / toplam);
-      return `<div class="anket-sonuc ${veri.secili===i ? "secili" : ""}">
-        <span class="anket-sonuc-ad">${secenek}</span>
-        <span class="anket-bar"><i style="width:${yuzde}%"></i></span>
-        <span class="anket-yuzde">%${yuzde}</span>
-      </div>`;
-    }).join("");
+  anket.secenekler.forEach((_,i) => {
+    const yuzde = toplam ? Math.round(veri.sayilar[i] * 100 / toplam) : 0;
+    kart.querySelector(`[data-oy="${i}"]`).textContent =
+      `(${veri.sayilar[i].toLocaleString("tr-TR")} oy, %${yuzde})`;
+  });
+  kart.querySelector(".anket-toplam").textContent = `Toplam oy: ${toplam.toLocaleString("tr-TR")}`;
 }
 
 function anketleriCiz(){
@@ -665,43 +702,111 @@ function anketleriCiz(){
           ${anket.secenekler.map((secenek,i) => `
             <label class="anket-secenek">
               <input type="radio" name="anket-${anket.id}" value="${i}">
-              <span>${secenek}</span>
+              <span class="anket-secenek-metin">${secenek} <span class="anket-secenek-oy" data-oy="${i}"></span></span>
             </label>`).join("")}
         </fieldset>
-        <button class="anket-dugme" type="submit">Oyumu kullan</button>
+        <div class="anket-dogrulama" id="dogrulama-${anket.id}"></div>
+        <button class="anket-dugme" type="submit" disabled>Oy Kullan</button>
+        <p class="anket-toplam" aria-live="polite">Toplam oy: yükleniyor…</p>
       </form>
-      <p class="anket-notu">Her ankette bir oy kullanabilirsiniz.</p>
-      <div class="anket-sonuclar" aria-live="polite" hidden></div>
+      <p class="anket-notu" role="status">Güvenlik doğrulaması yükleniyor…</p>
     </article>`).join("");
 
   alan.querySelectorAll(".anket").forEach(kart => {
     const anket = ANKETLER.find(x => x.id === kart.dataset.anket);
-    const veri = anketOku(anket);
-    const secim = kart.querySelector(`input[value="${veri.secili}"]`);
-    if(secim) secim.checked = true;
-    if(veri.secili !== null) kart.querySelector(".anket-dugme").textContent = "Oyumu güncelle";
-    anketSonuclariniCiz(kart, anket, veri);
-
-    kart.querySelector(".anket-form").addEventListener("submit", e => {
+    const durum = {kart, token:"", widget:null, kilitli:false, gonderiliyor:false, secili:null};
+    ANKET_DURUMLARI.set(anket.id, durum);
+    kart.querySelector(".anket-form").addEventListener("submit", async e => {
       e.preventDefault();
+      if(durum.kilitli || durum.gonderiliyor) return;
       const secili = kart.querySelector("input:checked");
       const notu = kart.querySelector(".anket-notu");
       if(!secili){ notu.textContent = "Lütfen önce bir seçenek işaretleyin."; return; }
-
+      if(!durum.token){ notu.textContent = "Lütfen güvenlik doğrulamasını tamamlayınız."; return; }
       const yeni = Number(secili.value);
-      const guncel = anketOku(anket);
-      if(guncel.secili !== null && guncel.secili !== yeni) guncel.sayilar[guncel.secili] = Math.max(0, guncel.sayilar[guncel.secili]-1);
-      if(guncel.secili !== yeni) guncel.sayilar[yeni]++;
-      guncel.secili = yeni;
-      anketYaz(anket, guncel);
-      kart.querySelector(".anket-dugme").textContent = "Oyumu güncelle";
-      notu.textContent = "Oyunuz kaydedildi. İsterseniz seçiminizi güncelleyebilirsiniz.";
-      anketSonuclariniCiz(kart, anket, guncel);
+      durum.gonderiliyor = true;
+      kart.querySelector("fieldset").disabled = true;
+      anketDugmesi(durum);
+      notu.textContent = "Oyunuz gönderiliyor…";
+      try {
+        await anketIstek("/vote", {method:"POST", headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({poll_id:anket.id, option_id:yeni, token:durum.token})});
+        durum.kilitli = true;
+        durum.secili = yeni;
+        kart.querySelector(".anket-dugme").textContent = "Oy kullanıldı";
+        notu.textContent = "Oyunuz ortak veritabanına kaydedildi. Teşekkür ederiz.";
+        await anketSonuclariYukle();
+      } catch(error){
+        if(error.code === "already_voted"){
+          durum.kilitli = true;
+          kart.querySelector(".anket-dugme").textContent = "Bu IP oy kullanmış";
+          await anketSonuclariYukle();
+        }
+        notu.textContent = error instanceof TypeError || error.name === "AbortError"
+          ? "Sunucudan yanıt alınamadı. Oyunuzun kaydedilip kaydedilmediği doğrulanamadı; tekrar deneyebilirsiniz."
+          : error.message;
+      } finally {
+        durum.gonderiliyor = false;
+        durum.token = "";
+        kart.querySelector("fieldset").disabled = durum.kilitli;
+        if(durum.widget !== null && window.turnstile){
+          if(durum.kilitli){window.turnstile.remove(durum.widget); kart.querySelector(".anket-dogrulama").hidden = true;}
+          else window.turnstile.reset(durum.widget);
+        }
+        anketDugmesi(durum);
+      }
     });
   });
 }
 
 anketleriCiz();
+document.getElementById("anket-sonuc-yenile").addEventListener("click", anketSonuclariYukle);
+anketSonuclariYukle();
+
+function anketDogrulamaSorunu(durum, mesaj){
+  if(durum.kilitli) return;
+  durum.token = "";
+  if(!durum.gonderiliyor) durum.kart.querySelector(".anket-notu").textContent = mesaj;
+  anketDugmesi(durum);
+}
+window.anketTurnstileHazir = function(){
+  clearTimeout(anketDogrulamaZamanAsimi);
+  ANKET_DURUMLARI.forEach((durum, id) => {
+    if(durum.widget !== null) return;
+    try {
+      durum.widget = window.turnstile.render("#dogrulama-" + id, {
+        sitekey:TURNSTILE_SITE_KEY, action:id, theme:"light", language:"tr",
+        callback:token => {
+          if(durum.kilitli) return;
+          durum.token = token;
+          if(!durum.gonderiliyor) durum.kart.querySelector(".anket-notu").textContent = "Doğrulama tamamlandı. Bir seçenek işaretleyip oyunuzu gönderiniz.";
+          anketDugmesi(durum);
+        },
+        "expired-callback":() => anketDogrulamaSorunu(durum, "Doğrulama süresi doldu. Yeniden doğrulayınız."),
+        "timeout-callback":() => anketDogrulamaSorunu(durum, "Doğrulama zaman aşımına uğradı. Yeniden deneyiniz."),
+        "error-callback":() => {
+          anketDogrulamaSorunu(durum, "Güvenlik doğrulaması yüklenemedi. Sayfayı yenileyiniz; reklam engelleyicinizin Turnstile’a izin verdiğini kontrol ediniz.");
+          return true;
+        }
+      });
+      durum.kart.querySelector(".anket-notu").textContent = "Lütfen güvenlik doğrulamasını tamamlayınız.";
+    } catch { anketDogrulamaSorunu(durum, "Güvenlik doğrulaması başlatılamadı. Sayfayı yenileyiniz."); }
+  });
+};
+const anketDogrulamaZamanAsimi = setTimeout(() => {
+  ANKET_DURUMLARI.forEach(durum => {
+    if(durum.widget === null) anketDogrulamaSorunu(durum, "Güvenlik doğrulaması yüklenemedi. İnternet bağlantınızı kontrol edip sayfayı yenileyiniz.");
+  });
+}, 15000);
+// Load dynamically only after both poll containers and the callback exist.
+const anketDogrulamaScript = document.createElement("script");
+anketDogrulamaScript.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=anketTurnstileHazir&render=explicit";
+anketDogrulamaScript.async = true;
+anketDogrulamaScript.onerror = () => {
+  clearTimeout(anketDogrulamaZamanAsimi);
+  ANKET_DURUMLARI.forEach(durum => anketDogrulamaSorunu(durum, "Güvenlik doğrulaması yüklenemedi. Sayfayı yenileyiniz."));
+};
+document.head.appendChild(anketDogrulamaScript);
 
 const AY = ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"];
 const tarihYaz = iso => { const [y,a,g]=iso.split("-"); return `${+g} ${AY[+a-1]} ${y.slice(2)}`; };
