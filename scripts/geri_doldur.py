@@ -120,11 +120,32 @@ DONEMLER = [
 SEZONLAR = [(y, y + 1) for y in range(2010, 2026)]   # 2010-11 ... 2025-26
 
 
+BASLIKLAR = {
+    "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                   "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "tr-TR,tr;q=0.9,en;q=0.8",
+}
+
+
 def cek(url):
-    basliklar = {"User-Agent": "tedescofenere.com geri doldurma (tek seferlik)"}
-    y = requests.get(url, headers=basliklar, timeout=30)
-    y.raise_for_status()
-    return y.text
+    try:
+        y = requests.get(url, headers=BASLIKLAR, timeout=30)
+        y.raise_for_status()
+        return y.text
+    except requests.HTTPError as e:
+        if e.response is not None and e.response.status_code == 403:
+            raise SystemExit(
+                "HATA: Kaynak site istegi reddetti (403).\n"
+                "Bu genellikle sunucu IP'lerinden gelen otomatik istekleri\n"
+                "engelledigi anlamina gelir. GitHub Actions da bir sunucudur.\n"
+                "Betigi kendi bilgisayarindan calistirmayi dene:\n"
+                "  pip install requests beautifulsoup4\n"
+                "  python3 scripts/geri_doldur.py --kuru\n"
+                "Orada da 403 aliyorsan site otomatik erisime kapali demektir;\n"
+                "zorlamak yerine baska bir kaynak bulmak gerekir."
+            )
+        raise
 
 
 def maclari_ayikla(html, bilinmeyen):
