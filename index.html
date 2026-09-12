@@ -231,6 +231,25 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 .hocalar tr.tedesco td{background:#FFF7CC}
 .hocalar tr.tedesco .cubuk i{background:var(--sari)}
 .hocalar tr.suruyor .donem::after{content:" · sürüyor";color:#A9B0C2}
+.hocalar tr.acilir{cursor:pointer}
+.hocalar tr.acilir:hover td{background:#EEF1F7}
+.hocalar tr.acilir.acik td{background:#EEF1F7}
+.hoca-dugme{
+  appearance:none;background:none;border:0;padding:0;cursor:pointer;
+  font:inherit;color:inherit;text-align:left;
+}
+.hoca-dugme .ok{
+  display:inline-block;width:0;height:0;margin-left:8px;vertical-align:middle;
+  border-left:5px solid transparent;border-right:5px solid transparent;
+  border-top:6px solid var(--soluk);transition:transform .15s;
+}
+.acik .hoca-dugme .ok{transform:rotate(180deg)}
+.hocalar tr.hoca-detay td{padding:0;border-bottom:1px solid var(--cizgi)}
+.hoca-icerik{padding:6px 0 26px}
+.hoca-ozet{
+  font-size:13px;color:var(--soluk);margin:0 0 6px;
+  padding-bottom:10px;border-bottom:1px solid var(--cizgi);
+}
 
 .ozgecmis{max-width:62ch;margin:0 0 14px;font-size:15.5px}
 .ozgecmis + .kariyer{margin-top:22px}
@@ -280,7 +299,7 @@ footer a:hover{border-bottom-color:var(--sari)}
 
 <header class="ust">
 <div class="sayfa">
-  <h1>Tedesco <em>Fener'e | Kağşim Seviliyorsun</em></h1>
+  <h1>Tedesco <em>Fener'e</em></h1>
   <p>Domenico Tedesco Fenerbahçe'yi 45 maç çalıştırdı, maç başına 2.00 puan ortalamasını yakaladı ve Nisan 2026'da görevinden ayrıldı. Yarım kalan hikaye tamamlansın.</p>
 
   <div class="karne" id="karne"></div>
@@ -307,8 +326,8 @@ footer a:hover{border-bottom-color:var(--sari)}
 </section>
 
 <section>
-  <h2>Teknik Direktörler</h2>
-  <p class="alt">2010-11 sezonundan bugüne, maç başına puan. Vekâleten görev yapanlar listede yok.</p>
+  <h2>Teknik direktörler</h2>
+  <p class="alt">2010-11 sezonundan bugüne, maç başına puan. Bir isme tıklayınca o dönemin maçları açılır. Vekâleten görev yapanlar listede yok.</p>
   <table class="hocalar"><tbody id="hocalar"></tbody></table>
 </section>
 
@@ -586,12 +605,15 @@ sekmelerEl.innerHTML = SETLER.map((s,i)=>
 
 const KOK = "https://www.worldfootball.net/match-report/";
 
+/* veriler.json'daki maçlar tam adres taşır, index.html'dekiler kısa yol. */
+const macLinki = l => !l ? null : (/^https?:/.test(l) ? l : KOK + l);
+
 function panelCiz(i){
   const s = SETLER[i], k = karneHesapla(s);
   const satirlar = s.maclar.map(([tarih,kulvar,yer,rakip,skor,link])=>{
     const r = sonucu(skor);
     const govde = (skor && link)
-      ? `<a class="skorlink" href="${KOK}${link}" target="_blank" rel="noopener"
+      ? `<a class="skorlink" href="${macLinki(link)}" target="_blank" rel="noopener"
            title="${rakip} maçının raporu: goller, kartlar, kadrolar">${skor}</a>`
       : (skor || "—");
     return `<tr class="${skor?"":"gelecek"}">
@@ -673,19 +695,101 @@ const HOCALAR = [
   ["Aykut Kocaman",    "2010–13",  151, 1.98, "", "", "kocaman-2010"]
 ];
 
+let acikHoca = null;   // açık olan hoca satırının indeksi
+
 (function(){
   const TABAN = 0.8, TAVAN = 2.5;
-  document.getElementById("hocalar").innerHTML = HOCALAR.map(([ad,donem,mac,ort,sinif])=>{
+  const govde = document.getElementById("hocalar");
+
+  govde.innerHTML = HOCALAR.map(([ad,donem,mac,ort,sinif],i)=>{
     const en = Math.max(4, Math.round(100*(ort-TABAN)/(TAVAN-TABAN)));
-    return `<tr class="${sinif||""}">
-      <td class="ad">${ad}</td>
+    return `<tr class="${sinif||""} acilir" data-i="${i}">
+      <td class="ad"><button class="hoca-dugme" aria-expanded="false"
+        aria-controls="hoca-detay-${i}">${ad}<span class="ok" aria-hidden="true"></span></button></td>
       <td class="donem">${donem}</td>
       <td class="mac">${mac} maç</td>
       <td class="ort">${ort.toFixed(2)}</td>
       <td class="cubuk"><i style="width:${en}%"></i></td>
+    </tr>
+    <tr class="hoca-detay" id="hoca-detay-${i}" hidden><td colspan="5"></td></tr>`;
+  }).join("");
+
+  govde.addEventListener("click", e => {
+    const satir = e.target.closest("tr.acilir");
+    if(!satir) return;
+    const i = +satir.dataset.i;
+    acikHoca = (acikHoca === i) ? null : i;
+    hocaDetayTazele();
+    if(acikHoca === i && gerekliVeriYok(i)) veriyiYukle();
+  });
+})();
+
+/* Bu hocanın maçları elimizde mi? */
+function hocaMaclari(i){
+  const [, , , , , setId, veriId] = HOCALAR[i];
+  if(setId){
+    const s = SETLER.find(x => x.id === setId);
+    return s ? s.maclar.filter(m => m[4]) : null;
+  }
+  if(veriId){
+    const a = ADAYLAR.find(x => x.veriId === veriId);
+    return (a && a.tur === "detay") ? a.set.maclar : null;
+  }
+  return null;
+}
+
+const gerekliVeriYok = i => hocaMaclari(i) === null;
+
+function hocaDetayTazele(){
+  document.querySelectorAll("tr.hoca-detay").forEach(tr => {
+    tr.hidden = true;
+    tr.firstElementChild.innerHTML = "";
+  });
+  document.querySelectorAll(".hoca-dugme").forEach(b =>
+    b.setAttribute("aria-expanded", "false"));
+  document.querySelectorAll("tr.acilir").forEach(tr =>
+    tr.classList.remove("acik"));
+
+  if(acikHoca === null) return;
+
+  const satir = document.querySelector(`tr.acilir[data-i="${acikHoca}"]`);
+  const detay = document.getElementById(`hoca-detay-${acikHoca}`);
+  if(!satir || !detay) return;
+  satir.classList.add("acik");
+  satir.querySelector(".hoca-dugme").setAttribute("aria-expanded", "true");
+  detay.hidden = false;
+
+  const maclar = hocaMaclari(acikHoca);
+  if(maclar === null){
+    detay.firstElementChild.innerHTML = veriDurumu === "hata"
+      ? `<p class="bos-uyari">Bu dönemin maç verisi yüklenemedi.</p>`
+      : `<p class="bos-uyari">Maçlar yükleniyor…</p>`;
+    return;
+  }
+
+  const satirlar = maclar.map(([tarih,kulvar,yer,rakip,skor,link])=>{
+    const r = sonucu(skor);
+    const s = link
+      ? `<a class="skorlink" href="${macLinki(link)}" target="_blank" rel="noopener"
+           title="${rakip} maçının raporu">${skor}</a>`
+      : skor;
+    return `<tr>
+      <td>${tarihYaz(tarih)}</td>
+      <td class="rakip">${rakip}</td>
+      <td class="tr-kulvar">${KULVAR[kulvar] || kulvar}</td>
+      <td class="yer">${yer==="İ"?"İç saha":"Deplasman"}</td>
+      <td class="skor">${s}<span class="im ${r}"></span></td>
     </tr>`;
   }).join("");
-})();
+
+  const d = kulvarDokumu({maclar});
+  detay.firstElementChild.innerHTML = `
+    <div class="hoca-icerik">
+      <p class="hoca-ozet">${maclar.length} maç · ${
+        d.map(x => `${KULVAR[x.kulvar] || x.kulvar} ${x.n}`).join(" · ")}</p>
+      <table class="fikstur"><tbody>${satirlar}</tbody></table>
+    </div>`;
+}
 
 /* ---------------- karşılaştırma ---------------- */
 
@@ -753,7 +857,9 @@ async function veriyiYukle(){
     const y = await fetch("veriler.json", {cache:"force-cache"});
     if(!y.ok) throw new Error(y.status);
     const veri = await y.json();
-    const harita = new Map(veri.donemler.map(d => [d.id, d.maclar]));
+    const kok = veri.macKoku || "";
+    const harita = new Map(veri.donemler.map(d => [d.id, d.maclar.map(m =>
+      m[5] ? [...m.slice(0,5), kok + m[5]] : m)]));
     ADAYLAR.forEach(a => {
       if(a.tur === "ozet" && harita.has(a.veriId)){
         a.set = { maclar: harita.get(a.veriId) };
@@ -765,6 +871,7 @@ async function veriyiYukle(){
     veriDurumu = "hata";
   }
   karsilastirCiz();
+  hocaDetayTazele();
 }
 
 function adayKarnesi(aday, kapsam){
@@ -859,7 +966,7 @@ function karsilastirCiz(){
       const satirlar = maclar.map(([tarih,kulvar,yer,rakip,skor,link])=>{
         const r = sonucu(skor);
         const govde = link
-          ? `<a class="skorlink" href="${KOK}${link}" target="_blank" rel="noopener">${skor}</a>`
+          ? `<a class="skorlink" href="${macLinki(link)}" target="_blank" rel="noopener">${skor}</a>`
           : skor;
         return `<tr>
           <td>${tarihYaz(tarih)}</td>
