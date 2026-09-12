@@ -174,6 +174,20 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 .skorlink:hover{border-bottom-color:var(--lacivert);border-bottom-style:solid}
 .rapor-not{font-size:13px;color:var(--soluk);margin:0 0 18px}
 
+/* ---------- teknik direktörler ---------- */
+.hocalar{width:100%;border-collapse:collapse;font-size:14.5px}
+.hocalar td{padding:10px 0;border-bottom:1px solid var(--cizgi);vertical-align:baseline}
+.hocalar .ad{font-weight:500;color:var(--lacivert);padding-right:14px}
+.hocalar .donem{color:var(--soluk);font-size:13px;white-space:nowrap;padding-right:14px}
+.hocalar .mac{text-align:right;color:var(--soluk);font-size:13px;white-space:nowrap;padding-right:16px}
+.hocalar .ort{text-align:right;font-weight:600;width:1%;white-space:nowrap;padding-right:10px}
+.hocalar .cubuk{width:38%;padding-right:0}
+.hocalar .cubuk i{display:block;height:6px;background:var(--lacivert);border-radius:1px}
+.hocalar tr.tedesco .ad,.hocalar tr.tedesco .ort{color:var(--lacivert)}
+.hocalar tr.tedesco td{background:#FFF7CC}
+.hocalar tr.tedesco .cubuk i{background:var(--sari)}
+.hocalar tr.suruyor .donem::after{content:" · sürüyor";color:#A9B0C2}
+
 /* ---------- kariyer ---------- */
 .kariyer{width:100%;border-collapse:collapse;font-size:14.5px;max-width:540px}
 .kariyer td{padding:9px 0;border-bottom:1px solid var(--cizgi)}
@@ -211,7 +225,8 @@ footer a:hover{border-bottom-color:var(--sari)}
   .dokum th,.dokum td{padding-left:6px}
   .fikstur{font-size:13.5px}
   .fikstur td,.fikstur th{padding-left:5px;padding-right:5px}
-  .tr-kulvar,.yer{display:none}
+  .tr-kulvar,.yer,.hocalar .cubuk{display:none}
+  .hocalar{font-size:13.5px}
 }
 </style>
 </head>
@@ -246,6 +261,12 @@ footer a:hover{border-bottom-color:var(--sari)}
 </section>
 
 <section>
+  <h2>Teknik direktörler</h2>
+  <p class="alt">2010-11 sezonundan bugüne, maç başına puan. Vekâleten görev yapanlar listede yok.</p>
+  <table class="hocalar"><tbody id="hocalar"></tbody></table>
+</section>
+
+<section>
   <h2>Tedesco</h2>
   <p class="alt">12 Eylül 1985, Rossano · İtalyan-Alman</p>
   <table class="kariyer">
@@ -272,6 +293,7 @@ footer a:hover{border-bottom-color:var(--sari)}
     <li><a href="https://www.worldfootball.net/teams/te735/fenerbahce/all-matches/" rel="noopener">worldfootball.net</a> — Fenerbahçe ve Bologna fikstürleri, skorlar, kulvar bilgisi</li>
     <li><a href="https://en.wikipedia.org/wiki/2025%E2%80%9326_Fenerbah%C3%A7e_S.K._season" rel="noopener">Wikipedia · 2025–26 Fenerbahçe S.K. season</a> — sezon toplamlarının çapraz kontrolü</li>
     <li><a href="https://www.tff.org/default.aspx?pageID=198" rel="noopener">TFF</a> — Süper Lig resmî puan durumu ve müsabaka bilgileri</li>
+    <li><a href="https://www.sabah.com.tr/trend/galeri/spor/fenerbahcenin-en-basarili-teknik-direktorleri-iste-son-25-yilda-zirvedeki-ismi" rel="noopener">Sabah</a> — teknik direktörlerin maç başına puan ortalamaları</li>
     <li>Teknik direktör değişiklikleri ve sözleşme detayları için Türk basını (Hürriyet, Fanatik, NTV Spor, Cumhuriyet, Fotomaç)</li>
   </ul>
 
@@ -354,22 +376,9 @@ const SETLER = [
     ]
   },
   {
-    id:"gole",
-    sekme:"Göle", sekmeAlt:"Fenerbahçe 2025-26",
-    baslik:"Zeki Murat Göle · Fenerbahçe",
-    donem:"Vekâleten · 31 Ağustos 2025 ve 2–17 Mayıs 2026",
-    oneCik:false,
-    maclar:[
-      ["2025-08-31","SL","D","Gençlerbirliği","3-1","co116/turkey-sueperlig/ma11302865/genclerbirligi_fenerbahce/"],
-      ["2026-05-02","SL","İ","Başakşehir","3-1","co116/turkey-sueperlig/ma11303612/fenerbahce_stanbul-basaksehir/"],
-      ["2026-05-09","SL","D","Konyaspor","3-0","co116/turkey-sueperlig/ma11303645/konyaspor_fenerbahce/"],
-      ["2026-05-17","SL","İ","Eyüpspor","3-3","co116/turkey-sueperlig/ma11303654/fenerbahce_eyuepspor/"]
-    ]
-  },
-  {
     id:"ted-bol",
-    sekme:"Tedesco", sekmeAlt:"Bologna 2026-27",
-    baslik:"Domenico Tedesco · Bologna",
+    sekme:"Tedesco", sekmeAlt:"Bologna FC 1909 2026-27",
+    baslik:"Domenico Tedesco · Bologna FC 1909",
     donem:"2 Haziran 2026'dan bu yana",
     maclar:[
       ["2026-08-24","SL_A","İ","Lazio","0-1","co111/italy-serie-a/ma12130816/bologna-fc_lazio-roma/"],
@@ -595,6 +604,41 @@ panelCiz(0);
 document.getElementById("guncelleme").textContent = SON_GUNCELLEME;
 
 
+/* Teknik direktör karnesi (2010-11'den bugüne, tam yetkili hocalar).
+   [ad, dönem, maç, maç başına puan] */
+const HOCALAR = [
+  ["İsmail Kartal",    "2026–",     11, 1.91, "suruyor"],
+  ["Domenico Tedesco", "2025–26",   45, 2.00, "tedesco"],
+  ["José Mourinho",    "2024–25",   62, 2.02],
+  ["İsmail Kartal",    "2023–24",   58, 2.40],
+  ["Jorge Jesus",      "2022–23",   53, 2.23],
+  ["İsmail Kartal",    "2021–22",   21, 1.95],
+  ["Vítor Pereira",    "2021–22",   25, 1.60],
+  ["Erol Bulut",       "2020–21",   34, 2.00],
+  ["Ersun Yanal",      "2018–20",   56, 1.71],
+  ["Phillip Cocu",     "2018",      15, 0.93],
+  ["Aykut Kocaman",    "2017–18",   46, 2.07],
+  ["Dick Advocaat",    "2016–17",   55, 1.91],
+  ["Vítor Pereira",    "2015–16",   61, 2.07],
+  ["İsmail Kartal",    "2014–15",   46, 2.17],
+  ["Ersun Yanal",      "2013–14",   40, 1.95],
+  ["Aykut Kocaman",    "2010–13",  151, 2.01]
+];
+
+(function(){
+  const TABAN = 0.8, TAVAN = 2.5;
+  document.getElementById("hocalar").innerHTML = HOCALAR.map(([ad,donem,mac,ort,sinif])=>{
+    const en = Math.max(4, Math.round(100*(ort-TABAN)/(TAVAN-TABAN)));
+    return `<tr class="${sinif||""}">
+      <td class="ad">${ad}</td>
+      <td class="donem">${donem}</td>
+      <td class="mac">${mac} maç</td>
+      <td class="ort">${ort.toFixed(2)}</td>
+      <td class="cubuk"><i style="width:${en}%"></i></td>
+    </tr>`;
+  }).join("");
+})();
+
 /* ---------------- karşılaştırma ---------------- */
 
 const GRUP = { SL:"lig", SL_A:"lig", AL:"avrupa", SAM:"avrupa", ELE:"avrupa", TK:"kupa", SK:"kupa" };
@@ -604,7 +648,7 @@ const KAPSAMLAR = [
   {id:"avrupa", ad:"Sadece Avrupa"}
 ];
 
-let secili = [0, 3];       // varsayılan: Tedesco/Fenerbahçe vs Kartal/Fenerbahçe
+let secili = [0, 2];       // varsayılan: Tedesco/Fenerbahçe vs Kartal/Fenerbahçe
 let kapsam = "hepsi";
 
 function karneKapsamli(set, kapsam){
