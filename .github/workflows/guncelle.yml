@@ -21,9 +21,11 @@ jobs:
           python-version: "3.12"
 
       - name: Gerekli paketler
-        run: pip install requests beautifulsoup4
+        run: pip install requests
 
       - name: Fikstürü çek ve index.html'i güncelle
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python3 scripts/guncelle.py
 
       - name: Değişiklik varsa commit'le
