@@ -98,8 +98,12 @@ h1 em{font-style:normal;color:var(--sari)}
   display:block;font-family:Archivo,sans-serif;font-weight:700;
   font-size:40px;line-height:1;margin-bottom:8px;color:var(--sari);
 }
-.karne span{display:block;font-size:13px;color:#8E9BBA;line-height:1.45}
-.karne .ad{color:#fff;font-weight:500}
+.karne b i{
+  font-style:normal;font-weight:400;font-size:15px;
+  color:#8E9BBA;margin-left:8px;letter-spacing:0;
+}
+.karne span{display:block;font-size:13px;color:#8E9BBA;line-height:1.5}
+.karne .ad{color:#fff;font-weight:500;margin-bottom:8px}
 
 /* ---------- bölümler ---------- */
 section{padding:60px 0 0}
@@ -261,8 +265,7 @@ footer a:hover{border-bottom-color:var(--sari)}
   .karne div{padding:14px 0;border-bottom:1px solid var(--cizgi-koyu)}
   .karne div:last-child{border-bottom:0;padding-bottom:24px}
   .karne div + div{padding-left:0;border-left:0}
-  .karne b{font-size:32px;display:inline-block;margin-right:10px}
-  .karne span{display:inline}
+  .karne b{font-size:32px}
   .serit{height:8px;background-size:auto}
   .dokum{font-size:12.5px}
   .dokum th,.dokum td{padding-left:6px}
@@ -562,10 +565,13 @@ function kulvarDokumu(set){
 /* üstteki karne şeridi */
 document.getElementById("karne").innerHTML = SETLER.filter(s=>s.oneCik!==false).map(s=>{
   const k = karneHesapla(s);
+  const [kisi, kulup] = s.baslik.split(" · ");
   return `<div>
-    <b>${k.ort}</b>
-    <span class="ad">${s.baslik.split(" · ")[1]} · ${s.baslik.split(" · ")[0].split(" ").pop()}</span>
-    <span>maç başına puan · ${k.n} maç · ${k.g}-${k.b}-${k.m} · ${k.ag}:${k.yg}</span>
+    <b>${k.ort}<i>Ort.</i></b>
+    <span class="ad">${kulup} · ${kisi.split(" ").pop()}</span>
+    <span>${k.n} Maç</span>
+    <span>${k.g} Galibiyet · ${k.b} Beraberlik · ${k.m} Mağlubiyet</span>
+    <span>${k.ag} Atılan Gol · ${k.yg} Yenilen Gol</span>
   </div>`;
 }).join("");
 
