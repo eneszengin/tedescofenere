@@ -16,6 +16,7 @@
   <!-- YENİ EKLENEN SOSYAL MEDYA VE BAŞLIK KODLARI BURADA -->
   <title>Domenico Tedesco Fenerbahçe'ye Geri Dönsün!</title>
   <meta name="description" content="Yarım kalan hikaye tamamlansın. Domenico Tedesco Fenerbahçe'ye geri dönsün!">
+  <meta name="google-adsense-account" content="ca-pub-2557555692692291">
 
   <!-- Open Graph (WhatsApp, Twitter, Facebook link önizlemesi) -->
   <meta property="og:type" content="website">
@@ -218,6 +219,42 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 .skorlink:hover{border-bottom-color:var(--lacivert);border-bottom-style:solid}
 .rapor-not{font-size:13px;color:var(--soluk);margin:0 0 18px}
 
+/* ---------- anketler ---------- */
+.anketler{display:grid;gap:18px;margin-bottom:4px}
+.anket{
+  background:#fff;border:1px solid var(--cizgi);padding:22px 24px;
+}
+.anket h3{font-size:20px;line-height:1.25;color:var(--lacivert);margin:0 0 16px}
+.anket-form fieldset{border:0;margin:0;padding:0}
+.anket-form fieldset:disabled{opacity:.7}
+.anket-secenek{
+  display:flex;align-items:center;gap:10px;min-height:42px;
+  padding:9px 12px;border:1px solid var(--cizgi);color:var(--murekkep);
+  cursor:pointer;transition:background .15s,border-color .15s;
+}
+.anket-secenek + .anket-secenek{margin-top:7px}
+.anket-secenek:hover{background:#F6F7FA;border-color:#C3CAD9}
+.anket-secenek input{accent-color:var(--lacivert);margin:0;width:16px;height:16px;flex:0 0 auto}
+.anket-dugme{
+  appearance:none;border:1px solid var(--lacivert);background:var(--lacivert);
+  color:#fff;cursor:pointer;font:600 14px/1.3 Archivo,sans-serif;
+  padding:10px 16px;margin-top:15px;transition:background .15s,color .15s;
+}
+.anket-dugme:hover{background:var(--lacivert-acik)}
+.anket-dugme:disabled{cursor:default;opacity:.65}
+.anket-notu{font-size:12.5px;color:var(--soluk);margin:12px 0 0}
+.anket-sonuclar{margin-top:20px;padding-top:16px;border-top:1px solid var(--cizgi)}
+.anket-sonuclar[hidden]{display:none}
+.anket-sonuclar-baslik{font-size:12px;font-weight:600;color:var(--soluk);margin:0 0 10px}
+.anket-sonuc{display:grid;grid-template-columns:minmax(120px,30%) 1fr auto;align-items:center;gap:10px;font-size:13px;margin-top:8px}
+.anket-sonuc-ad{overflow-wrap:anywhere}
+.anket-bar{height:8px;background:#E8EBF2;overflow:hidden}
+.anket-bar i{display:block;height:100%;background:var(--lacivert)}
+.anket-sonuc.secili .anket-sonuc-ad{font-weight:600;color:var(--lacivert)}
+.anket-sonuc.secili .anket-bar i{background:var(--sari)}
+.anket-yuzde{font-weight:600;color:var(--lacivert);text-align:right;min-width:38px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
 /* ---------- teknik direktörler ---------- */
 .hocalar{width:100%;border-collapse:collapse;font-size:14.5px}
 .hocalar td{padding:10px 0;border-bottom:1px solid var(--cizgi);vertical-align:baseline}
@@ -309,6 +346,12 @@ footer a:hover{border-bottom-color:var(--sari)}
 
 <div class="sayfa">
 
+<section aria-labelledby="anketler-baslik">
+  <h2 id="anketler-baslik">Taraftar anketleri</h2>
+  <p class="alt">Görüşünüzü paylaşın. Her ankette bir seçenek işaretleyebilirsiniz.</p>
+  <div class="anketler" id="anketler"></div>
+</section>
+
 <section>
   <h2>Fikstürler</h2>
 
@@ -355,10 +398,9 @@ footer a:hover{border-bottom-color:var(--sari)}
 <div class="sayfa">
   <p><b>Bağımsız taraftar sayfasıdır.</b> Fenerbahçe Spor Kulübü, Bologna FC 1909 ya da Domenico Tedesco ile resmî bir bağı, izni veya ortaklığı yoktur.</p>
 
-  <h3 class="kaynak-baslik">Kaynaklar</h3>
+  <h3 class="kaynak-baslik">Kaynak</h3>
   <ul class="kaynaklar">
-    <li><a href="https://www.worldfootball.net/teams/te735/fenerbahce/all-matches/" rel="noopener">worldfootball.net</a> — maç, fikstür ve istatistikler</li>
-    <li><a href="https://www.tff.org/default.aspx?pageID=198" rel="noopener">TFF</a> — Türkiye Süper Ligi resmî verileri</li>
+    <li><a href="https://www.mackolik.com/" target="_blank" rel="noopener">mackolik.com</a> — maç, fikstür ve istatistikler</li>
   </ul>
 
 
@@ -543,6 +585,114 @@ const SETLER = [
   }
 ];
 /* ==================== GÜNCELLEME ALANI BİTTİ ==================== */
+
+const ANKETLER = [
+  {
+    id:"memnuniyet",
+    soru:"İsmail Kartal'dan memnun musunuz?",
+    secenekler:["Evet, memnunum", "Hayır, memnun değilim", "Kararsızım"]
+  },
+  {
+    id:"aday",
+    soru:"Fenerbahçe'nin teknik direktörü kim olmalı?",
+    secenekler:[
+      "Domenico Tedesco", "Antonio Conte", "Aykut Kocaman", "Çağdaş Atan",
+      "Erol Bulut", "Ersun Yanal", "İlhan Palut", "İsmail Kartal",
+      "Nuri Şahin", "Selçuk Şahin", "Sergen Yalçın", "Vincenzo Montella",
+      "Volkan Demirel"
+    ]
+  }
+];
+
+const ANKET_BELLEK = {};
+const anketAnahtari = id => `tedesco-fener-anket-${id}`;
+
+function anketOku(anket){
+  let kayit = null;
+  try { kayit = JSON.parse(localStorage.getItem(anketAnahtari(anket.id)) || "null"); }
+  catch(e) { kayit = ANKET_BELLEK[anketAnahtari(anket.id)] || null; }
+
+  const sayilar = anket.secenekler.map((_,i) => {
+    const n = kayit && Array.isArray(kayit.sayilar) ? Number(kayit.sayilar[i]) : 0;
+    return Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
+  });
+  const secili = kayit && Number.isInteger(kayit.secili) && kayit.secili >= 0 && kayit.secili < anket.secenekler.length
+    ? kayit.secili : null;
+  return {sayilar, secili};
+}
+
+function anketYaz(anket, veri){
+  const kayit = JSON.stringify(veri);
+  ANKET_BELLEK[anketAnahtari(anket.id)] = veri;
+  try { localStorage.setItem(anketAnahtari(anket.id), kayit); }
+  catch(e) { /* Tarayıcı depolamayı engellerse oturum içinde çalışmaya devam eder. */ }
+}
+
+function anketSonuclariniCiz(kart, anket, veri){
+  const toplam = veri.sayilar.reduce((a,b) => a+b, 0);
+  const sonucEl = kart.querySelector(".anket-sonuclar");
+  if(!toplam){ sonucEl.hidden = true; return; }
+
+  sonucEl.hidden = false;
+  sonucEl.innerHTML = `<p class="anket-sonuclar-baslik">Mevcut sonuçlar · ${toplam} oy</p>` +
+    anket.secenekler.map((secenek,i) => {
+      const yuzde = Math.round(veri.sayilar[i] * 100 / toplam);
+      return `<div class="anket-sonuc ${veri.secili===i ? "secili" : ""}">
+        <span class="anket-sonuc-ad">${secenek}</span>
+        <span class="anket-bar"><i style="width:${yuzde}%"></i></span>
+        <span class="anket-yuzde">%${yuzde}</span>
+      </div>`;
+    }).join("");
+}
+
+function anketleriCiz(){
+  const alan = document.getElementById("anketler");
+  alan.innerHTML = ANKETLER.map(anket => `
+    <article class="anket" data-anket="${anket.id}">
+      <h3>${anket.soru}</h3>
+      <form class="anket-form">
+        <fieldset>
+          <legend class="sr-only">${anket.soru}</legend>
+          ${anket.secenekler.map((secenek,i) => `
+            <label class="anket-secenek">
+              <input type="radio" name="anket-${anket.id}" value="${i}">
+              <span>${secenek}</span>
+            </label>`).join("")}
+        </fieldset>
+        <button class="anket-dugme" type="submit">Oyumu kullan</button>
+      </form>
+      <p class="anket-notu">Her ankette bir oy kullanabilirsiniz.</p>
+      <div class="anket-sonuclar" aria-live="polite" hidden></div>
+    </article>`).join("");
+
+  alan.querySelectorAll(".anket").forEach(kart => {
+    const anket = ANKETLER.find(x => x.id === kart.dataset.anket);
+    const veri = anketOku(anket);
+    const secim = kart.querySelector(`input[value="${veri.secili}"]`);
+    if(secim) secim.checked = true;
+    if(veri.secili !== null) kart.querySelector(".anket-dugme").textContent = "Oyumu güncelle";
+    anketSonuclariniCiz(kart, anket, veri);
+
+    kart.querySelector(".anket-form").addEventListener("submit", e => {
+      e.preventDefault();
+      const secili = kart.querySelector("input:checked");
+      const notu = kart.querySelector(".anket-notu");
+      if(!secili){ notu.textContent = "Lütfen önce bir seçenek işaretleyin."; return; }
+
+      const yeni = Number(secili.value);
+      const guncel = anketOku(anket);
+      if(guncel.secili !== null && guncel.secili !== yeni) guncel.sayilar[guncel.secili] = Math.max(0, guncel.sayilar[guncel.secili]-1);
+      if(guncel.secili !== yeni) guncel.sayilar[yeni]++;
+      guncel.secili = yeni;
+      anketYaz(anket, guncel);
+      kart.querySelector(".anket-dugme").textContent = "Oyumu güncelle";
+      notu.textContent = "Oyunuz kaydedildi. İsterseniz seçiminizi güncelleyebilirsiniz.";
+      anketSonuclariniCiz(kart, anket, guncel);
+    });
+  });
+}
+
+anketleriCiz();
 
 const AY = ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"];
 const tarihYaz = iso => { const [y,a,g]=iso.split("-"); return `${+g} ${AY[+a-1]} ${y.slice(2)}`; };
