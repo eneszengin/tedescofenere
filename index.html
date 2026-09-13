@@ -35,6 +35,12 @@
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1F4B'/%3E%3Crect x='6' y='0' width='5' height='32' fill='%23FFE000'/%3E%3Crect x='16' y='0' width='5' height='32' fill='%23FFE000'/%3E%3Crect x='26' y='0' width='5' height='32' fill='%23FFE000'/%3E%3C/svg%3E">
 
+  <link rel="alternate" hreflang="tr" href="https://tedescofenere.com/">
+  <link rel="alternate" hreflang="en" href="https://tedescofenere.com/?lang=en">
+  <link rel="alternate" hreflang="de" href="https://tedescofenere.com/?lang=de">
+  <link rel="alternate" hreflang="it" href="https://tedescofenere.com/?lang=it">
+  <link rel="alternate" hreflang="fr" href="https://tedescofenere.com/?lang=fr">
+  <link rel="alternate" hreflang="x-default" href="https://tedescofenere.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -377,14 +383,27 @@ footer a:hover{border-bottom-color:var(--sari)}
   .fikstur col.s-tarih{width:74px}
   .fikstur col.s-skor{width:72px}
 }
+
+/* ---------- dil seçici ---------- */
+.diller{display:flex;gap:2px;flex-wrap:wrap;margin:0 0 26px}
+.diller button{
+  appearance:none;background:none;border:0;cursor:pointer;
+  font:500 12px/1 Archivo,system-ui,sans-serif;letter-spacing:.06em;
+  text-transform:uppercase;color:#8E9BBA;padding:6px 9px;
+  border-bottom:2px solid transparent;transition:color .15s,border-color .15s;
+}
+.diller button:hover{color:#fff}
+.diller button[aria-current="true"]{color:#fff;border-bottom-color:var(--sari)}
+@media(max-width:560px){.diller{margin-bottom:18px}}
 </style>
 </head>
 <body>
 
 <header class="ust">
 <div class="sayfa">
+  <nav class="diller" id="diller" aria-label="Dil seçimi"></nav>
   <h1>Tedesco <em>Fener'e</em></h1>
-  <p>Domenico Tedesco Fenerbahçe'yi 45 maç çalıştırdı, maç başına 2.00 puan ortalamasını yakaladı ve Nisan 2026'da görevinden ayrıldı. Yarım kalan hikaye tamamlansın.</p>
+  <p data-s="giris"></p>
 
   <div class="karne" id="karne"></div>
 </div>
@@ -398,18 +417,18 @@ footer a:hover{border-bottom-color:var(--sari)}
     <div class="anketler" id="anketler"></div>
   </div>
   <p class="anket-notu" id="anket-sonuc-durumu" role="status" hidden></p>
-  <noscript><p>Anketi kullanmak için JavaScript’i etkinleştiriniz.</p></noscript>
+  <noscript><p data-s="a_js"></p></noscript>
 </section>
 
 <section>
-  <h2>Fikstürler</h2>
+  <h2 data-s="b_fikstur"></h2>
 
   <div class="sekmeler" role="tablist" id="sekmeler"></div>
   <div id="panel"></div>
 </section>
 
 <section>
-  <h2>Karşılaştırma</h2>
+  <h2 data-s="b_kars"></h2>
 
   <div class="secimler" id="donemSecim"></div>
   <div class="secimler kapsam" id="kapsamSecim"></div>
@@ -417,22 +436,22 @@ footer a:hover{border-bottom-color:var(--sari)}
 </section>
 
 <section>
-  <h2>Teknik Direktörler</h2>
+  <h2 data-s="b_hocalar"></h2>
   <table class="hocalar"><tbody id="hocalar"></tbody></table>
 </section>
 
 <section>
   <h2>Domenico Tedesco</h2>
-  <p class="alt">12 Eylül 1985, Rossano · İtalyan-Alman</p>
-  <p class="ozgecmis">İtalya'nın güneyindeki Rossano'da doğdu, henüz iki yaşındayken ailesiyle Almanya'ya taşındı ve Stuttgart yakınlarında büyüdü. Profesyonel futbol oynamadı; teknik direktörlüğe altyapı takımlarında başladı, bir yandan üniversite okuyup çalıştı. UEFA Pro lisansını 2016'da aldı.</p>
-  <p class="ozgecmis">İlk üst düzey görevi 2017'de Erzgebirge Aue oldu ve takımı küme düşmekten kurtardı; aynı yıl Schalke 04'ün başına geçip kulübü 2017-18 sezonunda Bundesliga'da ikinci sıraya taşıdı. 2022'de RB Leipzig ile Almanya Kupası'nı kazandı, ardından iki yıl Belçika Millî Takımı'nı çalıştırdı. Eylül 2025'te Fenerbahçe'ye geldi.</p>
+  <p class="alt" data-s="td_dogum"></p>
+  <p class="ozgecmis" data-s="td_bio1">İtalya'nın güneyindeki Rossano'da doğdu, henüz iki yaşındayken ailesiyle Almanya'ya taşındı ve Stuttgart yakınlarında büyüdü. Profesyonel futbol oynamadı; teknik direktörlüğe altyapı takımlarında başladı, bir yandan üniversite okuyup çalıştı. UEFA Pro lisansını 2016'da aldı.</p>
+  <p class="ozgecmis" data-s="td_bio2">İlk üst düzey görevi 2017'de Erzgebirge Aue oldu ve takımı küme düşmekten kurtardı; aynı yıl Schalke 04'ün başına geçip kulübü 2017-18 sezonunda Bundesliga'da ikinci sıraya taşıdı. 2022'de RB Leipzig ile Almanya Kupası'nı kazandı, ardından iki yıl Belçika Millî Takımı'nı çalıştırdı. Eylül 2025'te Fenerbahçe'ye geldi.</p>
   <table class="kariyer">
     <tbody>
-      <tr class="simdi"><td>2026–</td><td>Bologna · sözleşme 30 Haziran 2028'e kadar</td></tr>
-      <tr><td>2025–2026</td><td>Fenerbahçe · Süper Kupa 2025</td></tr>
-      <tr><td>2023–2025</td><td>Belçika Millî Takımı</td></tr>
-      <tr><td>2021–2022</td><td>RB Leipzig · Almanya Kupası 2021-22</td></tr>
-      <tr><td>2019–2021</td><td>Spartak Moskova</td></tr>
+      <tr class="simdi"><td>2026–</td><td data-s="td_bologna"></td></tr>
+      <tr><td>2025–2026</td><td data-s="td_fb"></td></tr>
+      <tr><td>2023–2025</td><td data-s="td_belcika"></td></tr>
+      <tr><td>2021–2022</td><td data-s="td_leipzig"></td></tr>
+      <tr><td>2019–2021</td><td data-s="td_spartak"></td></tr>
       <tr><td>2017–2019</td><td>Schalke 04</td></tr>
       <tr><td>2017</td><td>Erzgebirge Aue</td></tr>
     </tbody>
@@ -443,20 +462,287 @@ footer a:hover{border-bottom-color:var(--sari)}
 
 <footer>
 <div class="sayfa">
-  <p><b>Bağımsız taraftar sayfasıdır.</b> Fenerbahçe Spor Kulübü, Bologna FC 1909 ya da Domenico Tedesco ile resmî bir bağı, izni veya ortaklığı yoktur.</p>
+  <p><b data-s="f_bagimsiz_b"></b> <span data-s="f_bagimsiz"></span></p>
 
-  <h3 class="kaynak-baslik">Kaynaklar</h3>
+  <h3 class="kaynak-baslik" data-s="f_kaynaklar"></h3>
   <ul class="kaynaklar">
-    <li><a href="https://www.mackolik.com/" target="_blank" rel="noopener">mackolik.com</a> — geçmiş sezonların maç verisi</li>
-    <li><a href="https://www.worldfootball.net/" target="_blank" rel="noopener">worldfootball.net</a> — güncel fikstürler ve maç raporları</li>
+    <li><a href="https://www.mackolik.com/" target="_blank" rel="noopener">mackolik.com</a> — <span data-s="f_kaynak1"></span></li>
+    <li><a href="https://www.worldfootball.net/" target="_blank" rel="noopener">worldfootball.net</a> — <span data-s="f_kaynak2"></span></li>
   </ul>
 
-  <p><a href="/gizlilik.html">Gizlilik ve Çerez Politikası</a></p>
-  <p>Son güncelleme: <span id="guncelleme"></span></p>
+  <p><a href="/gizlilik.html" data-s="f_gizlilik"></a></p>
+  <p><span data-s="f_guncelleme"></span> <span id="guncelleme"></span></p>
 </div>
 </footer>
 
 <script>
+/* ==========================================================
+   DİL KATMANI
+   Yeni bir metin eklerken beş dile de yaz. Eksik anahtar
+   Türkçesine düşer, sayfa bozulmaz.
+   ========================================================== */
+
+const DILLER = ["tr", "en", "de", "it", "fr"];
+const DIL_ADI = { tr:"Türkçe", en:"English", de:"Deutsch", it:"Italiano", fr:"Français" };
+
+const METIN = {
+
+/* --- sayfa başlığı ve tanıtım --- */
+baslik_etiket: {
+  tr:"Tedesco Fener'e", en:"Tedesco Back to Fener", de:"Tedesco zurück zu Fener",
+  it:"Tedesco di nuovo al Fener", fr:"Tedesco de retour au Fener" },
+sayfa_aciklama: {
+  tr:"Domenico Tedesco'nun Fenerbahçe dönemi, Bologna'daki bugünü ve Fenerbahçe'nin güncel sonuçları.",
+  en:"Domenico Tedesco's time at Fenerbahçe, his present at Bologna and Fenerbahçe's current results.",
+  de:"Domenico Tedescos Zeit bei Fenerbahçe, seine Gegenwart in Bologna und Fenerbahçes aktuelle Ergebnisse.",
+  it:"Il periodo di Domenico Tedesco al Fenerbahçe, il presente a Bologna e i risultati attuali del Fenerbahçe.",
+  fr:"Le passage de Domenico Tedesco au Fenerbahçe, son présent à Bologne et les résultats actuels du Fenerbahçe." },
+giris: {
+  tr:"Domenico Tedesco Fenerbahçe'yi 45 maç çalıştırdı, maç başına 2.00 puan ortalamasını yakaladı ve Nisan 2026'da görevinden ayrıldı. Yarım kalan hikaye tamamlansın.",
+  en:"Domenico Tedesco managed Fenerbahçe for 45 matches, averaging 2.00 points per game, and left the post in April 2026. Let the unfinished story be finished.",
+  de:"Domenico Tedesco betreute Fenerbahçe 45 Spiele lang und holte im Schnitt 2,00 Punkte pro Spiel, ehe er das Amt im April 2026 verließ. Die unvollendete Geschichte soll zu Ende erzählt werden.",
+  it:"Domenico Tedesco ha guidato il Fenerbahçe per 45 partite con una media di 2,00 punti a gara e ha lasciato l'incarico nell'aprile 2026. Che la storia interrotta venga completata.",
+  fr:"Domenico Tedesco a dirigé le Fenerbahçe pendant 45 matches avec une moyenne de 2,00 points par rencontre avant de quitter son poste en avril 2026. Que l'histoire inachevée soit terminée." },
+
+/* --- karne şeridi --- */
+ort_kisa:  { tr:"Ort.", en:"Avg.", de:"Ø", it:"Media", fr:"Moy." },
+mac:       { tr:"Maç", en:"Matches", de:"Spiele", it:"Partite", fr:"Matches" },
+galibiyet: { tr:"Galibiyet", en:"Wins", de:"Siege", it:"Vittorie", fr:"Victoires" },
+beraberlik:{ tr:"Beraberlik", en:"Draws", de:"Remis", it:"Pareggi", fr:"Nuls" },
+maglubiyet:{ tr:"Mağlubiyet", en:"Losses", de:"Niederlagen", it:"Sconfitte", fr:"Défaites" },
+atilan_gol:{ tr:"Atılan Gol", en:"Goals For", de:"Tore", it:"Gol Fatti", fr:"Buts Marqués" },
+yenilen_gol:{ tr:"Yenilen Gol", en:"Goals Against", de:"Gegentore", it:"Gol Subiti", fr:"Buts Encaissés" },
+
+/* --- bölüm başlıkları --- */
+b_fikstur:  { tr:"Fikstürler", en:"Fixtures", de:"Spielpläne", it:"Calendario", fr:"Calendrier" },
+b_kars:     { tr:"Karşılaştırma", en:"Comparison", de:"Vergleich", it:"Confronto", fr:"Comparaison" },
+b_hocalar:  { tr:"Teknik Direktörler", en:"Head Coaches", de:"Cheftrainer", it:"Allenatori", fr:"Entraîneurs" },
+
+/* --- fikstür tablosu --- */
+t_tarih:  { tr:"Tarih", en:"Date", de:"Datum", it:"Data", fr:"Date" },
+t_rakip:  { tr:"Rakip", en:"Opponent", de:"Gegner", it:"Avversario", fr:"Adversaire" },
+t_kulvar: { tr:"Kulvar", en:"Competition", de:"Wettbewerb", it:"Competizione", fr:"Compétition" },
+t_saha:   { tr:"Saha", en:"Venue", de:"Ort", it:"Campo", fr:"Lieu" },
+t_skor:   { tr:"Skor", en:"Score", de:"Ergebnis", it:"Risultato", fr:"Score" },
+ic_saha:  { tr:"İç saha", en:"Home", de:"Heim", it:"Casa", fr:"Domicile" },
+deplasman:{ tr:"Deplasman", en:"Away", de:"Auswärts", it:"Trasferta", fr:"Extérieur" },
+rapor_ipucu:{ tr:"maçının raporu: goller, kartlar, kadrolar",
+  en:"match report: goals, cards, line-ups", de:"Spielbericht: Tore, Karten, Aufstellungen",
+  it:"report della partita: gol, cartellini, formazioni",
+  fr:"rapport du match : buts, cartons, compositions" },
+
+/* --- kulvarlar --- */
+k_SL:   { tr:"Süper Lig", en:"Süper Lig", de:"Süper Lig", it:"Süper Lig", fr:"Süper Lig" },
+k_TK:   { tr:"Türkiye Kupası", en:"Turkish Cup", de:"Türkischer Pokal", it:"Coppa di Turchia", fr:"Coupe de Turquie" },
+k_SK:   { tr:"Süper Kupa", en:"Turkish Super Cup", de:"Türkischer Supercup", it:"Supercoppa di Turchia", fr:"Supercoupe de Turquie" },
+k_AL:   { tr:"Avrupa Ligi", en:"Europa League", de:"Europa League", it:"Europa League", fr:"Ligue Europa" },
+k_SL_A: { tr:"Serie A", en:"Serie A", de:"Serie A", it:"Serie A", fr:"Serie A" },
+k_SAM:  { tr:"Şampiyonlar Ligi", en:"Champions League", de:"Champions League", it:"Champions League", fr:"Ligue des Champions" },
+k_ELE:  { tr:"ŞL Elemeleri", en:"UCL Qualifying", de:"CL-Qualifikation", it:"Preliminari UCL", fr:"Qualif. LdC" },
+k_KON:  { tr:"Konferans Ligi", en:"Conference League", de:"Conference League", it:"Conference League", fr:"Ligue Conférence" },
+
+/* --- kulvar dökümü --- */
+d_kulvar:{ tr:"Kulvar", en:"Competition", de:"Wettbewerb", it:"Competizione", fr:"Compétition" },
+d_m:  { tr:"M", en:"P", de:"Sp", it:"G", fr:"J" },
+d_g:  { tr:"G", en:"W", de:"S", it:"V", fr:"V" },
+d_b:  { tr:"B", en:"D", de:"U", it:"N", fr:"N" },
+d_ml: { tr:"M", en:"L", de:"N", it:"P", fr:"D" },
+d_ag: { tr:"AG", en:"GF", de:"T", it:"GF", fr:"BP" },
+d_yg: { tr:"YG", en:"GA", de:"GT", it:"GS", fr:"BC" },
+d_av: { tr:"Av", en:"GD", de:"TD", it:"DR", fr:"Diff" },
+d_ort:{ tr:"Ort.", en:"Avg.", de:"Ø", it:"Media", fr:"Moy." },
+toplam:{ tr:"Toplam", en:"Total", de:"Gesamt", it:"Totale", fr:"Total" },
+
+/* --- özet satırı --- */
+o_atti:  { tr:"attı", en:"scored", de:"erzielt", it:"fatti", fr:"marqués" },
+o_yedi:  { tr:"yedi", en:"conceded", de:"kassiert", it:"subiti", fr:"encaissés" },
+o_puanort:{ tr:"puan ort.", en:"pts/game", de:"Punkte/Spiel", it:"punti/partita", fr:"pts/match" },
+
+/* --- karşılaştırma --- */
+kap_hepsi: { tr:"Tüm Maçlar", en:"All Matches", de:"Alle Spiele", it:"Tutte le Partite", fr:"Tous les Matches" },
+kap_lig:   { tr:"Sadece Lig", en:"League Only", de:"Nur Liga", it:"Solo Campionato", fr:"Championnat Seul" },
+kap_avrupa:{ tr:"Sadece Avrupa", en:"Europe Only", de:"Nur Europa", it:"Solo Europa", fr:"Europe Seule" },
+kap_derbi: { tr:"Sadece Derbi", en:"Derbies Only", de:"Nur Derbys", it:"Solo Derby", fr:"Derbys Seuls" },
+
+r_gal_oran:{ tr:"Galibiyet oranı", en:"Win rate", de:"Siegquote", it:"Percentuale vittorie", fr:"Taux de victoire" },
+r_attigi:  { tr:"Attığı gol", en:"Goals scored", de:"Erzielte Tore", it:"Gol fatti", fr:"Buts marqués" },
+r_yedigi:  { tr:"Yediği gol", en:"Goals conceded", de:"Gegentore", it:"Gol subiti", fr:"Buts encaissés" },
+r_averaj:  { tr:"Averaj", en:"Goal difference", de:"Tordifferenz", it:"Differenza reti", fr:"Différence de buts" },
+r_mb_atti: { tr:"Maç başına attığı", en:"Goals per game", de:"Tore pro Spiel", it:"Gol per partita", fr:"Buts par match" },
+r_mb_yedi: { tr:"Maç başına yediği", en:"Conceded per game", de:"Gegentore pro Spiel", it:"Gol subiti per partita", fr:"Buts encaissés par match" },
+r_top_puan:{ tr:"Toplam puan", en:"Total points", de:"Punkte gesamt", it:"Punti totali", fr:"Points totaux" },
+r_mb_puan: { tr:"Maç başına puan", en:"Points per game", de:"Punkte pro Spiel", it:"Punti per partita", fr:"Points par match" },
+
+u_iki_donem:{ tr:"Karşılaştırmak için en az iki dönem seç.",
+  en:"Select at least two spells to compare.", de:"Wähle mindestens zwei Amtszeiten zum Vergleich.",
+  it:"Seleziona almeno due periodi da confrontare.", fr:"Sélectionnez au moins deux périodes à comparer." },
+u_eski_yukleniyor:{ tr:"Eski dönemlerin maç verisi yükleniyor…",
+  en:"Loading match data for earlier spells…", de:"Spieldaten früherer Amtszeiten werden geladen…",
+  it:"Caricamento dei dati delle gestioni precedenti…", fr:"Chargement des données des périodes précédentes…" },
+u_kapsam_bos:{ tr:"Seçilen dönemlerde bu kapsamda oynanmış maç yok.",
+  en:"No matches in this filter for the selected spells.", de:"In diesem Filter gibt es für die gewählten Amtszeiten keine Spiele.",
+  it:"Nessuna partita in questo filtro per i periodi selezionati.", fr:"Aucun match dans ce filtre pour les périodes sélectionnées." },
+u_ozet:{ tr:"Seçimdeki bazı dönemler için yalnızca maç sayısı ve puan ortalaması var; ayrıntılı satırlar ve kulvar süzgeci devre dışı.",
+  en:"Some selected spells only have match count and points average; detailed rows and the competition filter are disabled.",
+  de:"Für einige gewählte Amtszeiten liegen nur Spielzahl und Punkteschnitt vor; Detailzeilen und Wettbewerbsfilter sind deaktiviert.",
+  it:"Per alcuni periodi selezionati sono disponibili solo partite e media punti; le righe dettagliate e il filtro competizione sono disattivati.",
+  fr:"Certaines périodes sélectionnées n'ont que le nombre de matches et la moyenne de points ; les lignes détaillées et le filtre de compétition sont désactivés." },
+u_veri_hata:{ tr:"Eski dönemlerin maç verisi yüklenemedi. Şimdilik yalnızca maç sayısı ve puan ortalaması gösteriliyor.",
+  en:"Match data for earlier spells could not be loaded. Only match count and points average are shown for now.",
+  de:"Die Spieldaten früherer Amtszeiten konnten nicht geladen werden. Vorerst werden nur Spielzahl und Punkteschnitt angezeigt.",
+  it:"Impossibile caricare i dati delle gestioni precedenti. Per ora sono mostrati solo partite e media punti.",
+  fr:"Impossible de charger les données des périodes précédentes. Seuls le nombre de matches et la moyenne de points sont affichés." },
+u_derbi_yok:{ tr:"Bu dönemde derbi oynanmadı.", en:"No derbies in this spell.",
+  de:"In dieser Amtszeit gab es keine Derbys.", it:"Nessun derby in questo periodo.",
+  fr:"Aucun derby durant cette période." },
+
+/* --- teknik direktörler --- */
+h_maclar_yukleniyor:{ tr:"Maçlar yükleniyor…", en:"Loading matches…", de:"Spiele werden geladen…",
+  it:"Caricamento partite…", fr:"Chargement des matches…" },
+h_veri_yok:{ tr:"Bu dönemin maç verisi yüklenemedi.", en:"Match data for this spell could not be loaded.",
+  de:"Die Spieldaten dieser Amtszeit konnten nicht geladen werden.",
+  it:"Impossibile caricare i dati di questo periodo.", fr:"Impossible de charger les données de cette période." },
+
+/* --- dönem açıklamaları --- */
+p_tedfb:{ tr:"14 Eylül 2025 – 26 Nisan 2026", en:"14 September 2025 – 26 April 2026",
+  de:"14. September 2025 – 26. April 2026", it:"14 settembre 2025 – 26 aprile 2026",
+  fr:"14 septembre 2025 – 26 avril 2026" },
+p_tedbol:{ tr:"2 Haziran 2026'dan bu yana", en:"Since 2 June 2026", de:"Seit 2. Juni 2026",
+  it:"Dal 2 giugno 2026", fr:"Depuis le 2 juin 2026" },
+p_kartal:{ tr:"18 Haziran 2026'dan bu yana", en:"Since 18 June 2026", de:"Seit 18. Juni 2026",
+  it:"Dal 18 giugno 2026", fr:"Depuis le 18 juin 2026" },
+
+/* --- Tedesco bölümü --- */
+td_dogum:{ tr:"12 Eylül 1985, Rossano · İtalyan-Alman", en:"12 September 1985, Rossano · Italian-German",
+  de:"12. September 1985, Rossano · Italienisch-Deutsch", it:"12 settembre 1985, Rossano · italo-tedesco",
+  fr:"12 septembre 1985, Rossano · italo-allemand" },
+td_bio1:{
+  tr:"İtalya'nın güneyindeki Rossano'da doğdu, henüz iki yaşındayken ailesiyle Almanya'ya taşındı ve Stuttgart yakınlarında büyüdü. Profesyonel futbol oynamadı; teknik direktörlüğe altyapı takımlarında başladı, bir yandan üniversite okuyup çalıştı. UEFA Pro lisansını 2016'da aldı.",
+  en:"Born in Rossano in southern Italy, he moved to Germany with his family at the age of two and grew up near Stuttgart. He never played professionally; he began coaching in youth teams while studying and working. He earned his UEFA Pro Licence in 2016.",
+  de:"Geboren im süditalienischen Rossano, zog er mit zwei Jahren mit seiner Familie nach Deutschland und wuchs bei Stuttgart auf. Profi spielte er nie; er begann im Nachwuchsbereich zu trainieren, während er studierte und arbeitete. Die UEFA-Pro-Lizenz erwarb er 2016.",
+  it:"Nato a Rossano, nel sud Italia, si trasferì in Germania con la famiglia a due anni e crebbe vicino a Stoccarda. Non giocò mai da professionista: iniziò ad allenare nel settore giovanile mentre studiava e lavorava. Ottenne la licenza UEFA Pro nel 2016.",
+  fr:"Né à Rossano, dans le sud de l'Italie, il s'installe en Allemagne avec sa famille à l'âge de deux ans et grandit près de Stuttgart. Il n'a jamais joué en professionnel : il a commencé à entraîner chez les jeunes tout en étudiant et en travaillant. Il obtient sa licence UEFA Pro en 2016." },
+td_bio2:{
+  tr:"İlk üst düzey görevi 2017'de Erzgebirge Aue oldu ve takımı küme düşmekten kurtardı; aynı yıl Schalke 04'ün başına geçip kulübü 2017-18 sezonunda Bundesliga'da ikinci sıraya taşıdı. 2022'de RB Leipzig ile Almanya Kupası'nı kazandı, ardından iki yıl Belçika Millî Takımı'nı çalıştırdı. Eylül 2025'te Fenerbahçe'ye geldi.",
+  en:"His first senior job came in 2017 at Erzgebirge Aue, whom he saved from relegation; later that year he took over Schalke 04 and led the club to second place in the Bundesliga in 2017-18. In 2022 he won the German Cup with RB Leipzig, then spent two years in charge of the Belgium national team. He joined Fenerbahçe in September 2025.",
+  de:"Seine erste Station im Profibereich war 2017 Erzgebirge Aue, das er vor dem Abstieg rettete; im selben Jahr übernahm er Schalke 04 und führte den Klub 2017/18 auf Platz zwei der Bundesliga. 2022 gewann er mit RB Leipzig den DFB-Pokal, danach betreute er zwei Jahre die belgische Nationalmannschaft. Im September 2025 kam er zu Fenerbahçe.",
+  it:"Il primo incarico tra i grandi arrivò nel 2017 all'Erzgebirge Aue, che salvò dalla retrocessione; nello stesso anno passò allo Schalke 04, portandolo al secondo posto in Bundesliga nel 2017-18. Nel 2022 vinse la Coppa di Germania con l'RB Lipsia, poi guidò per due anni la nazionale belga. È arrivato al Fenerbahçe nel settembre 2025.",
+  fr:"Son premier poste chez les professionnels fut Erzgebirge Aue en 2017, qu'il sauva de la relégation ; la même année, il prit les rênes de Schalke 04 et mena le club à la deuxième place de Bundesliga en 2017-18. En 2022, il remporta la Coupe d'Allemagne avec le RB Leipzig, puis dirigea pendant deux ans la sélection belge. Il rejoint le Fenerbahçe en septembre 2025." },
+td_bologna:{ tr:"Bologna · sözleşme 30 Haziran 2028'e kadar", en:"Bologna · contract until 30 June 2028",
+  de:"Bologna · Vertrag bis 30. Juni 2028", it:"Bologna · contratto fino al 30 giugno 2028",
+  fr:"Bologne · contrat jusqu'au 30 juin 2028" },
+td_fb:{ tr:"Fenerbahçe · Süper Kupa 2025", en:"Fenerbahçe · Turkish Super Cup 2025",
+  de:"Fenerbahçe · Türkischer Supercup 2025", it:"Fenerbahçe · Supercoppa di Turchia 2025",
+  fr:"Fenerbahçe · Supercoupe de Turquie 2025" },
+td_belcika:{ tr:"Belçika Millî Takımı", en:"Belgium National Team", de:"Belgische Nationalmannschaft",
+  it:"Nazionale del Belgio", fr:"Équipe nationale de Belgique" },
+td_leipzig:{ tr:"RB Leipzig · Almanya Kupası 2021-22", en:"RB Leipzig · German Cup 2021-22",
+  de:"RB Leipzig · DFB-Pokal 2021/22", it:"RB Lipsia · Coppa di Germania 2021-22",
+  fr:"RB Leipzig · Coupe d'Allemagne 2021-22" },
+td_spartak:{ tr:"Spartak Moskova", en:"Spartak Moscow", de:"Spartak Moskau",
+  it:"Spartak Mosca", fr:"Spartak Moscou" },
+
+/* --- alt bilgi --- */
+f_bagimsiz_b:{ tr:"Bağımsız taraftar sayfasıdır.", en:"This is an independent fan page.",
+  de:"Dies ist eine unabhängige Fanseite.", it:"Questa è una pagina indipendente di tifosi.",
+  fr:"Ceci est une page de supporters indépendante." },
+f_bagimsiz:{ tr:"Fenerbahçe Spor Kulübü, Bologna FC 1909 ya da Domenico Tedesco ile resmî bir bağı, izni veya ortaklığı yoktur.",
+  en:"It has no official affiliation with, endorsement from, or partnership with Fenerbahçe Spor Kulübü, Bologna FC 1909 or Domenico Tedesco.",
+  de:"Es besteht keine offizielle Verbindung, Genehmigung oder Partnerschaft mit Fenerbahçe Spor Kulübü, Bologna FC 1909 oder Domenico Tedesco.",
+  it:"Non ha alcun legame ufficiale, approvazione o partnership con Fenerbahçe Spor Kulübü, Bologna FC 1909 o Domenico Tedesco.",
+  fr:"Elle n'a aucun lien officiel, approbation ou partenariat avec le Fenerbahçe Spor Kulübü, le Bologna FC 1909 ou Domenico Tedesco." },
+f_kaynaklar:{ tr:"Kaynaklar", en:"Sources", de:"Quellen", it:"Fonti", fr:"Sources" },
+f_kaynak1:{ tr:"geçmiş sezonların maç verisi", en:"match data for past seasons",
+  de:"Spieldaten vergangener Saisons", it:"dati delle stagioni passate",
+  fr:"données des saisons passées" },
+f_kaynak2:{ tr:"güncel fikstürler ve maç raporları", en:"current fixtures and match reports",
+  de:"aktuelle Spielpläne und Spielberichte", it:"calendario attuale e report delle partite",
+  fr:"calendrier actuel et rapports de match" },
+f_gizlilik:{ tr:"Gizlilik ve Çerez Politikası", en:"Privacy and Cookie Policy",
+  de:"Datenschutz- und Cookie-Richtlinie", it:"Informativa su privacy e cookie",
+  fr:"Politique de confidentialité et cookies" },
+f_guncelleme:{ tr:"Son güncelleme:", en:"Last updated:", de:"Zuletzt aktualisiert:",
+  it:"Ultimo aggiornamento:", fr:"Dernière mise à jour :" },
+
+/* --- anket --- */
+a_soru_kartal:{ tr:"İsmail Kartal'dan memnun musunuz?", en:"Are you satisfied with İsmail Kartal?",
+  de:"Sind Sie mit İsmail Kartal zufrieden?", it:"Sei soddisfatto di İsmail Kartal?",
+  fr:"Êtes-vous satisfait d'İsmail Kartal ?" },
+a_soru_aday:{ tr:"Fenerbahçe'nin teknik direktörü kim olmalı?", en:"Who should be Fenerbahçe's head coach?",
+  de:"Wer sollte Fenerbahçes Cheftrainer sein?", it:"Chi dovrebbe essere l'allenatore del Fenerbahçe?",
+  fr:"Qui devrait être l'entraîneur du Fenerbahçe ?" },
+a_evet:{ tr:"Evet, memnunum", en:"Yes, satisfied", de:"Ja, zufrieden", it:"Sì, soddisfatto", fr:"Oui, satisfait" },
+a_hayir:{ tr:"Hayır, memnun değilim", en:"No, not satisfied", de:"Nein, nicht zufrieden",
+  it:"No, non soddisfatto", fr:"Non, pas satisfait" },
+a_kararsiz:{ tr:"Kararsızım", en:"Undecided", de:"Unentschieden", it:"Indeciso", fr:"Indécis" },
+a_oy_ver:{ tr:"Oy ver", en:"Vote", de:"Abstimmen", it:"Vota", fr:"Voter" },
+a_oy_kullanildi:{ tr:"Oy kullanıldı", en:"Vote recorded", de:"Stimme gezählt", it:"Voto registrato", fr:"Vote enregistré" },
+a_yukleniyor:{ tr:"Toplam oy: yükleniyor…", en:"Total votes: loading…", de:"Stimmen gesamt: wird geladen…",
+  it:"Voti totali: caricamento…", fr:"Total des votes : chargement…" },
+a_oy_yok:{ tr:"Henüz oy yok", en:"No votes yet", de:"Noch keine Stimmen", it:"Ancora nessun voto", fr:"Aucun vote pour l'instant" },
+a_oy_sayisi:{ tr:"oy kullanıldı", en:"votes cast", de:"Stimmen abgegeben", it:"voti espressi", fr:"votes exprimés" },
+a_oy:{ tr:"oy", en:"votes", de:"Stimmen", it:"voti", fr:"votes" },
+a_secenek_sec:{ tr:"Lütfen önce bir seçenek işaretleyin.", en:"Please select an option first.",
+  de:"Bitte zuerst eine Option auswählen.", it:"Seleziona prima un'opzione.",
+  fr:"Veuillez d'abord choisir une option." },
+a_dogrula:{ tr:"Lütfen güvenlik doğrulamasını tamamlayınız.", en:"Please complete the security check.",
+  de:"Bitte schließen Sie die Sicherheitsprüfung ab.", it:"Completa la verifica di sicurezza.",
+  fr:"Veuillez compléter la vérification de sécurité." },
+a_gonderiliyor:{ tr:"Oyunuz gönderiliyor…", en:"Sending your vote…", de:"Stimme wird gesendet…",
+  it:"Invio del voto…", fr:"Envoi de votre vote…" },
+a_tesekkur:{ tr:"Oyunuz kaydedildi. Teşekkür ederiz.", en:"Your vote has been recorded. Thank you.",
+  de:"Ihre Stimme wurde gespeichert. Vielen Dank.", it:"Il tuo voto è stato registrato. Grazie.",
+  fr:"Votre vote a été enregistré. Merci." },
+a_zaten_oy:{ tr:"Bu IP oy kullanmış", en:"This IP has already voted", de:"Diese IP hat bereits abgestimmt",
+  it:"Questo IP ha già votato", fr:"Cette IP a déjà voté" },
+a_dogrulama_tamam:{ tr:"Doğrulama tamamlandı. Bir seçenek işaretleyip oyunuzu gönderiniz.",
+  en:"Verification complete. Choose an option and send your vote.",
+  de:"Verifizierung abgeschlossen. Wählen Sie eine Option und senden Sie Ihre Stimme.",
+  it:"Verifica completata. Scegli un'opzione e invia il voto.",
+  fr:"Vérification terminée. Choisissez une option et envoyez votre vote." },
+a_dogrulama_yukleniyor:{ tr:"Güvenlik doğrulaması yükleniyor…", en:"Loading security check…",
+  de:"Sicherheitsprüfung wird geladen…", it:"Caricamento verifica di sicurezza…",
+  fr:"Chargement de la vérification…" },
+a_sonuc_hata:{ tr:"Sonuçlar yenilenemedi. Görünen değerler varsa son alınan sonuçlardır.",
+  en:"Results could not be refreshed. Any values shown are the last ones received.",
+  de:"Ergebnisse konnten nicht aktualisiert werden. Angezeigte Werte sind die zuletzt empfangenen.",
+  it:"Impossibile aggiornare i risultati. I valori mostrati sono gli ultimi ricevuti.",
+  fr:"Impossible d'actualiser les résultats. Les valeurs affichées sont les dernières reçues." },
+a_js:{ tr:"Anketi kullanmak için JavaScript'i etkinleştiriniz.",
+  en:"Enable JavaScript to use the poll.", de:"Aktivieren Sie JavaScript, um an der Umfrage teilzunehmen.",
+  it:"Abilita JavaScript per usare il sondaggio.", fr:"Activez JavaScript pour utiliser le sondage." }
+};
+
+/* Ay kısaltmaları */
+const AYLAR = {
+  tr:["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"],
+  en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+  de:["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],
+  it:["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"],
+  fr:["janv","févr","mars","avr","mai","juin","juil","août","sept","oct","nov","déc"]
+};
+
+/* Dil seçimi: adres > kayıtlı tercih > tarayıcı > Türkçe */
+const DIL = (() => {
+  const adres = new URLSearchParams(location.search).get("lang");
+  if (DILLER.includes(adres)) { try { localStorage.setItem("dil", adres); } catch(e){} return adres; }
+  try { const k = localStorage.getItem("dil"); if (DILLER.includes(k)) return k; } catch(e){}
+  const t = (navigator.language || "tr").slice(0,2).toLowerCase();
+  return DILLER.includes(t) ? t : "tr";
+})();
+
+/* Metin getir. Eksik çeviri Türkçesine düşer. */
+const S = anahtar => (METIN[anahtar] && (METIN[anahtar][DIL] || METIN[anahtar].tr)) || "";
+const AY = AYLAR[DIL] || AYLAR.tr;
+
+function dilDegistir(kod){
+  try { localStorage.setItem("dil", kod); } catch(e){}
+  const u = new URL(location.href);
+  u.searchParams.set("lang", kod);
+  location.href = u.toString();
+}
+
+
 /* ============================================================
    GÜNCELLEME ALANI
    Yeni maç sonucu girmek için ilgili satırdaki skor kısmını
@@ -469,18 +755,14 @@ footer a:hover{border-bottom-color:var(--sari)}
 
 const SON_GUNCELLEME = "12 Eylül 2026";
 
-const KULVAR = {
-  SL:"Süper Lig", TK:"Türkiye Kupası", SK:"Süper Kupa",
-  AL:"Avrupa Ligi", SL_A:"Serie A",
-  SAM:"Şampiyonlar Ligi", ELE:"ŞL Elemeleri"
-};
+const KULVAR = new Proxy({}, { get: (_,k) => S("k_" + String(k)) });
 
 const SETLER = [
   {
     id:"ted-fb",
     sekme:"Tedesco", sekmeAlt:"Fenerbahçe 2025-26", donemYili:"2025–26",
     baslik:"Domenico Tedesco · Fenerbahçe",
-    donem:"14 Eylül 2025 – 26 Nisan 2026",
+    donem:S("p_tedfb"),
     maclar:[
       ["2025-09-14","SL","İ","Trabzonspor","1-0","co116/turkey-sueperlig/ma11302889/fenerbahce_trabzonspor/"],
       ["2025-09-17","SL","İ","Alanyaspor","2-2","co116/turkey-sueperlig/ma11302781/fenerbahce_alanyaspor/"],
@@ -533,7 +815,7 @@ const SETLER = [
     id:"ted-bol",
     sekme:"Tedesco", sekmeAlt:"Bologna FC 1909 2026-27", karsilastir:false,
     baslik:"Domenico Tedesco · Bologna FC 1909",
-    donem:"2 Haziran 2026'dan bu yana",
+    donem:S("p_tedbol"),
     maclar:[
       ["2026-08-24","SL_A","İ","Lazio","0-1","co111/italy-serie-a/ma12130816/bologna-fc_lazio-roma/"],
       ["2026-08-31","SL_A","D","Atalanta","0-1","co111/italy-serie-a/ma12130846/atalanta_bologna-fc/"],
@@ -579,7 +861,7 @@ const SETLER = [
     id:"fb-simdi",
     sekme:"Fenerbahçe", sekmeAlt:"Kartal 2026-27", donemYili:"2026–",
     baslik:"İsmail Kartal · Fenerbahçe",
-    donem:"18 Haziran 2026'dan bu yana",
+    donem:S("p_kartal"),
     maclar:[
       ["2026-07-21","ELE","İ","Górnik Zabrze","1-0","co562/uefa-champions-league-qual/ma12146998/fenerbahce_gornik-zabrze/"],
       ["2026-07-29","ELE","D","Górnik Zabrze","1-1","co562/uefa-champions-league-qual/ma12147001/gornik-zabrze_fenerbahce/"],
@@ -637,12 +919,12 @@ const SETLER = [
 const ANKETLER = [
   {
     id:"memnuniyet",
-    soru:"İsmail Kartal'dan memnun musunuz?",
-    secenekler:["Evet, memnunum", "Hayır, memnun değilim", "Kararsızım"]
+    soru:S("a_soru_kartal"),
+    secenekler:[S("a_evet"), S("a_hayir"), S("a_kararsiz")]
   },
   {
     id:"aday",
-    soru:"Fenerbahçe'nin teknik direktörü kim olmalı?",
+    soru:S("a_soru_aday"),
     secenekler:[
       "Domenico Tedesco", "Antonio Conte", "Aykut Kocaman", "Çağdaş Atan",
       "Erol Bulut", "Ersun Yanal", "İlhan Palut", "İsmail Kartal",
@@ -672,7 +954,7 @@ async function anketIstek(yol, options = {}){
       const messages = {
         already_voted:"Bu IP adresinden bu ankete daha önce oy verilmiş. İkinci oy kabul edilmez.",
         verification_failed:"Güvenlik doğrulaması geçersiz veya süresi dolmuş. Yeniden doğrulayınız.",
-        verification_required:"Lütfen güvenlik doğrulamasını tamamlayınız.",
+        verification_required:S("a_dogrula"),
         verification_unavailable:"Doğrulama hizmetine ulaşılamadı. Biraz sonra tekrar deneyiniz.",
         configuration_error:"Anket sunucusunun kurulumu henüz tamamlanmamış.",
         origin_not_allowed:"Ankete tedescofenere.com üzerinden erişiniz.",
@@ -721,7 +1003,7 @@ async function anketSonuclariYukle(){
     anketBildir(bildirim, "");
   } catch(error){
     if(istek === anketSonucIstegi)
-      anketBildir(bildirim, "Sonuçlar yenilenemedi. Görünen değerler varsa son alınan sonuçlardır.");
+      anketBildir(bildirim, S("a_sonuc_hata"));
   } finally { if(yenile && istek === anketSonucIstegi) yenile.disabled = false; }
 }
 
@@ -732,7 +1014,7 @@ function anketSonuclariniCiz(kart, anket, veri){
   anket.secenekler.forEach((_,i) => {
     const yuzde = toplam ? Math.round(veri.sayilar[i] * 100 / toplam) : 0;
     kart.querySelector(`[data-oy="${i}"]`).innerHTML =
-      `%${yuzde}<span>${veri.sayilar[i].toLocaleString("tr-TR")} oy</span>`;
+      `%${yuzde}<span>${veri.sayilar[i].toLocaleString(DIL)} ${S("a_oy")}</span>`;
     // Çubuk, en çok oy alan seçeneğe göre ölçeklenir; küçük farklar görünür kalsın.
     const oran = enYuksek ? Math.round(veri.sayilar[i] * 100 / enYuksek) : 0;
     kart.querySelector(`[data-oran="${i}"]`).style.width = oran + "%";
@@ -741,7 +1023,7 @@ function anketSonuclariniCiz(kart, anket, veri){
   });
 
   kart.querySelector(".anket-toplam").textContent =
-    toplam ? `${toplam.toLocaleString("tr-TR")} oy kullanıldı` : "Henüz oy yok";
+    toplam ? `${toplam.toLocaleString(DIL)} ${S("a_oy_sayisi")}` : S("a_oy_yok");
 }
 
 function anketleriCiz(){
@@ -776,25 +1058,25 @@ function anketleriCiz(){
       if(durum.kilitli || durum.gonderiliyor) return;
       const secili = kart.querySelector("input:checked");
       const notu = kart.querySelector(".anket-notu");
-      if(!secili){ notu.textContent = "Lütfen önce bir seçenek işaretleyin."; return; }
-      if(!durum.token){ notu.textContent = "Lütfen güvenlik doğrulamasını tamamlayınız."; return; }
+      if(!secili){ notu.textContent = S("a_secenek_sec"); return; }
+      if(!durum.token){ notu.textContent = S("a_dogrula"); return; }
       const yeni = Number(secili.value);
       durum.gonderiliyor = true;
       kart.querySelector("fieldset").disabled = true;
       anketDugmesi(durum);
-      notu.textContent = "Oyunuz gönderiliyor…";
+      notu.textContent = S("a_gonderiliyor");
       try {
         await anketIstek("/vote", {method:"POST", headers:{"Content-Type":"application/json"},
           body:JSON.stringify({poll_id:anket.id, option_id:yeni, token:durum.token})});
         durum.kilitli = true;
         durum.secili = yeni;
-        kart.querySelector(".anket-dugme").textContent = "Oy kullanıldı";
+        kart.querySelector(".anket-dugme").textContent = S("a_oy_kullanildi");
         notu.textContent = "Oyunuz ortak veritabanına kaydedildi. Teşekkür ederiz.";
         await anketSonuclariYukle();
       } catch(error){
         if(error.code === "already_voted"){
           durum.kilitli = true;
-          kart.querySelector(".anket-dugme").textContent = "Bu IP oy kullanmış";
+          kart.querySelector(".anket-dugme").textContent = S("a_zaten_oy");
           await anketSonuclariYukle();
         }
         notu.textContent = error instanceof TypeError || error.name === "AbortError"
@@ -834,7 +1116,7 @@ window.anketTurnstileHazir = function(){
         callback:token => {
           if(durum.kilitli) return;
           durum.token = token;
-          if(!durum.gonderiliyor) durum.kart.querySelector(".anket-notu").textContent = "Doğrulama tamamlandı. Bir seçenek işaretleyip oyunuzu gönderiniz.";
+          if(!durum.gonderiliyor) durum.kart.querySelector(".anket-notu").textContent = S("a_dogrulama_tamam");
           anketDugmesi(durum);
         },
         "expired-callback":() => anketDogrulamaSorunu(durum, "Doğrulama süresi doldu. Yeniden doğrulayınız."),
@@ -844,7 +1126,7 @@ window.anketTurnstileHazir = function(){
           return true;
         }
       });
-      durum.kart.querySelector(".anket-notu").textContent = "Lütfen güvenlik doğrulamasını tamamlayınız.";
+      durum.kart.querySelector(".anket-notu").textContent = S("a_dogrula");
     } catch { anketDogrulamaSorunu(durum, "Güvenlik doğrulaması başlatılamadı. Sayfayı yenileyiniz."); }
   });
 };
@@ -863,7 +1145,6 @@ anketDogrulamaScript.onerror = () => {
 };
 document.head.appendChild(anketDogrulamaScript);
 
-const AY = ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"];
 const tarihYaz = iso => { const [y,a,g]=iso.split("-"); return `${+g} ${AY[+a-1]} ${y.slice(2)}`; };
 const sonucu = skor => { if(!skor) return null; const [a,b]=skor.split("-").map(Number); return a>b?"g":a<b?"m":"b"; };
 
@@ -905,11 +1186,11 @@ document.getElementById("karne").innerHTML = SETLER.filter(s=>s.oneCik!==false).
   const k = karneHesapla(s);
   const [kisi, kulup] = s.baslik.split(" · ");
   return `<div>
-    <b>${k.ort}<i>Ort.</i></b>
+    <b>${k.ort}<i>${S("ort_kisa")}</i></b>
     <span class="ad">${kulup} · ${kisi.split(" ").pop()}</span>
-    <span>${k.n} Maç</span>
-    <span>${k.g} Galibiyet · ${k.b} Beraberlik · ${k.m} Mağlubiyet</span>
-    <span>${k.ag} Atılan Gol · ${k.yg} Yenilen Gol</span>
+    <span>${k.n} ${S("mac")}</span>
+    <span>${k.g} ${S("galibiyet")} · ${k.b} ${S("beraberlik")} · ${k.m} ${S("maglubiyet")}</span>
+    <span>${k.ag} ${S("atilan_gol")} · ${k.yg} ${S("yenilen_gol")}</span>
   </div>`;
 }).join("");
 
@@ -933,13 +1214,13 @@ function panelCiz(i){
     const r = sonucu(skor);
     const govde = (skor && link)
       ? `<a class="skorlink" href="${macLinki(link)}" target="_blank" rel="noopener"
-           title="${rakip} maçının raporu: goller, kartlar, kadrolar">${skor}</a>`
+           title="${rakip} — ${S("rapor_ipucu")}">${skor}</a>`
       : (skor || "—");
     return `<tr class="${skor?"":"gelecek"}">
       <td>${tarihYaz(tarih)}</td>
       <td class="rakip">${rakip}</td>
       <td class="tr-kulvar">${KULVAR[kulvar]}</td>
-      <td class="yer">${yer==="İ"?"İç saha":"Deplasman"}</td>
+      <td class="yer">${yer==="İ"?S("ic_saha"):S("deplasman")}</td>
       <td class="skor ${skor?"":"yok"}">${govde}${r?`<span class="im ${r}"></span>`:""}</td>
     </tr>`;
   }).join("");
@@ -957,26 +1238,26 @@ function panelCiz(i){
   panelEl.innerHTML = `
     <div class="ozet" id="panel-icerik" role="tabpanel" aria-labelledby="sekme-${s.id}">
       <span>${s.donem}</span>
-      <span><b>${k.n}</b> maç</span>
-      <span><b>${k.g}</b> G · <b>${k.b}</b> B · <b>${k.m}</b> M</span>
-      <span><b>${k.ag}</b> attı · <b>${k.yg}</b> yedi</span>
-      <span><b>${k.ort}</b> puan ort.</span>
+      <span><b>${k.n}</b> ${S("mac")}</span>
+      <span><b>${k.g}</b> ${S("d_g")} · <b>${k.b}</b> ${S("d_b")} · <b>${k.m}</b> ${S("d_ml")}</span>
+      <span><b>${k.ag}</b> ${S("o_atti")} · <b>${k.yg}</b> ${S("o_yedi")}</span>
+      <span><b>${k.ort}</b> ${S("o_puanort")}</span>
     </div>
 
     <table class="dokum">
       <thead><tr>
-        <th>Kulvar</th><th>M</th><th>G</th><th>B</th><th>M</th>
-        <th>AG</th><th>YG</th><th>Av</th><th>Ort.</th>
+        <th>${S("d_kulvar")}</th><th>${S("d_m")}</th><th>${S("d_g")}</th><th>${S("d_b")}</th><th>${S("d_ml")}</th>
+        <th>${S("d_ag")}</th><th>${S("d_yg")}</th><th>${S("d_av")}</th><th>${S("d_ort")}</th>
       </tr></thead>
       <tbody>
         ${kulvarDokumu(s).map(d => dokumSatiri(KULVAR[d.kulvar], d)).join("")}
-        ${dokumSatiri("Toplam", k, "toplam")}
+        ${dokumSatiri(S("toplam"), k, "toplam")}
       </tbody>
     </table>
 
     <table class="fikstur"><colgroup><col class="s-tarih"><col><col class="s-kulvar"><col class="s-saha"><col class="s-skor"></colgroup>
       <thead><tr>
-        <th>Tarih</th><th class="rakip-basligi">Rakip</th><th>Kulvar</th><th>Saha</th><th class="skor">Skor</th>
+        <th>${S("t_tarih")}</th><th class="rakip-basligi">${S("t_rakip")}</th><th>${S("t_kulvar")}</th><th>${S("t_saha")}</th><th class="skor">${S("t_skor")}</th>
       </tr></thead>
       <tbody>${satirlar}</tbody>
     </table>`;
@@ -990,6 +1271,27 @@ sekmelerEl.addEventListener("click", e=>{
 });
 
 panelCiz(0);
+/* data-s taşıyan her öğeyi seçili dile göre doldur */
+document.querySelectorAll("[data-s]").forEach(el => { el.textContent = S(el.dataset.s); });
+
+/* sayfa dili, başlık ve açıklama */
+document.documentElement.lang = DIL;
+document.title = S("baslik_etiket") + " — tedescofenere.com";
+const aciklamaEt = document.querySelector('meta[name="description"]');
+if(aciklamaEt) aciklamaEt.setAttribute("content", S("sayfa_aciklama"));
+
+/* dil seçici */
+const dillerEl = document.getElementById("diller");
+if(dillerEl){
+  dillerEl.innerHTML = DILLER.map(k =>
+    `<button type="button" lang="${k}" data-dil="${k}"
+       aria-current="${k === DIL}" title="${DIL_ADI[k]}">${k}</button>`).join("");
+  dillerEl.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if(b) dilDegistir(b.dataset.dil);
+  });
+}
+
 document.getElementById("guncelleme").textContent = SON_GUNCELLEME;
 
 
@@ -1026,7 +1328,7 @@ let acikHoca = null;   // açık olan hoca satırının indeksi
       <td class="ad"><button class="hoca-dugme" aria-expanded="false"
         aria-controls="hoca-detay-${i}">${ad}<span class="ok" aria-hidden="true"></span></button></td>
       <td class="donem">${donem}</td>
-      <td class="mac">${mac} maç</td>
+      <td class="mac">${mac} ${S("mac")}</td>
       <td class="ort">${ort.toFixed(2)}</td>
       <td class="cubuk"><i style="width:${en}%"></i></td>
     </tr>
@@ -1081,8 +1383,8 @@ function hocaDetayTazele(){
   const maclar = hocaMaclari(acikHoca);
   if(maclar === null){
     detay.firstElementChild.innerHTML = veriDurumu === "hata"
-      ? `<p class="bos-uyari">Bu dönemin maç verisi yüklenemedi.</p>`
-      : `<p class="bos-uyari">Maçlar yükleniyor…</p>`;
+      ? `<p class="bos-uyari">${S("h_veri_yok")}</p>`
+      : `<p class="bos-uyari">${S("h_maclar_yukleniyor")}</p>`;
     return;
   }
 
@@ -1090,13 +1392,13 @@ function hocaDetayTazele(){
     const r = sonucu(skor);
     const s = link
       ? `<a class="skorlink" href="${macLinki(link)}" target="_blank" rel="noopener"
-           title="${rakip} maçının raporu">${skor}</a>`
+           title="${rakip} — ${S("rapor_ipucu")}">${skor}</a>`
       : skor;
     return `<tr>
       <td>${tarihYaz(tarih)}</td>
       <td class="rakip">${rakip}</td>
       <td class="tr-kulvar">${KULVAR[kulvar] || kulvar}</td>
-      <td class="yer">${yer==="İ"?"İç saha":"Deplasman"}</td>
+      <td class="yer">${yer==="İ"?S("ic_saha"):S("deplasman")}</td>
       <td class="skor">${s}<span class="im ${r}"></span></td>
     </tr>`;
   }).join("");
@@ -1104,7 +1406,7 @@ function hocaDetayTazele(){
   const d = kulvarDokumu({maclar});
   detay.firstElementChild.innerHTML = `
     <div class="hoca-icerik">
-      <p class="hoca-ozet">${maclar.length} maç · ${
+      <p class="hoca-ozet">${maclar.length} ${S("mac")} · ${
         d.map(x => `${KULVAR[x.kulvar] || x.kulvar} ${x.n}`).join(" · ")}</p>
       <table class="fikstur"><colgroup><col class="s-tarih"><col><col class="s-kulvar"><col class="s-saha"><col class="s-skor"></colgroup><tbody>${satirlar}</tbody></table>
     </div>`;
@@ -1114,10 +1416,10 @@ function hocaDetayTazele(){
 
 const GRUP = { SL:"lig", SL_A:"lig", AL:"avrupa", SAM:"avrupa", ELE:"avrupa", TK:"kupa", SK:"kupa" };
 const KAPSAMLAR = [
-  {id:"hepsi",  ad:"Tüm Maçlar"},
-  {id:"lig",    ad:"Sadece Lig"},
-  {id:"avrupa", ad:"Sadece Avrupa"},
-  {id:"derbi",  ad:"Sadece Derbi"}
+  {id:"hepsi",  ad:S("kap_hepsi")},
+  {id:"lig",    ad:S("kap_lig")},
+  {id:"avrupa", ad:S("kap_avrupa")},
+  {id:"derbi",  ad:S("kap_derbi")}
 ];
 
 /* Derbi süzgeci kulvara değil rakibe bakar: hangi kupada oynandığı fark etmez. */
@@ -1213,7 +1515,7 @@ kapsamSecimEl.innerHTML = KAPSAMLAR.map(c=>
 
 function karsilastirCiz(){
   if(secili.length < 2){
-    karsEl.innerHTML = `<p class="bos-uyari">Karşılaştırmak için en az iki dönem seç.</p>`;
+    karsEl.innerHTML = `<p class="bos-uyari">${S("u_iki_donem")}</p>`;
     return;
   }
 
@@ -1222,7 +1524,7 @@ function karsilastirCiz(){
 
   if(ozetVar && veriDurumu === "bos"){ veriyiYukle(); }
   if(ozetVar && veriDurumu === "yukleniyor"){
-    karsEl.innerHTML = `<p class="bos-uyari">Eski dönemlerin maç verisi yükleniyor…</p>`;
+    karsEl.innerHTML = `<p class="bos-uyari">${S("u_eski_yukleniyor")}</p>`;
     return;
   }
 
@@ -1233,25 +1535,25 @@ function karsilastirCiz(){
   const kolonlar = secilenler.map(a => ({aday:a, k:adayKarnesi(a, etkinKapsam)}));
 
   if(kolonlar.every(c => c.k.n === 0)){
-    karsEl.innerHTML = `<p class="bos-uyari">Seçilen dönemlerde bu kapsamda oynanmış maç yok.</p>`;
+    karsEl.innerHTML = `<p class="bos-uyari">${S("u_kapsam_bos")}</p>`;
     return;
   }
 
   // "ozet" işaretli satırlar her dönemde hesaplanabilir; diğerleri yalnızca
   // detaylı veri varsa gösterilir.
   const satirlar = [
-    {ad:"Maç",               al:c=>c.k.n,   yon:0,  hep:true},
-    {ad:"Galibiyet",         al:c=>c.k.g,   yon:1},
-    {ad:"Beraberlik",        al:c=>c.k.b,   yon:0},
-    {ad:"Mağlubiyet",        al:c=>c.k.m,   yon:-1},
-    {ad:"Galibiyet oranı",   al:c=>c.k.n?Math.round(100*c.k.g/c.k.n)+"%":null, ham:c=>c.k.n?c.k.g/c.k.n:null, yon:1},
-    {ad:"Attığı gol",        al:c=>c.k.ag,  yon:1},
-    {ad:"Yediği gol",        al:c=>c.k.yg,  yon:-1},
-    {ad:"Averaj",            al:c=>(c.k.av>0?"+":"")+c.k.av, ham:c=>c.k.av, yon:1},
-    {ad:"Maç başına attığı", al:c=>c.k.n?(c.k.ag/c.k.n).toFixed(2):null, ham:c=>c.k.n?c.k.ag/c.k.n:null, yon:1},
-    {ad:"Maç başına yediği", al:c=>c.k.n?(c.k.yg/c.k.n).toFixed(2):null, ham:c=>c.k.n?c.k.yg/c.k.n:null, yon:-1},
-    {ad:"Toplam puan",       al:c=>c.k.puan, yon:0},
-    {ad:"Maç başına puan",   al:c=>c.k.ort, ham:c=>Number(c.k.ort), yon:1, one:true, hep:true}
+    {ad:S("mac"),            al:c=>c.k.n,   yon:0,  hep:true},
+    {ad:S("galibiyet"),      al:c=>c.k.g,   yon:1},
+    {ad:S("beraberlik"),     al:c=>c.k.b,   yon:0},
+    {ad:S("maglubiyet"),     al:c=>c.k.m,   yon:-1},
+    {ad:S("r_gal_oran"),     al:c=>c.k.n?Math.round(100*c.k.g/c.k.n)+"%":null, ham:c=>c.k.n?c.k.g/c.k.n:null, yon:1},
+    {ad:S("r_attigi"),       al:c=>c.k.ag,  yon:1},
+    {ad:S("r_yedigi"),       al:c=>c.k.yg,  yon:-1},
+    {ad:S("r_averaj"),       al:c=>(c.k.av>0?"+":"")+c.k.av, ham:c=>c.k.av, yon:1},
+    {ad:S("r_mb_atti"),      al:c=>c.k.n?(c.k.ag/c.k.n).toFixed(2):null, ham:c=>c.k.n?c.k.ag/c.k.n:null, yon:1},
+    {ad:S("r_mb_yedi"),      al:c=>c.k.n?(c.k.yg/c.k.n).toFixed(2):null, ham:c=>c.k.n?c.k.yg/c.k.n:null, yon:-1},
+    {ad:S("r_top_puan"),     al:c=>c.k.puan, yon:0},
+    {ad:S("r_mb_puan"),      al:c=>c.k.ort, ham:c=>Number(c.k.ort), yon:1, one:true, hep:true}
   ].filter(s => s.hep || !ozetVar);
 
   const govde = satirlar.map(s=>{
@@ -1280,7 +1582,7 @@ function karsilastirCiz(){
       const maclar = c.aday.set.maclar.filter(m => m[4] && DERBILER.includes(m[3]));
       if(!maclar.length){
         return `<div class="derbi-blok"><h4>${c.aday.kisa} ${c.aday.alt}</h4>
-          <p class="bos-uyari">Bu dönemde derbi oynanmadı.</p></div>`;
+          <p class="bos-uyari">${S("u_derbi_yok")}</p></div>`;
       }
       const satirlar = maclar.map(([tarih,kulvar,yer,rakip,skor,link])=>{
         const r = sonucu(skor);
@@ -1291,7 +1593,7 @@ function karsilastirCiz(){
           <td>${tarihYaz(tarih)}</td>
           <td class="rakip">${rakip}</td>
           <td class="tr-kulvar">${KULVAR[kulvar]}</td>
-          <td class="yer">${yer==="İ"?"İç saha":"Deplasman"}</td>
+          <td class="yer">${yer==="İ"?S("ic_saha"):S("deplasman")}</td>
           <td class="skor">${govde}<span class="im ${r}"></span></td>
         </tr>`;
       }).join("");
@@ -1305,11 +1607,8 @@ function karsilastirCiz(){
 
   const not = !ozetVar ? ""
     : veriDurumu === "hata"
-      ? `<p class="karsilastir-not">Eski dönemlerin maç verisi yüklenemedi
-         (<code>veriler.json</code>). Şimdilik yalnızca maç sayısı ve puan
-         ortalaması gösteriliyor.</p>`
-      : `<p class="karsilastir-not">Seçimdeki bazı dönemler için yalnızca maç sayısı
-         ve puan ortalaması var; ayrıntılı satırlar ve kulvar süzgeci devre dışı.</p>`;
+      ? `<p class="karsilastir-not">${S("u_veri_hata")}</p>`
+      : `<p class="karsilastir-not">${S("u_ozet")}</p>`;
 
   karsEl.innerHTML = `<table class="karsilastir">
     <thead><tr><th></th>${basliklar}</tr></thead>
