@@ -76,7 +76,7 @@ h1{
   font-weight:700;letter-spacing:-.025em;color:#fff;
 }
 h1 em{font-style:normal;color:var(--sari)}
-.ust p{max-width:56ch;color:#C3CCE2;margin:0}
+.ust p{max-width:none;color:#C3CCE2;margin:0}
 
 /* çubuklu şerit — kulüp amblemi değil, forma motifi */
 .serit{
@@ -190,14 +190,17 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 .dokum .av.arti::before{content:"+"}
 
 /* ---------- fikstür ---------- */
-.fikstur{width:100%;border-collapse:collapse;font-size:14.5px}
+.fikstur{width:100%;border-collapse:collapse;font-size:14.5px;text-align:center}
+.fikstur .rakip{text-align:left}
+.fikstur th{text-align:center}
+.fikstur th.rakip-basligi{text-align:left}
 .fikstur th{
   text-align:left;font-weight:500;font-size:12px;color:var(--soluk);
   padding:14px 8px 8px;border-bottom:1px solid var(--cizgi);
 }
-.fikstur th:first-child{padding-left:0}
+
 .fikstur td{padding:9px 8px;border-bottom:1px solid var(--cizgi);vertical-align:baseline}
-.fikstur td:first-child{padding-left:0;color:var(--soluk);font-size:13px;white-space:nowrap}
+.fikstur td:first-child{color:var(--soluk);font-size:13px;white-space:nowrap}
 .fikstur tbody tr:hover{background:#EEF1F7}
 .fikstur tr.gelecek td{color:var(--soluk)}
 .fikstur tr.gelecek:hover{background:transparent}
@@ -205,7 +208,7 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
 .gelecek .rakip{color:var(--soluk)}
 .tr-kulvar{font-size:12.5px;color:var(--soluk);white-space:nowrap}
 .yer{font-size:12px;color:var(--soluk)}
-.skor{text-align:right;white-space:nowrap;font-weight:600;color:var(--lacivert)}
+.skor{text-align:center;white-space:nowrap;font-weight:600;color:var(--lacivert)}
 .skor .im{
   display:inline-block;width:7px;height:7px;border-radius:50%;
   margin-left:9px;vertical-align:middle;
@@ -294,7 +297,7 @@ h2{font-size:31px;margin:0 0 4px;color:var(--lacivert)}
   padding-bottom:10px;border-bottom:1px solid var(--cizgi);
 }
 
-.ozgecmis{max-width:62ch;margin:0 0 14px;font-size:15.5px}
+.ozgecmis{max-width:none;margin:0 0 14px;font-size:15.5px}
 .ozgecmis + .kariyer{margin-top:22px}
 
 /* ---------- kariyer ---------- */
@@ -352,15 +355,11 @@ footer a:hover{border-bottom-color:var(--sari)}
 
 <div class="sayfa">
 
-<section aria-labelledby="anketler-baslik">
-  <h2 id="anketler-baslik">Taraftar anketleri</h2>
-  <p class="alt">Görüşünüzü paylaşın. Her ankette bir seçenek işaretleyebilirsiniz.</p>
+<section aria-label="Taraftar anketleri">
   <div class="anket-kaydir" role="region" aria-label="Yan yana taraftar anketleri, dar ekranda yatay kaydırılabilir" tabindex="0">
     <div class="anketler" id="anketler"></div>
   </div>
-  <p class="anket-gizlilik">Oylar ortak veritabanında saklanır. Her IP adresi, her ankette bir oy kullanabilir; aynı ağı paylaşan kişiler bu sınıra takılabilir. Tekrar oy kontrolü için IP adresinin gizli anahtarla üretilen özeti saklanır. Bot doğrulaması Cloudflare Turnstile ile yapılır.</p>
-  <p class="anket-notu" id="anket-sonuc-durumu" role="status">Sonuçlar yükleniyor…</p>
-  <button class="anket-yenile" id="anket-sonuc-yenile" type="button">Sonuçları yenile</button>
+  <p class="anket-notu" id="anket-sonuc-durumu" role="status" hidden></p>
   <noscript><p>Anketi kullanmak için JavaScript’i etkinleştiriniz.</p></noscript>
 </section>
 
@@ -373,7 +372,6 @@ footer a:hover{border-bottom-color:var(--sari)}
 
 <section>
   <h2>Karşılaştırma</h2>
-  <p class="alt">Fenerbahçe teknik direktörlerinin dönemlerini karşılaştır. Hangi maçların sayılacağını da seçebilirsin.</p>
 
   <div class="secimler" id="donemSecim"></div>
   <div class="secimler kapsam" id="kapsamSecim"></div>
@@ -381,8 +379,7 @@ footer a:hover{border-bottom-color:var(--sari)}
 </section>
 
 <section>
-  <h2>Teknik direktörler</h2>
-  <p class="alt">2010-11 sezonundan bugüne, maç başına puan. Bir isme tıklayınca o dönemin maçları açılır. Vekâleten görev yapanlar listede yok.</p>
+  <h2>Teknik Direktörler</h2>
   <table class="hocalar"><tbody id="hocalar"></tbody></table>
 </section>
 
@@ -410,12 +407,13 @@ footer a:hover{border-bottom-color:var(--sari)}
 <div class="sayfa">
   <p><b>Bağımsız taraftar sayfasıdır.</b> Fenerbahçe Spor Kulübü, Bologna FC 1909 ya da Domenico Tedesco ile resmî bir bağı, izni veya ortaklığı yoktur.</p>
 
-  <h3 class="kaynak-baslik">Kaynak</h3>
+  <h3 class="kaynak-baslik">Kaynaklar</h3>
   <ul class="kaynaklar">
-    <li><a href="https://www.mackolik.com/" target="_blank" rel="noopener">mackolik.com</a> — maç, fikstür ve istatistikler</li>
+    <li><a href="https://www.mackolik.com/" target="_blank" rel="noopener">mackolik.com</a> — geçmiş sezonların maç verisi</li>
+    <li><a href="https://www.worldfootball.net/" target="_blank" rel="noopener">worldfootball.net</a> — güncel fikstürler ve maç raporları</li>
   </ul>
 
-
+  <p><a href="/gizlilik.html">Gizlilik ve Çerez Politikası</a></p>
   <p>Son güncelleme: <span id="guncelleme"></span></p>
 </div>
 </footer>
@@ -654,12 +652,19 @@ function anketDugmesi(durum){
   durum.kart.querySelector(".anket-dugme").disabled = durum.kilitli || durum.gonderiliyor || !durum.token;
 }
 
+/* Durum satırı yalnızca söylenecek bir şey varsa görünür. */
+function anketBildir(el, mesaj){
+  if(!el) return;
+  el.textContent = mesaj;
+  el.hidden = !mesaj;
+}
+
 async function anketSonuclariYukle(){
   const istek = ++anketSonucIstegi;
   const bildirim = document.getElementById("anket-sonuc-durumu");
   const yenile = document.getElementById("anket-sonuc-yenile");
-  yenile.disabled = true;
-  bildirim.textContent = "Sonuçlar yükleniyor…";
+  if(yenile) yenile.disabled = true;
+  anketBildir(bildirim, "");
   try {
     const data = await anketIstek("/results");
     if(istek !== anketSonucIstegi) return;
@@ -675,10 +680,11 @@ async function anketSonuclariYukle(){
       const durum = ANKET_DURUMLARI.get(anket.id);
       anketSonuclariniCiz(durum.kart, anket, {sayilar:p.counts, secili:durum.secili});
     });
-    bildirim.textContent = "Ortak sonuçlar güncellendi.";
+    anketBildir(bildirim, "");
   } catch(error){
-    if(istek === anketSonucIstegi) bildirim.textContent = "Sonuçlar yenilenemedi. Görünen değerler varsa son alınan sonuçlardır. Yeniden deneyiniz.";
-  } finally { if(istek === anketSonucIstegi) yenile.disabled = false; }
+    if(istek === anketSonucIstegi)
+      anketBildir(bildirim, "Sonuçlar yenilenemedi. Görünen değerler varsa son alınan sonuçlardır.");
+  } finally { if(yenile && istek === anketSonucIstegi) yenile.disabled = false; }
 }
 
 function anketSonuclariniCiz(kart, anket, veri){
@@ -760,7 +766,7 @@ function anketleriCiz(){
 }
 
 anketleriCiz();
-document.getElementById("anket-sonuc-yenile").addEventListener("click", anketSonuclariYukle);
+document.getElementById("anket-sonuc-yenile")?.addEventListener("click", anketSonuclariYukle);
 anketSonuclariYukle();
 
 function anketDogrulamaSorunu(durum, mesaj){
@@ -921,7 +927,7 @@ function panelCiz(i){
 
     <table class="fikstur">
       <thead><tr>
-        <th>Tarih</th><th>Rakip</th><th>Kulvar</th><th>Saha</th><th class="skor">Skor</th>
+        <th>Tarih</th><th class="rakip-basligi">Rakip</th><th>Kulvar</th><th>Saha</th><th class="skor">Skor</th>
       </tr></thead>
       <tbody>${satirlar}</tbody>
     </table>`;
@@ -1118,7 +1124,7 @@ async function veriyiYukle(){
   veriDurumu = "yukleniyor";
   karsilastirCiz();
   try {
-    const y = await fetch("veriler.json", {cache:"force-cache"});
+    const y = await fetch("veriler.json");
     if(!y.ok) throw new Error(y.status);
     const veri = await y.json();
     const kok = veri.macKoku || "";
