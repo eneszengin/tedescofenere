@@ -752,11 +752,13 @@ function dilDegistir(kod){
    doldur:  ["2026-09-14","SL","D","Gaziantep FK",null]
         →   ["2026-09-14","SL","D","Gaziantep FK","2-1"]
    Skor HER ZAMAN o takımın gözünden yazılır (bizim gol - rakip gol).
+   SKORU MUTLAKA TIRNAK İÇİNDE YAZ. Tırnaksız 2-1 yazarsan JavaScript
+   bunu çıkarma işlemi sanar ve maç yanlış okunur.
    Galibiyet/beraberlik/mağlubiyet ve puan ortalaması otomatik hesaplanır.
    Alanlar: [tarih, kulvar, yer(İ/D), rakip, skor]
    ============================================================ */
 
-const SON_GUNCELLEME = "12 Eylül 2026";
+const SON_GUNCELLEME = "14 Eylül 2026";
 
 const KULVAR = new Proxy({}, { get: (_,k) => S("k_" + String(k)) });
 
@@ -823,7 +825,7 @@ const SETLER = [
       ["2026-08-24","SL_A","İ","Lazio","0-1","co111/italy-serie-a/ma12130816/bologna-fc_lazio-roma/"],
       ["2026-08-31","SL_A","D","Atalanta","0-1","co111/italy-serie-a/ma12130846/atalanta_bologna-fc/"],
       ["2026-09-06","SL_A","İ","Sassuolo","2-2","co111/italy-serie-a/ma12130879/bologna-fc_us-sassuolo/"],
-      ["2026-09-13","SL_A","D","Napoli",0-1,"co111/italy-serie-a/ma12130921/ssc-napoli_bologna-fc/"],
+      ["2026-09-13","SL_A","D","Napoli","0-1","co111/italy-serie-a/ma12130921/ssc-napoli_bologna-fc/"],
       ["2026-09-19","SL_A","İ","Torino",null,"co111/italy-serie-a/ma12130939/bologna-fc_torino-fc/"],
       ["2026-10-11","SL_A","D","Lecce",null,"co111/italy-serie-a/ma12130984/us-lecce_bologna-fc/"],
       ["2026-10-17","SL_A","İ","Inter",null],
@@ -877,7 +879,7 @@ const SETLER = [
       ["2026-08-30","SL","D","Samsunspor","2-0","co116/turkey-sueperlig/ma12280024/samsunspor_fenerbahce/"],
       ["2026-09-05","SL","İ","Beşiktaş","1-2","co116/turkey-sueperlig/ma12280036/fenerbahce_besiktas/"],
       ["2026-09-10","SAM","İ","Roma","1-1","co19/uefa-champions-league/ma12517884/fenerbahce_as-roma/"],
-      ["2026-09-14","SL","D","Gaziantep FK",0-0,"co116/turkey-sueperlig/ma12280069/gaziantep-fk_fenerbahce/"],
+      ["2026-09-14","SL","D","Gaziantep FK","0-0","co116/turkey-sueperlig/ma12280069/gaziantep-fk_fenerbahce/"],
       ["2026-09-20","SL","İ","Eyüpspor",null,"co116/turkey-sueperlig/ma12280090/fenerbahce_eyuepspor/"],
       ["2026-10-11","SL","D","Çaykur Rizespor",null,"co116/turkey-sueperlig/ma12280114/caykur-rizespor_fenerbahce/"],
       ["2026-10-14","SAM","D","Aston Villa",null,"co19/uefa-champions-league/ma12517863/aston-villa_fenerbahce/"],
@@ -1149,12 +1151,25 @@ anketDogrulamaScript.onerror = () => {
 document.head.appendChild(anketDogrulamaScript);
 
 const tarihYaz = iso => { const [y,a,g]=iso.split("-"); return `${+g} ${AY[+a-1]} ${y.slice(2)}`; };
-const sonucu = skor => { if(!skor) return null; const [a,b]=skor.split("-").map(Number); return a>b?"g":a<b?"m":"b"; };
+/* Skor alanı elle düzenlendiği için hoşgörülü okunur.
+   Geçersiz bir değer sayfayı kırmaz, o maç yok sayılır. */
+function skorAyikla(skor){
+  if(typeof skor !== "string") return null;
+  const e = /^(\d+)\s*-\s*(\d+)$/.exec(skor.trim());
+  return e ? [Number(e[1]), Number(e[2])] : null;
+}
+const sonucu = skor => {
+  const s = skorAyikla(skor);
+  if(!s) return null;
+  return s[0] > s[1] ? "g" : s[0] < s[1] ? "m" : "b";
+};
 
 function bosKarne(){ return {n:0,g:0,b:0,m:0,ag:0,yg:0}; }
 
 function ekle(k, skor){
-  const [a,y] = skor.split("-").map(Number);
+  const s = skorAyikla(skor);
+  if(!s){ console.warn("Geçersiz skor atlandı:", skor); return k; }
+  const [a, y] = s;
   k.n++; k.ag += a; k.yg += y;
   if(a>y) k.g++; else if(a===y) k.b++; else k.m++;
   return k;
@@ -1184,7 +1199,14 @@ function kulvarDokumu(set){
                     .sort((x,y) => y.n - x.n);
 }
 
+/* Bir bölümdeki hata diğerlerini karartmasın. */
+function guvenli(ad, is){
+  try { is(); }
+  catch(e){ console.error("Bölüm çizilemedi:", ad, e); }
+}
+
 /* üstteki karne şeridi */
+guvenli("karne", () =>
 document.getElementById("karne").innerHTML = SETLER.filter(s=>s.oneCik!==false).map(s=>{
   const k = karneHesapla(s);
   const [kisi, kulup] = s.baslik.split(" · ");
@@ -1195,7 +1217,7 @@ document.getElementById("karne").innerHTML = SETLER.filter(s=>s.oneCik!==false).
     <span>${k.g} ${S("galibiyet")} · ${k.b} ${S("beraberlik")} · ${k.m} ${S("maglubiyet")}</span>
     <span>${k.ag} ${S("atilan_gol")} · ${k.yg} ${S("yenilen_gol")}</span>
   </div>`;
-}).join("");
+}).join(""));
 
 /* sekmeler + panel */
 const sekmelerEl = document.getElementById("sekmeler");
@@ -1273,9 +1295,10 @@ sekmelerEl.addEventListener("click", e=>{
   panelCiz(+btn.dataset.i);
 });
 
-panelCiz(0);
+guvenli("fikstür", () => panelCiz(0));
 /* data-s taşıyan her öğeyi seçili dile göre doldur */
-document.querySelectorAll("[data-s]").forEach(el => { el.textContent = S(el.dataset.s); });
+guvenli("metinler", () =>
+  document.querySelectorAll("[data-s]").forEach(el => { el.textContent = S(el.dataset.s); }));
 
 /* sayfa dili, başlık ve açıklama */
 document.documentElement.lang = DIL;
@@ -1640,7 +1663,7 @@ kapsamSecimEl.addEventListener("click", e=>{
   karsilastirCiz();
 });
 
-karsilastirCiz();
+guvenli("karşılaştırma", karsilastirCiz);
 </script>
 </body>
 </html>
