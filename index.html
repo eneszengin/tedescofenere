@@ -370,6 +370,12 @@ footer a:hover{border-bottom-color:var(--sari)}
   .fikstur{font-size:13.5px}
   .fikstur td,.fikstur th{padding-left:5px;padding-right:5px}
   .tr-kulvar,.yer,.hocalar .cubuk{display:none}
+  /* Gizlenen hücrelerin sütun genişliği de sıfırlanmalı, yoksa
+     tablo ekranın sağ yarısını boşa harcar ve rakip adı kırpılır. */
+  .fikstur col.s-kulvar,.fikstur col.s-saha{width:0}
+  .fikstur col.s-tarih{width:82px}
+  .fikstur col.s-skor{width:76px}
+  .fikstur .rakip{white-space:normal;overflow:visible;text-overflow:clip}
   .hocalar{font-size:13.5px}
 }
 
@@ -1234,7 +1240,7 @@ function panelCiz(i){
 
     <table class="fikstur"><colgroup><col class="s-tarih"><col><col class="s-kulvar"><col class="s-saha"><col class="s-skor"></colgroup>
       <thead><tr>
-        <th>${S("t_tarih")}</th><th class="rakip-basligi">${S("t_rakip")}</th><th>${S("t_kulvar")}</th><th>${S("t_saha")}</th><th class="skor">${S("t_skor")}</th>
+        <th>${S("t_tarih")}</th><th class="rakip-basligi">${S("t_rakip")}</th><th class="tr-kulvar">${S("t_kulvar")}</th><th class="yer">${S("t_saha")}</th><th class="skor">${S("t_skor")}</th>
       </tr></thead>
       <tbody>${satirlar}</tbody>
     </table>`;
