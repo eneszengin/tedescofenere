@@ -372,10 +372,10 @@ footer a:hover{border-bottom-color:var(--sari)}
   .tr-kulvar,.yer,.hocalar .cubuk{display:none}
   /* Gizlenen hücrelerin sütun genişliği de sıfırlanmalı, yoksa
      tablo ekranın sağ yarısını boşa harcar ve rakip adı kırpılır. */
-  .fikstur col.s-kulvar,.fikstur col.s-saha{width:0}
-  .fikstur col.s-tarih{width:82px}
-  .fikstur col.s-skor{width:76px}
-  .fikstur .rakip{white-space:normal;overflow:visible;text-overflow:clip}
+  .fikstur{table-layout:auto}
+  .fikstur col{width:auto}
+  .fikstur .rakip{white-space:normal;overflow:visible;text-overflow:clip;width:100%}
+  .fikstur td:first-child{white-space:nowrap}
   .hocalar{font-size:13.5px}
 }
 
@@ -762,7 +762,7 @@ function dilDegistir(kod){
    Alanlar: [tarih, kulvar, yer(İ/D), rakip, skor]
    ============================================================ */
 
-const SON_GUNCELLEME = "14 Eylül 2026";
+const SON_GUNCELLEME = "30 Eylül 2026";
 
 const KULVAR = new Proxy({}, { get: (_,k) => S("k_" + String(k)) });
 
@@ -838,8 +838,8 @@ const SETLER = [
       ["2026-09-05","SL","İ","Beşiktaş","1-2","co116/turkey-sueperlig/ma12280036/fenerbahce_besiktas/"],
       ["2026-09-10","SAM","İ","Roma","1-1","co19/uefa-champions-league/ma12517884/fenerbahce_as-roma/"],
       ["2026-09-14","SL","D","Gaziantep FK","0-0","co116/turkey-sueperlig/ma12280069/gaziantep-fk_fenerbahce/"],
-      ["2026-09-20","SL","İ","Eyüpspor",null,"co116/turkey-sueperlig/ma12280090/fenerbahce_eyuepspor/"],
-      ["2026-10-11","SL","D","Çaykur Rizespor",null,"co116/turkey-sueperlig/ma12280114/caykur-rizespor_fenerbahce/"],
+      ["2026-09-20","SL","İ","Eyüpspor","8-0","co116/turkey-sueperlig/ma12280090/fenerbahce_eyuepspor/"],
+      ["2026-10-10","SL","D","Çaykur Rizespor",null,"co116/turkey-sueperlig/ma12280114/caykur-rizespor_fenerbahce/"],
       ["2026-10-14","SAM","D","Aston Villa",null,"co19/uefa-champions-league/ma12517863/aston-villa_fenerbahce/"],
       ["2026-10-18","SL","İ","Alanyaspor",null,"co116/turkey-sueperlig/ma12280144/fenerbahce_alanyaspor/"],
       ["2026-10-20","SAM","İ","Slavia Prag",null,"co19/uefa-champions-league/ma12518007/fenerbahce_slavia-praha/"],
@@ -1282,7 +1282,7 @@ document.getElementById("guncelleme").textContent = SON_GUNCELLEME;
 /* Teknik direktör karnesi (2010-11'den bugüne, tam yetkili hocalar).
    [ad, dönem, maç, maç başına puan, satır sınıfı, set kimliği, veri kimliği] */
 const HOCALAR = [
-  ["İsmail Kartal",    "2026–",     11, 1.91, "suruyor", "fb-simdi"],
+  ["İsmail Kartal",    "2026–",     13, 1.92, "suruyor", "fb-simdi"],
   ["Domenico Tedesco", "2025–26",   45, 2.00, "tedesco", "ted-fb"],
   ["José Mourinho",    "2024–25",   62, 2.02, "", "", "mourinho-2024"],
   ["İsmail Kartal",    "2023–24",   57, 2.47, "", "", "kartal-2023"],

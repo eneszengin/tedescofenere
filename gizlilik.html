@@ -4,8 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gizlilik ve Çerez Politikası — tedescofenere.com</title>
-<meta name="description" content="tedescofenere.com'da hangi verilerin işlendiği, neden işlendiği ve haklarınızın neler olduğu. KVKK ve GDPR kapsamında aydınlatma metni.">
+<meta name="description" content="tedescofenere.com'da hangi verilerin işlendiği, neden işlendiği ve haklarınızın neler olduğu.">
 <meta name="robots" content="index, follow">
+<link rel="alternate" hreflang="tr" href="https://tedescofenere.com/gizlilik.html">
+<link rel="alternate" hreflang="en" href="https://tedescofenere.com/gizlilik.html?lang=en">
+<link rel="alternate" hreflang="de" href="https://tedescofenere.com/gizlilik.html?lang=de">
+<link rel="alternate" hreflang="it" href="https://tedescofenere.com/gizlilik.html?lang=it">
+<link rel="alternate" hreflang="fr" href="https://tedescofenere.com/gizlilik.html?lang=fr">
+<link rel="alternate" hreflang="x-default" href="https://tedescofenere.com/gizlilik.html">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1F4B'/%3E%3Crect x='6' y='0' width='5' height='32' fill='%23FFE000'/%3E%3Crect x='16' y='0' width='5' height='32' fill='%23FFE000'/%3E%3Crect x='26' y='0' width='5' height='32' fill='%23FFE000'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +20,7 @@
 :root{
   --lacivert:#0B1F4B; --lacivert-koyu:#071433;
   --sari:#FFE000; --kagit:#F6F7FA; --murekkep:#10182C;
-  --soluk:#6E768C; --cizgi:#DFE3EC; --cizgi-koyu:#22376B;
+  --soluk:#6E768C; --cizgi:#DFE3EC;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -28,49 +34,54 @@ h1,h2,h3{font-family:Archivo,sans-serif;font-weight:700;letter-spacing:-.02em}
 a{color:var(--lacivert)}
 
 .ust{background:var(--lacivert);color:#fff}
-.ust .sayfa{padding:56px 0 40px}
+.ust .sayfa{padding:46px 0 40px}
+.diller{display:flex;gap:2px;flex-wrap:wrap;margin:0 0 22px}
+.diller button{
+  appearance:none;background:none;border:0;cursor:pointer;
+  font:500 12px/1 Archivo,system-ui,sans-serif;letter-spacing:.06em;
+  text-transform:uppercase;color:#8E9BBA;padding:6px 9px;
+  border-bottom:2px solid transparent;transition:color .15s,border-color .15s;
+}
+.diller button:hover{color:#fff}
+.diller button[aria-current="true"]{color:#fff;border-bottom-color:var(--sari)}
 .geri{
-  display:inline-block;margin-bottom:22px;color:var(--sari);
+  display:inline-block;margin-bottom:20px;color:var(--sari);
   text-decoration:none;font-size:14px;font-weight:500;
   border-bottom:1px solid rgba(255,224,0,.35);
 }
 .geri:hover{border-bottom-color:var(--sari)}
-h1{font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0 0 14px;color:#fff}
-.ust p{margin:0;color:#C3CCE2;max-width:none}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.05;margin:0 0 14px;color:#fff}
+.ust p{margin:0;color:#C3CCE2}
 .serit{height:10px;background:repeating-linear-gradient(90deg,var(--lacivert) 0 14px,var(--sari) 14px 28px)}
 
-main{padding:52px 0 0}
-h2{font-size:24px;margin:44px 0 10px;color:var(--lacivert)}
+main{padding:48px 0 0}
+h2{font-size:23px;margin:42px 0 10px;color:var(--lacivert)}
 h2:first-of-type{margin-top:0}
 h3{font-size:17px;margin:26px 0 6px;color:var(--lacivert)}
-p,li{max-width:none}
 p{margin:0 0 14px}
 ul{padding-left:20px;margin:0 0 16px}
 li{margin-bottom:7px}
 
-table{width:100%;border-collapse:collapse;font-size:14.5px;margin:16px 0 24px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0 22px}
 th{
-  text-align:left;font-weight:600;font-size:12px;color:var(--soluk);
+  text-align:left;font-weight:600;font-size:11px;color:var(--soluk);
   padding:0 14px 9px 0;border-bottom:2px solid var(--lacivert);
   text-transform:uppercase;letter-spacing:.05em;
 }
 td{padding:11px 14px 11px 0;border-bottom:1px solid var(--cizgi);vertical-align:top}
 td:last-child,th:last-child{padding-right:0}
 
-.kutu{
-  border-left:4px solid var(--sari);padding:4px 0 4px 20px;
-  margin:22px 0;
-}
-.guncel{color:var(--soluk);font-size:14px;margin-top:40px}
+.kutu{border-left:4px solid var(--sari);padding:4px 0 4px 20px;margin:22px 0}
+.guncel{color:var(--soluk);font-size:14px;margin-top:38px}
 
-footer{background:var(--lacivert-koyu);color:#8E9BBA;margin-top:70px;font-size:13px}
-footer .sayfa{padding:30px 0 38px}
+footer{background:var(--lacivert-koyu);color:#8E9BBA;margin-top:66px;font-size:13px}
+footer .sayfa{padding:28px 0 36px}
 footer a{color:var(--sari)}
 :focus-visible{outline:3px solid var(--sari);outline-offset:2px}
-@media(max-width:560px){
-  .ust .sayfa{padding:38px 0 30px}
-  main{padding:38px 0 0}
-  table{font-size:13.5px}
+@media(max-width:620px){
+  .ust .sayfa{padding:32px 0 28px}
+  main{padding:34px 0 0}
+  table{font-size:13px}
   td,th{padding-right:8px}
 }
 </style>
@@ -79,113 +90,303 @@ footer a{color:var(--sari)}
 
 <header class="ust">
   <div class="sayfa">
+    <nav class="diller" id="diller" aria-label="Dil"></nav>
     <a class="geri" href="/">← tedescofenere.com</a>
-    <h1>Gizlilik ve Çerez Politikası</h1>
-    <p>Bu sayfa, tedescofenere.com'u ziyaret ettiğinizde hangi verilerin işlendiğini, neden işlendiğini ve haklarınızın neler olduğunu anlatır. 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve Avrupa Birliği Genel Veri Koruma Tüzüğü (GDPR) kapsamında hazırlanmıştır.</p>
+    <h1 data-s="h1"></h1>
+    <p data-s="giris"></p>
   </div>
   <div class="serit" aria-hidden="true"></div>
 </header>
 
 <main class="sayfa">
 
-<h2>Kısaca</h2>
-<div class="kutu">
-  <p>Bu site bağımsız bir taraftar sayfasıdır ve sizden ad, e-posta, telefon gibi hiçbir kimlik bilgisi istemez. Üyelik yoktur. Ankette oy kullanırsanız, aynı kişinin tekrar oy vermesini engellemek için IP adresinizin geri döndürülemez bir özeti saklanır; IP adresinin kendisi kaydedilmez. Bunun dışındaki veri işleme, ziyaretçi sayısını ölçmek ve sayfayı botlardan korumakla sınırlıdır.</p>
-</div>
+<h2 data-s="h_kisaca"></h2>
+<div class="kutu"><p data-s="kisaca"></p></div>
 
-<h2>Veri sorumlusu</h2>
-<p>tedescofenere.com, kişisel veya ticari bir kuruluşa ait olmayan, bağımsız bir taraftar girişimidir. Site sahibiyle iletişime geçmek için GitHub deposu üzerinden konu (issue) açabilirsiniz.</p>
-<p>Fenerbahçe Spor Kulübü, Bologna FC 1909 ya da Domenico Tedesco ile resmî bir bağı, izni veya ortaklığı yoktur.</p>
+<h2 data-s="h_sorumlu"></h2>
+<p data-s="sorumlu1"></p>
+<p data-s="sorumlu2"></p>
 
-<h2>İşlenen veriler</h2>
-
+<h2 data-s="h_veriler"></h2>
 <table>
-  <thead>
-    <tr><th>Veri</th><th>Neden</th><th>Hukuki sebep</th><th>Süre</th></tr>
-  </thead>
+  <thead><tr>
+    <th data-s="s_veri"></th><th data-s="s_neden"></th>
+    <th data-s="s_sebep"></th><th data-s="s_sure"></th>
+  </tr></thead>
   <tbody>
-    <tr>
-      <td>IP adresinin gizli anahtarla üretilmiş özeti (hash)</td>
-      <td>Ankette aynı kişinin birden fazla oy kullanmasını engellemek</td>
-      <td>Meşru menfaat — anket sonuçlarının manipüle edilmesini önlemek</td>
-      <td>Anket yayında kaldığı sürece</td>
-    </tr>
-    <tr>
-      <td>Anket tercihiniz</td>
-      <td>Toplam sonuçları hesaplamak</td>
-      <td>Açık rızanız — oy düğmesine basarak verirsiniz</td>
-      <td>Anket yayında kaldığı sürece</td>
-    </tr>
-    <tr>
-      <td>Ziyaret istatistikleri: sayfa görüntüleme, yaklaşık konum (ülke/şehir), cihaz ve tarayıcı türü, yönlendiren adres</td>
-      <td>Kaç kişinin geldiğini ve hangi bölümlerin okunduğunu anlamak</td>
-      <td>Meşru menfaat — sitenin işleyişini ölçmek</td>
-      <td>Google Analytics'in varsayılan saklama süresi</td>
-    </tr>
-    <tr>
-      <td>Bot doğrulama sinyalleri</td>
-      <td>Anketin otomatik yazılımlarla doldurulmasını engellemek</td>
-      <td>Meşru menfaat — güvenlik</td>
-      <td>Doğrulama anlıktır, kalıcı kayıt tutulmaz</td>
-    </tr>
+    <tr><td data-s="v1a"></td><td data-s="v1b"></td><td data-s="v1c"></td><td data-s="v1d"></td></tr>
+    <tr><td data-s="v2a"></td><td data-s="v2b"></td><td data-s="v2c"></td><td data-s="v2d"></td></tr>
+    <tr><td data-s="v3a"></td><td data-s="v3b"></td><td data-s="v3c"></td><td data-s="v3d"></td></tr>
+    <tr><td data-s="v4a"></td><td data-s="v4b"></td><td data-s="v4c"></td><td data-s="v4d"></td></tr>
   </tbody>
 </table>
+<p data-s="veri_notu"></p>
 
-<p>Bu sitede <strong>ad, soyad, e-posta, telefon, adres veya ödeme bilgisi toplanmaz.</strong> Üyelik, giriş veya profil oluşturma yoktur.</p>
-
-<h2>Çerezler ve benzer teknolojiler</h2>
-<p>Sitenin kendisi çerez bırakmaz. Ancak kullandığımız üçüncü taraf hizmetler tarayıcınıza çerez veya benzeri kayıtlar yerleştirebilir:</p>
+<h2 data-s="h_cerez"></h2>
+<p data-s="cerez1"></p>
 <ul>
-  <li><strong>Google Analytics</strong> — ziyaretçi sayısını ölçer. Bu çerezler sizi kişi olarak tanımlamaz, oturumları ayırt etmek için kullanılır.</li>
-  <li><strong>Cloudflare Turnstile</strong> — ankette bot doğrulaması yapar. Bu teknoloji kişisel veri toplamamak üzere tasarlanmıştır ve sizi siteler arasında takip etmez.</li>
-  <li><strong>Google AdSense</strong> — reklam gösterimi yayına alındığında ilgi alanına dayalı reklam çerezleri kullanabilir.</li>
+  <li data-s="cerez_ga"></li>
+  <li data-s="cerez_ts"></li>
+  <li data-s="cerez_ads"></li>
 </ul>
-<p>Çerezleri tarayıcınızın ayarlarından silebilir veya engelleyebilirsiniz. Engellemeniz durumunda site çalışmaya devam eder; yalnızca ankette bot doğrulaması yapılamayabilir.</p>
+<p data-s="cerez2"></p>
+<h3 data-s="h_reklam"></h3>
+<p data-s="reklam"></p>
 
-<h3>Reklam tercihleri</h3>
-<p>Google'ın kişiselleştirilmiş reklam kullanımını <a href="https://myadcenter.google.com/" target="_blank" rel="noopener">Google Reklam Ayarları</a> üzerinden kapatabilirsiniz. Bu ayar, yalnızca bu siteyi değil, Google'ın reklam gösterdiği tüm siteleri kapsar.</p>
-
-<h2>Verilerin paylaşımı ve yurt dışına aktarım</h2>
-<p>Toplanan veriler satılmaz, kiralanmaz, pazarlama amacıyla üçüncü kişilere aktarılmaz. Sitenin çalışması için kullanılan altyapı sağlayıcıları şunlardır:</p>
+<h2 data-s="h_paylasim"></h2>
+<p data-s="paylasim1"></p>
 <ul>
-  <li><strong>GitHub Pages</strong> — sayfaların barındırılması</li>
-  <li><strong>Cloudflare</strong> — alan adı yönetimi, anket altyapısı ve bot doğrulaması</li>
-  <li><strong>Google</strong> — ziyaret istatistikleri, yazı tipleri ve reklam</li>
+  <li data-s="saglayici1"></li>
+  <li data-s="saglayici2"></li>
+  <li data-s="saglayici3"></li>
 </ul>
-<p>Bu sağlayıcıların sunucuları Türkiye dışında bulunabilir. Dolayısıyla verileriniz yurt dışında işlenebilir. Sağlayıcılar, GDPR kapsamında standart sözleşme maddeleri gibi aktarım güvenceleri uygulamaktadır.</p>
+<p data-s="paylasim2"></p>
 
-<h2>Anket hakkında ayrıntı</h2>
-<p>Ankette bir seçenek işaretleyip oyunuzu gönderdiğinizde, sunucu IP adresinizi gizli bir anahtarla birleştirip geri döndürülemez bir özete çevirir ve yalnızca bu özeti saklar. Amaç, aynı kişinin tekrar oy kullanıp kullanmadığını anlamaktır. IP adresinizin kendisi kaydedilmez ve özetten IP adresine geri dönülemez.</p>
-<p>Bu yöntemin bilinen bir sınırı vardır: aynı ağı paylaşan kişiler (aynı ev, iş yeri veya operatör ağı) tek bir oy hakkına takılabilir. Anketin amacı bilimsel bir ölçüm değil, taraftar eğilimini görmektir.</p>
+<h2 data-s="h_anket"></h2>
+<p data-s="anket1"></p>
+<p data-s="anket2"></p>
 
-<h2>Haklarınız</h2>
-<p>KVKK'nın 11. maddesi ve GDPR'ın 15-22. maddeleri kapsamında şu haklara sahipsiniz:</p>
+<h2 data-s="h_haklar"></h2>
+<p data-s="haklar1"></p>
 <ul>
-  <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme ve işlenmişse bilgi talep etme</li>
-  <li>İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</li>
-  <li>Yanlış veya eksik işlenmişse düzeltilmesini isteme</li>
-  <li>Silinmesini veya yok edilmesini isteme</li>
-  <li>İşlemeye itiraz etme ve işlemenin kısıtlanmasını isteme</li>
-  <li>Verilerin yurt dışına aktarıldığı üçüncü kişileri öğrenme</li>
+  <li data-s="hak1"></li><li data-s="hak2"></li><li data-s="hak3"></li>
+  <li data-s="hak4"></li><li data-s="hak5"></li><li data-s="hak6"></li>
 </ul>
-<p>Bu sitede kimlik bilgisi tutulmadığı için, pratikte sizi tanımlayacak ve talebinizi eşleştirecek bir kaydımız bulunmaz. Anket oyunuzun silinmesini istiyorsanız, hangi ankette ve hangi tarihte oy kullandığınızı belirterek GitHub deposu üzerinden konu açabilirsiniz.</p>
-<p>Google Analytics verileri için doğrudan Google'a, anket kaydı için Cloudflare'e başvurabilirsiniz.</p>
+<p data-s="haklar2"></p>
+<p data-s="haklar3"></p>
 
-<h2>Çocukların gizliliği</h2>
-<p>Bu site çocuklara yönelik değildir ve bilerek çocuklardan veri toplamaz.</p>
+<h2 data-s="h_cocuk"></h2>
+<p data-s="cocuk"></p>
 
-<h2>Değişiklikler</h2>
-<p>Bu metin, sitede yeni bir özellik eklendiğinde veya mevzuat değiştiğinde güncellenebilir. Güncel sürüm her zaman bu adreste yayımlanır.</p>
+<h2 data-s="h_degisiklik"></h2>
+<p data-s="degisiklik"></p>
 
-<p class="guncel">Son güncelleme: 13 Eylül 2026</p>
+<p class="guncel"><span data-s="son_guncelleme"></span> 13.09.2026</p>
 
 </main>
 
 <footer>
   <div class="sayfa">
-    <p><a href="/">tedescofenere.com</a> — bağımsız taraftar sayfası</p>
+    <p><a href="/">tedescofenere.com</a> — <span data-s="alt_not"></span></p>
   </div>
 </footer>
 
+<script>
+const DILLER = ["tr","en","de","it","fr"];
+const DIL_ADI = { tr:"Türkçe", en:"English", de:"Deutsch", it:"Italiano", fr:"Français" };
+
+const M = {
+baslik:{tr:"Gizlilik ve Çerez Politikası",en:"Privacy and Cookie Policy",de:"Datenschutz- und Cookie-Richtlinie",it:"Informativa su privacy e cookie",fr:"Politique de confidentialité et cookies"},
+h1:{tr:"Gizlilik ve Çerez Politikası",en:"Privacy and Cookie Policy",de:"Datenschutz- und Cookie-Richtlinie",it:"Informativa su privacy e cookie",fr:"Politique de confidentialité et cookies"},
+giris:{
+ tr:"Bu sayfa, tedescofenere.com'u ziyaret ettiğinizde hangi verilerin işlendiğini, neden işlendiğini ve haklarınızın neler olduğunu anlatır. 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve Avrupa Birliği Genel Veri Koruma Tüzüğü (GDPR) kapsamında hazırlanmıştır.",
+ en:"This page explains what data is processed when you visit tedescofenere.com, why it is processed and what your rights are. It has been prepared under Turkish Law No. 6698 on the Protection of Personal Data (KVKK) and the European Union General Data Protection Regulation (GDPR).",
+ de:"Diese Seite erklärt, welche Daten beim Besuch von tedescofenere.com verarbeitet werden, warum sie verarbeitet werden und welche Rechte Sie haben. Sie wurde nach dem türkischen Datenschutzgesetz Nr. 6698 (KVKK) und der Datenschutz-Grundverordnung der Europäischen Union (DSGVO) erstellt.",
+ it:"Questa pagina spiega quali dati vengono trattati quando visiti tedescofenere.com, perché vengono trattati e quali sono i tuoi diritti. È redatta ai sensi della legge turca n. 6698 sulla protezione dei dati personali (KVKK) e del Regolamento generale sulla protezione dei dati dell'Unione europea (GDPR).",
+ fr:"Cette page explique quelles données sont traitées lorsque vous visitez tedescofenere.com, pourquoi elles le sont et quels sont vos droits. Elle a été rédigée conformément à la loi turque n° 6698 sur la protection des données personnelles (KVKK) et au Règlement général sur la protection des données de l'Union européenne (RGPD)."},
+
+h_kisaca:{tr:"Kısaca",en:"In short",de:"Kurz gesagt",it:"In breve",fr:"En bref"},
+kisaca:{
+ tr:"Bu site bağımsız bir taraftar sayfasıdır ve sizden ad, e-posta, telefon gibi hiçbir kimlik bilgisi istemez. Üyelik yoktur. Ankette oy kullanırsanız, aynı kişinin tekrar oy vermesini engellemek için IP adresinizin geri döndürülemez bir özeti saklanır; IP adresinin kendisi kaydedilmez. Bunun dışındaki veri işleme, ziyaretçi sayısını ölçmek ve sayfayı botlardan korumakla sınırlıdır.",
+ en:"This is an independent fan page and asks you for no identifying information such as name, e-mail or phone number. There is no account system. If you vote in the poll, an irreversible digest of your IP address is stored to prevent the same person voting twice; the IP address itself is not kept. Beyond that, data processing is limited to counting visitors and protecting the page from bots.",
+ de:"Dies ist eine unabhängige Fanseite und fragt keine identifizierenden Angaben wie Name, E-Mail oder Telefonnummer ab. Es gibt keine Registrierung. Wenn Sie an der Umfrage teilnehmen, wird ein nicht umkehrbarer Hashwert Ihrer IP-Adresse gespeichert, um Mehrfachabstimmungen zu verhindern; die IP-Adresse selbst wird nicht aufbewahrt. Darüber hinaus beschränkt sich die Verarbeitung auf das Zählen von Besuchen und den Schutz vor Bots.",
+ it:"Questa è una pagina indipendente di tifosi e non richiede alcun dato identificativo come nome, e-mail o telefono. Non esiste registrazione. Se voti nel sondaggio, viene conservato un digest irreversibile del tuo indirizzo IP per impedire voti ripetuti; l'indirizzo IP in sé non viene memorizzato. Per il resto, il trattamento si limita a contare i visitatori e a proteggere la pagina dai bot.",
+ fr:"Ceci est une page de supporters indépendante et ne demande aucune information d'identification telle que nom, e-mail ou téléphone. Il n'y a pas de compte. Si vous votez au sondage, une empreinte irréversible de votre adresse IP est conservée afin d'empêcher un double vote ; l'adresse IP elle-même n'est pas enregistrée. Au-delà, le traitement se limite à compter les visiteurs et à protéger la page des robots."},
+
+h_sorumlu:{tr:"Veri sorumlusu",en:"Data controller",de:"Verantwortlicher",it:"Titolare del trattamento",fr:"Responsable du traitement"},
+sorumlu1:{
+ tr:"tedescofenere.com, kişisel veya ticari bir kuruluşa ait olmayan, bağımsız bir taraftar girişimidir. Site sahibiyle iletişime geçmek için GitHub deposu üzerinden konu (issue) açabilirsiniz.",
+ en:"tedescofenere.com is an independent fan initiative that belongs to no company or organisation. To contact the site owner you can open an issue on the GitHub repository.",
+ de:"tedescofenere.com ist eine unabhängige Fan-Initiative und gehört keinem Unternehmen oder einer Organisation. Um den Seitenbetreiber zu kontaktieren, können Sie im GitHub-Repository ein Issue eröffnen.",
+ it:"tedescofenere.com è un'iniziativa indipendente di tifosi e non appartiene ad alcuna azienda o organizzazione. Per contattare il gestore del sito puoi aprire una issue nel repository GitHub.",
+ fr:"tedescofenere.com est une initiative indépendante de supporters n'appartenant à aucune entreprise ou organisation. Pour contacter le responsable du site, vous pouvez ouvrir une issue sur le dépôt GitHub."},
+sorumlu2:{
+ tr:"Fenerbahçe Spor Kulübü, Bologna FC 1909 ya da Domenico Tedesco ile resmî bir bağı, izni veya ortaklığı yoktur.",
+ en:"It has no official affiliation with, endorsement from, or partnership with Fenerbahçe Spor Kulübü, Bologna FC 1909 or Domenico Tedesco.",
+ de:"Es besteht keine offizielle Verbindung, Genehmigung oder Partnerschaft mit Fenerbahçe Spor Kulübü, Bologna FC 1909 oder Domenico Tedesco.",
+ it:"Non ha alcun legame ufficiale, approvazione o partnership con Fenerbahçe Spor Kulübü, Bologna FC 1909 o Domenico Tedesco.",
+ fr:"Elle n'a aucun lien officiel, approbation ou partenariat avec le Fenerbahçe Spor Kulübü, le Bologna FC 1909 ou Domenico Tedesco."},
+
+h_veriler:{tr:"İşlenen veriler",en:"Data processed",de:"Verarbeitete Daten",it:"Dati trattati",fr:"Données traitées"},
+s_veri:{tr:"Veri",en:"Data",de:"Daten",it:"Dato",fr:"Donnée"},
+s_neden:{tr:"Neden",en:"Purpose",de:"Zweck",it:"Finalità",fr:"Finalité"},
+s_sebep:{tr:"Hukuki sebep",en:"Legal basis",de:"Rechtsgrundlage",it:"Base giuridica",fr:"Base légale"},
+s_sure:{tr:"Süre",en:"Retention",de:"Speicherdauer",it:"Conservazione",fr:"Conservation"},
+
+v1a:{tr:"IP adresinin gizli anahtarla üretilmiş özeti",en:"Keyed digest (hash) of the IP address",de:"Mit geheimem Schlüssel erzeugter Hash der IP-Adresse",it:"Digest dell'indirizzo IP generato con chiave segreta",fr:"Empreinte de l'adresse IP générée avec une clé secrète"},
+v1b:{tr:"Ankette aynı kişinin birden fazla oy kullanmasını engellemek",en:"Preventing the same person from voting more than once",de:"Verhindern, dass dieselbe Person mehrfach abstimmt",it:"Impedire che la stessa persona voti più volte",fr:"Empêcher une même personne de voter plusieurs fois"},
+v1c:{tr:"Meşru menfaat — sonuçların manipüle edilmesini önlemek",en:"Legitimate interest — preventing manipulation of results",de:"Berechtigtes Interesse — Manipulation der Ergebnisse verhindern",it:"Legittimo interesse — prevenire la manipolazione dei risultati",fr:"Intérêt légitime — empêcher la manipulation des résultats"},
+v1d:{tr:"Anket yayında kaldığı sürece",en:"As long as the poll is live",de:"Solange die Umfrage läuft",it:"Finché il sondaggio è attivo",fr:"Tant que le sondage est en ligne"},
+
+v2a:{tr:"Anket tercihiniz",en:"Your poll choice",de:"Ihre Umfrageauswahl",it:"La tua scelta nel sondaggio",fr:"Votre choix au sondage"},
+v2b:{tr:"Toplam sonuçları hesaplamak",en:"Calculating overall results",de:"Berechnung der Gesamtergebnisse",it:"Calcolo dei risultati complessivi",fr:"Calcul des résultats globaux"},
+v2c:{tr:"Açık rızanız — oy düğmesine basarak verirsiniz",en:"Your explicit consent — given by pressing the vote button",de:"Ihre ausdrückliche Einwilligung — erteilt durch Klick auf die Schaltfläche",it:"Il tuo consenso esplicito — fornito premendo il pulsante di voto",fr:"Votre consentement explicite — donné en cliquant sur le bouton de vote"},
+v2d:{tr:"Anket yayında kaldığı sürece",en:"As long as the poll is live",de:"Solange die Umfrage läuft",it:"Finché il sondaggio è attivo",fr:"Tant que le sondage est en ligne"},
+
+v3a:{tr:"Ziyaret istatistikleri: sayfa görüntüleme, yaklaşık konum, cihaz ve tarayıcı türü, yönlendiren adres",en:"Visit statistics: page views, approximate location, device and browser type, referring address",de:"Besuchsstatistiken: Seitenaufrufe, ungefährer Standort, Geräte- und Browsertyp, verweisende Adresse",it:"Statistiche di visita: pagine viste, posizione approssimativa, tipo di dispositivo e browser, indirizzo di provenienza",fr:"Statistiques de visite : pages vues, localisation approximative, type d'appareil et de navigateur, adresse référente"},
+v3b:{tr:"Kaç kişinin geldiğini ve hangi bölümlerin okunduğunu anlamak",en:"Understanding how many people visit and which sections are read",de:"Verstehen, wie viele Personen die Seite besuchen und welche Bereiche gelesen werden",it:"Capire quante persone visitano il sito e quali sezioni vengono lette",fr:"Comprendre combien de personnes visitent le site et quelles sections sont lues"},
+v3c:{tr:"Meşru menfaat — sitenin işleyişini ölçmek",en:"Legitimate interest — measuring how the site performs",de:"Berechtigtes Interesse — Messung der Seitennutzung",it:"Legittimo interesse — misurare il funzionamento del sito",fr:"Intérêt légitime — mesurer le fonctionnement du site"},
+v3d:{tr:"Google Analytics'in varsayılan saklama süresi",en:"Google Analytics default retention period",de:"Standard-Speicherdauer von Google Analytics",it:"Periodo di conservazione predefinito di Google Analytics",fr:"Durée de conservation par défaut de Google Analytics"},
+
+v4a:{tr:"Bot doğrulama sinyalleri",en:"Bot verification signals",de:"Signale zur Bot-Erkennung",it:"Segnali di verifica anti-bot",fr:"Signaux de vérification anti-robot"},
+v4b:{tr:"Anketin otomatik yazılımlarla doldurulmasını engellemek",en:"Preventing the poll being filled by automated software",de:"Verhindern, dass die Umfrage von automatisierter Software ausgefüllt wird",it:"Impedire che il sondaggio sia compilato da software automatici",fr:"Empêcher le remplissage du sondage par des logiciels automatisés"},
+v4c:{tr:"Meşru menfaat — güvenlik",en:"Legitimate interest — security",de:"Berechtigtes Interesse — Sicherheit",it:"Legittimo interesse — sicurezza",fr:"Intérêt légitime — sécurité"},
+v4d:{tr:"Doğrulama anlıktır, kalıcı kayıt tutulmaz",en:"Verification is instantaneous; no permanent record is kept",de:"Die Prüfung erfolgt sofort; es wird kein dauerhafter Datensatz gespeichert",it:"La verifica è istantanea; non viene conservato alcun record permanente",fr:"La vérification est instantanée ; aucun enregistrement permanent n'est conservé"},
+
+veri_notu:{
+ tr:"Bu sitede ad, soyad, e-posta, telefon, adres veya ödeme bilgisi toplanmaz. Üyelik, giriş veya profil oluşturma yoktur.",
+ en:"This site collects no name, surname, e-mail, phone, address or payment information. There is no registration, login or profile creation.",
+ de:"Diese Seite erhebt weder Name, Nachname, E-Mail, Telefonnummer, Adresse noch Zahlungsdaten. Es gibt keine Registrierung, Anmeldung oder Profilerstellung.",
+ it:"Questo sito non raccoglie nome, cognome, e-mail, telefono, indirizzo o dati di pagamento. Non esiste registrazione, accesso o creazione di profili.",
+ fr:"Ce site ne collecte ni nom, prénom, e-mail, téléphone, adresse ou données de paiement. Il n'y a ni inscription, ni connexion, ni création de profil."},
+
+h_cerez:{tr:"Çerezler ve benzer teknolojiler",en:"Cookies and similar technologies",de:"Cookies und ähnliche Technologien",it:"Cookie e tecnologie simili",fr:"Cookies et technologies similaires"},
+cerez1:{
+ tr:"Sitenin kendisi çerez bırakmaz. Ancak kullandığımız üçüncü taraf hizmetler tarayıcınıza çerez veya benzeri kayıtlar yerleştirebilir:",
+ en:"The site itself sets no cookies. However, the third-party services we use may place cookies or similar records in your browser:",
+ de:"Die Seite selbst setzt keine Cookies. Die von uns genutzten Drittanbieterdienste können jedoch Cookies oder ähnliche Einträge in Ihrem Browser ablegen:",
+ it:"Il sito in sé non imposta cookie. Tuttavia i servizi di terze parti che utilizziamo possono inserire cookie o elementi simili nel tuo browser:",
+ fr:"Le site lui-même ne dépose aucun cookie. Cependant, les services tiers que nous utilisons peuvent placer des cookies ou éléments similaires dans votre navigateur :"},
+cerez_ga:{
+ tr:"Google Analytics — ziyaretçi sayısını ölçer. Bu çerezler sizi kişi olarak tanımlamaz, oturumları ayırt etmek için kullanılır.",
+ en:"Google Analytics — measures visitor numbers. These cookies do not identify you as a person; they distinguish sessions.",
+ de:"Google Analytics — misst die Besucherzahlen. Diese Cookies identifizieren Sie nicht als Person, sondern unterscheiden Sitzungen.",
+ it:"Google Analytics — misura il numero di visitatori. Questi cookie non ti identificano come persona, ma distinguono le sessioni.",
+ fr:"Google Analytics — mesure le nombre de visiteurs. Ces cookies ne vous identifient pas personnellement, ils distinguent les sessions."},
+cerez_ts:{
+ tr:"Cloudflare Turnstile — ankette bot doğrulaması yapar. Kişisel veri toplamamak üzere tasarlanmıştır ve sizi siteler arasında takip etmez.",
+ en:"Cloudflare Turnstile — performs bot verification on the poll. It is designed not to collect personal data and does not track you across sites.",
+ de:"Cloudflare Turnstile — führt die Bot-Prüfung bei der Umfrage durch. Es ist so konzipiert, dass keine personenbezogenen Daten erhoben werden, und verfolgt Sie nicht seitenübergreifend.",
+ it:"Cloudflare Turnstile — esegue la verifica anti-bot nel sondaggio. È progettato per non raccogliere dati personali e non ti traccia tra i siti.",
+ fr:"Cloudflare Turnstile — effectue la vérification anti-robot du sondage. Il est conçu pour ne pas collecter de données personnelles et ne vous suit pas d'un site à l'autre."},
+cerez_ads:{
+ tr:"Google AdSense — reklam gösterimi yayına alındığında ilgi alanına dayalı reklam çerezleri kullanabilir.",
+ en:"Google AdSense — may use interest-based advertising cookies once ad display goes live.",
+ de:"Google AdSense — kann interessenbezogene Werbe-Cookies verwenden, sobald die Anzeigenschaltung aktiv ist.",
+ it:"Google AdSense — può utilizzare cookie pubblicitari basati sugli interessi una volta attivata la pubblicità.",
+ fr:"Google AdSense — peut utiliser des cookies publicitaires basés sur les centres d'intérêt une fois l'affichage publicitaire activé."},
+cerez2:{
+ tr:"Çerezleri tarayıcınızın ayarlarından silebilir veya engelleyebilirsiniz. Engellemeniz durumunda site çalışmaya devam eder; yalnızca ankette bot doğrulaması yapılamayabilir.",
+ en:"You can delete or block cookies in your browser settings. If you block them the site keeps working; only the poll's bot verification may fail.",
+ de:"Sie können Cookies in Ihren Browsereinstellungen löschen oder blockieren. Die Seite funktioniert weiterhin; lediglich die Bot-Prüfung der Umfrage kann fehlschlagen.",
+ it:"Puoi eliminare o bloccare i cookie dalle impostazioni del browser. Se li blocchi il sito continua a funzionare; potrebbe non riuscire solo la verifica anti-bot del sondaggio.",
+ fr:"Vous pouvez supprimer ou bloquer les cookies dans les réglages de votre navigateur. Le site continuera de fonctionner ; seule la vérification anti-robot du sondage peut échouer."},
+
+h_reklam:{tr:"Reklam tercihleri",en:"Advertising preferences",de:"Werbeeinstellungen",it:"Preferenze pubblicitarie",fr:"Préférences publicitaires"},
+reklam:{
+ tr:"Google'ın kişiselleştirilmiş reklam kullanımını Google Reklam Ayarları (myadcenter.google.com) üzerinden kapatabilirsiniz. Bu ayar yalnızca bu siteyi değil, Google'ın reklam gösterdiği tüm siteleri kapsar.",
+ en:"You can turn off Google's personalised advertising at Google Ad Settings (myadcenter.google.com). This setting covers not only this site but every site where Google serves ads.",
+ de:"Sie können personalisierte Werbung von Google unter Google Ad Settings (myadcenter.google.com) deaktivieren. Diese Einstellung gilt nicht nur für diese Seite, sondern für alle Seiten, auf denen Google Werbung ausliefert.",
+ it:"Puoi disattivare la pubblicità personalizzata di Google su Google Ad Settings (myadcenter.google.com). Questa impostazione riguarda non solo questo sito, ma tutti i siti su cui Google mostra annunci.",
+ fr:"Vous pouvez désactiver la publicité personnalisée de Google via Google Ad Settings (myadcenter.google.com). Ce réglage s'applique non seulement à ce site, mais à tous les sites où Google diffuse des annonces."},
+
+h_paylasim:{tr:"Verilerin paylaşımı ve yurt dışına aktarım",en:"Data sharing and international transfer",de:"Datenweitergabe und Übermittlung ins Ausland",it:"Condivisione dei dati e trasferimento all'estero",fr:"Partage des données et transfert hors du pays"},
+paylasim1:{
+ tr:"Toplanan veriler satılmaz, kiralanmaz, pazarlama amacıyla üçüncü kişilere aktarılmaz. Sitenin çalışması için kullanılan altyapı sağlayıcıları şunlardır:",
+ en:"The data collected is not sold, rented or passed to third parties for marketing. The infrastructure providers used to run the site are:",
+ de:"Die erhobenen Daten werden nicht verkauft, vermietet oder zu Marketingzwecken an Dritte weitergegeben. Die genutzten Infrastrukturanbieter sind:",
+ it:"I dati raccolti non vengono venduti, noleggiati o ceduti a terzi per scopi di marketing. I fornitori di infrastruttura utilizzati sono:",
+ fr:"Les données collectées ne sont ni vendues, ni louées, ni transmises à des tiers à des fins de marketing. Les fournisseurs d'infrastructure utilisés sont :"},
+saglayici1:{tr:"GitHub Pages — sayfaların barındırılması",en:"GitHub Pages — hosting of the pages",de:"GitHub Pages — Hosting der Seiten",it:"GitHub Pages — hosting delle pagine",fr:"GitHub Pages — hébergement des pages"},
+saglayici2:{tr:"Cloudflare — alan adı yönetimi, anket altyapısı ve bot doğrulaması",en:"Cloudflare — domain management, poll infrastructure and bot verification",de:"Cloudflare — Domainverwaltung, Umfrage-Infrastruktur und Bot-Prüfung",it:"Cloudflare — gestione del dominio, infrastruttura del sondaggio e verifica anti-bot",fr:"Cloudflare — gestion du domaine, infrastructure du sondage et vérification anti-robot"},
+saglayici3:{tr:"Google — ziyaret istatistikleri, yazı tipleri ve reklam",en:"Google — visit statistics, fonts and advertising",de:"Google — Besuchsstatistiken, Schriftarten und Werbung",it:"Google — statistiche di visita, caratteri tipografici e pubblicità",fr:"Google — statistiques de visite, polices et publicité"},
+paylasim2:{
+ tr:"Bu sağlayıcıların sunucuları Türkiye dışında bulunabilir. Dolayısıyla verileriniz yurt dışında işlenebilir. Sağlayıcılar, GDPR kapsamında standart sözleşme maddeleri gibi aktarım güvenceleri uygulamaktadır.",
+ en:"These providers' servers may be located outside Türkiye, so your data may be processed abroad. The providers apply transfer safeguards such as standard contractual clauses under the GDPR.",
+ de:"Die Server dieser Anbieter können sich außerhalb der Türkei befinden, sodass Ihre Daten im Ausland verarbeitet werden können. Die Anbieter wenden Übermittlungsgarantien wie Standardvertragsklauseln nach der DSGVO an.",
+ it:"I server di questi fornitori possono trovarsi fuori dalla Turchia, quindi i tuoi dati potrebbero essere trattati all'estero. I fornitori applicano garanzie di trasferimento come le clausole contrattuali standard previste dal GDPR.",
+ fr:"Les serveurs de ces prestataires peuvent se situer hors de Turquie ; vos données peuvent donc être traitées à l'étranger. Les prestataires appliquent des garanties de transfert telles que les clauses contractuelles types prévues par le RGPD."},
+
+h_anket:{tr:"Anket hakkında ayrıntı",en:"About the poll",de:"Details zur Umfrage",it:"Dettagli sul sondaggio",fr:"À propos du sondage"},
+anket1:{
+ tr:"Ankette bir seçenek işaretleyip oyunuzu gönderdiğinizde, sunucu IP adresinizi gizli bir anahtarla birleştirip geri döndürülemez bir özete çevirir ve yalnızca bu özeti saklar. Amaç, aynı kişinin tekrar oy kullanıp kullanmadığını anlamaktır. IP adresinizin kendisi kaydedilmez ve özetten IP adresine geri dönülemez.",
+ en:"When you select an option and send your vote, the server combines your IP address with a secret key, turns it into an irreversible digest and stores only that digest. The purpose is to tell whether the same person has already voted. The IP address itself is not stored and cannot be recovered from the digest.",
+ de:"Wenn Sie eine Option wählen und Ihre Stimme absenden, verbindet der Server Ihre IP-Adresse mit einem geheimen Schlüssel, wandelt sie in einen nicht umkehrbaren Hashwert um und speichert nur diesen. Zweck ist festzustellen, ob dieselbe Person bereits abgestimmt hat. Die IP-Adresse selbst wird nicht gespeichert und lässt sich aus dem Hashwert nicht rekonstruieren.",
+ it:"Quando selezioni un'opzione e invii il voto, il server combina il tuo indirizzo IP con una chiave segreta, lo trasforma in un digest irreversibile e conserva solo quello. Lo scopo è capire se la stessa persona ha già votato. L'indirizzo IP non viene memorizzato e non è ricavabile dal digest.",
+ fr:"Lorsque vous choisissez une option et envoyez votre vote, le serveur combine votre adresse IP avec une clé secrète, la transforme en une empreinte irréversible et ne conserve que celle-ci. L'objectif est de savoir si la même personne a déjà voté. L'adresse IP elle-même n'est pas enregistrée et ne peut être retrouvée à partir de l'empreinte."},
+anket2:{
+ tr:"Bu yöntemin bilinen bir sınırı vardır: aynı ağı paylaşan kişiler (aynı ev, iş yeri veya operatör ağı) tek bir oy hakkına takılabilir. Anketin amacı bilimsel bir ölçüm değil, taraftar eğilimini görmektir.",
+ en:"This method has a known limitation: people sharing a network (the same home, workplace or mobile operator) may be limited to a single vote between them. The poll is not a scientific measurement; it is there to show the mood among fans.",
+ de:"Diese Methode hat eine bekannte Grenze: Personen, die sich ein Netzwerk teilen (gleicher Haushalt, Arbeitsplatz oder Mobilfunkanbieter), können zusammen auf eine Stimme beschränkt sein. Die Umfrage ist keine wissenschaftliche Messung, sondern zeigt die Stimmung unter den Fans.",
+ it:"Questo metodo ha un limite noto: le persone che condividono una rete (stessa casa, luogo di lavoro o operatore mobile) potrebbero disporre di un solo voto complessivo. Il sondaggio non è una misurazione scientifica, ma mostra l'umore dei tifosi.",
+ fr:"Cette méthode a une limite connue : les personnes partageant un réseau (même domicile, lieu de travail ou opérateur mobile) peuvent se retrouver limitées à un seul vote. Le sondage n'est pas une mesure scientifique ; il montre l'état d'esprit des supporters."},
+
+h_haklar:{tr:"Haklarınız",en:"Your rights",de:"Ihre Rechte",it:"I tuoi diritti",fr:"Vos droits"},
+haklar1:{
+ tr:"KVKK'nın 11. maddesi ve GDPR'ın 15-22. maddeleri kapsamında şu haklara sahipsiniz:",
+ en:"Under Article 11 of the KVKK and Articles 15-22 of the GDPR you have the following rights:",
+ de:"Nach Artikel 11 KVKK und den Artikeln 15-22 DSGVO haben Sie folgende Rechte:",
+ it:"Ai sensi dell'articolo 11 della KVKK e degli articoli 15-22 del GDPR hai i seguenti diritti:",
+ fr:"En vertu de l'article 11 de la KVKK et des articles 15 à 22 du RGPD, vous disposez des droits suivants :"},
+hak1:{tr:"Kişisel verilerinizin işlenip işlenmediğini öğrenme ve bilgi talep etme",en:"To learn whether your personal data is processed and to request information",de:"Zu erfahren, ob Ihre personenbezogenen Daten verarbeitet werden, und Auskunft zu verlangen",it:"Sapere se i tuoi dati personali sono trattati e richiedere informazioni",fr:"Savoir si vos données personnelles sont traitées et demander des informations"},
+hak2:{tr:"İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme",en:"To learn the purpose of processing and whether the data is used accordingly",de:"Den Verarbeitungszweck zu erfahren und ob die Daten zweckgemäß verwendet werden",it:"Conoscere la finalità del trattamento e se i dati sono usati coerentemente",fr:"Connaître la finalité du traitement et si les données sont utilisées conformément"},
+hak3:{tr:"Yanlış veya eksik işlenmişse düzeltilmesini isteme",en:"To request correction if the data is inaccurate or incomplete",de:"Die Berichtigung unrichtiger oder unvollständiger Daten zu verlangen",it:"Chiedere la rettifica di dati inesatti o incompleti",fr:"Demander la rectification de données inexactes ou incomplètes"},
+hak4:{tr:"Silinmesini veya yok edilmesini isteme",en:"To request erasure or destruction",de:"Die Löschung oder Vernichtung zu verlangen",it:"Chiedere la cancellazione o la distruzione",fr:"Demander l'effacement ou la destruction"},
+hak5:{tr:"İşlemeye itiraz etme ve işlemenin kısıtlanmasını isteme",en:"To object to processing and to request restriction of processing",de:"Der Verarbeitung zu widersprechen und deren Einschränkung zu verlangen",it:"Opporti al trattamento e chiederne la limitazione",fr:"Vous opposer au traitement et en demander la limitation"},
+hak6:{tr:"Verilerin yurt dışına aktarıldığı üçüncü kişileri öğrenme",en:"To learn the third parties to whom data is transferred abroad",de:"Die Dritten zu erfahren, an die Daten ins Ausland übermittelt werden",it:"Conoscere i terzi verso cui i dati sono trasferiti all'estero",fr:"Connaître les tiers vers lesquels les données sont transférées à l'étranger"},
+haklar2:{
+ tr:"Bu sitede kimlik bilgisi tutulmadığı için, pratikte sizi tanımlayacak ve talebinizi eşleştirecek bir kaydımız bulunmaz. Anket oyunuzun silinmesini istiyorsanız, hangi ankette ve hangi tarihte oy kullandığınızı belirterek GitHub deposu üzerinden konu açabilirsiniz.",
+ en:"Because no identifying information is kept on this site, in practice there is no record that would identify you and match your request. If you want your poll vote deleted, you can open an issue on the GitHub repository stating which poll you voted in and on what date.",
+ de:"Da auf dieser Seite keine identifizierenden Angaben gespeichert werden, gibt es praktisch keinen Datensatz, der Sie identifizieren und Ihrer Anfrage zuordnen könnte. Wenn Sie die Löschung Ihrer Stimme wünschen, können Sie im GitHub-Repository ein Issue eröffnen und angeben, an welcher Umfrage und an welchem Datum Sie teilgenommen haben.",
+ it:"Poiché su questo sito non vengono conservati dati identificativi, in pratica non esiste un record che possa identificarti e associare la tua richiesta. Se desideri la cancellazione del tuo voto, puoi aprire una issue nel repository GitHub indicando in quale sondaggio e in quale data hai votato.",
+ fr:"Comme aucune information d'identification n'est conservée sur ce site, il n'existe en pratique aucun enregistrement permettant de vous identifier et de rattacher votre demande. Si vous souhaitez la suppression de votre vote, vous pouvez ouvrir une issue sur le dépôt GitHub en indiquant à quel sondage et à quelle date vous avez voté."},
+haklar3:{
+ tr:"Google Analytics verileri için doğrudan Google'a, anket kaydı için Cloudflare'e başvurabilirsiniz.",
+ en:"For Google Analytics data you can apply directly to Google, and to Cloudflare for the poll record.",
+ de:"Für Google-Analytics-Daten können Sie sich direkt an Google wenden, für den Umfragedatensatz an Cloudflare.",
+ it:"Per i dati di Google Analytics puoi rivolgerti direttamente a Google e a Cloudflare per il record del sondaggio.",
+ fr:"Pour les données Google Analytics, vous pouvez vous adresser directement à Google, et à Cloudflare pour l'enregistrement du sondage."},
+
+h_cocuk:{tr:"Çocukların gizliliği",en:"Children's privacy",de:"Datenschutz für Kinder",it:"Privacy dei minori",fr:"Vie privée des enfants"},
+cocuk:{
+ tr:"Bu site çocuklara yönelik değildir ve bilerek çocuklardan veri toplamaz.",
+ en:"This site is not directed at children and does not knowingly collect data from them.",
+ de:"Diese Seite richtet sich nicht an Kinder und erhebt wissentlich keine Daten von ihnen.",
+ it:"Questo sito non è rivolto ai minori e non raccoglie consapevolmente dati da loro.",
+ fr:"Ce site ne s'adresse pas aux enfants et ne collecte pas sciemment de données les concernant."},
+
+h_degisiklik:{tr:"Değişiklikler",en:"Changes",de:"Änderungen",it:"Modifiche",fr:"Modifications"},
+degisiklik:{
+ tr:"Bu metin, sitede yeni bir özellik eklendiğinde veya mevzuat değiştiğinde güncellenebilir. Güncel sürüm her zaman bu adreste yayımlanır.",
+ en:"This text may be updated when a new feature is added to the site or when the law changes. The current version is always published at this address.",
+ de:"Dieser Text kann aktualisiert werden, wenn der Seite eine neue Funktion hinzugefügt wird oder sich die Rechtslage ändert. Die aktuelle Fassung wird stets unter dieser Adresse veröffentlicht.",
+ it:"Questo testo può essere aggiornato quando viene aggiunta una nuova funzionalità o cambia la normativa. La versione aggiornata è sempre pubblicata a questo indirizzo.",
+ fr:"Ce texte peut être mis à jour lors de l'ajout d'une fonctionnalité ou d'une évolution de la réglementation. La version en vigueur est toujours publiée à cette adresse."},
+
+son_guncelleme:{tr:"Son güncelleme:",en:"Last updated:",de:"Zuletzt aktualisiert:",it:"Ultimo aggiornamento:",fr:"Dernière mise à jour :"},
+alt_not:{tr:"bağımsız taraftar sayfası",en:"independent fan page",de:"unabhängige Fanseite",it:"pagina indipendente di tifosi",fr:"page de supporters indépendante"}
+};
+
+const DIL = (() => {
+  const a = new URLSearchParams(location.search).get("lang");
+  if (DILLER.includes(a)) { try { localStorage.setItem("dil", a); } catch(e){} return a; }
+  try { const k = localStorage.getItem("dil"); if (DILLER.includes(k)) return k; } catch(e){}
+  const t = (navigator.language || "tr").slice(0,2).toLowerCase();
+  return DILLER.includes(t) ? t : "tr";
+})();
+
+const S = k => (M[k] && (M[k][DIL] || M[k].tr)) || "";
+
+document.querySelectorAll("[data-s]").forEach(el => { el.textContent = S(el.dataset.s); });
+document.documentElement.lang = DIL;
+document.title = S("baslik") + " — tedescofenere.com";
+
+const dillerEl = document.getElementById("diller");
+dillerEl.innerHTML = DILLER.map(k =>
+  `<button type="button" lang="${k}" data-dil="${k}" aria-current="${k === DIL}"
+     title="${DIL_ADI[k]}">${k}</button>`).join("");
+dillerEl.addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if(!b) return;
+  try { localStorage.setItem("dil", b.dataset.dil); } catch(err){}
+  const u = new URL(location.href);
+  u.searchParams.set("lang", b.dataset.dil);
+  location.href = u.toString();
+});
+
+/* Ana sayfaya dönüş bağlantısı seçili dili korusun */
+const geriBag = document.querySelector(".geri");
+if(geriBag && DIL !== "tr") geriBag.href = "/?lang=" + DIL;
+</script>
 </body>
 </html>
