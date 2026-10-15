@@ -6,6 +6,11 @@ on:
     # Akşam maçları gece yarısından önce biter, sabah kontrolü hepsini yakalar.
     - cron: "40 6 * * *"
   workflow_dispatch:        # "Run workflow" düğmesiyle elle de çalıştırılabilir
+    inputs:
+      sinama:
+        description: "Yalnızca kaynağa erişimi sına (dosyaya dokunmaz)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -29,10 +34,16 @@ jobs:
       - name: Gerekli paketler
         run: pip install requests beautifulsoup4
 
+      - name: Kaynağa erişimi sına
+        if: inputs.sinama
+        run: python3 scripts/gunluk.py --sinama
+
       - name: Skoru bekleyen maç var mı, varsa doldur
+        if: ${{ !inputs.sinama }}
         run: python3 scripts/gunluk.py
 
       - name: Değişiklik varsa commit'le
+        if: ${{ !inputs.sinama }}
         run: |
           if [[ -z "$(git status --porcelain index.html)" ]]; then
             echo "Değişiklik yok, commit atlanmadı — bu normal."

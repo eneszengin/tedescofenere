@@ -242,9 +242,29 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--kuru", action="store_true",
                     help="index.html'e yazmadan neyin degisecegini goster")
+    ap.add_argument("--sinama", action="store_true",
+                    help="yalnizca kaynaga erisimi sina, dosyaya hic bakma")
     args = ap.parse_args()
 
     bugun = dt.date.today()
+
+    if args.sinama:
+        sezon = sezon_adi(bugun)
+        print(f"Kaynak sinamasi: {KALIP.format(sezon=sezon)}")
+        bulunan, toplam = sezonu_cek(sezon)
+        print(f"   {toplam} mac goruldu, {len(bulunan)} tanesinin skoru var")
+        if toplam < EN_AZ_MAC:
+            raise SystemExit(
+                f"SINAMA KALDI: yalnizca {toplam} mac dondu. Kaynak bu "
+                f"sunucudan erisilemiyor ya da sayfa yapisi degismis."
+            )
+        son = sorted(bulunan)[-5:]
+        print("   en son skorlar:")
+        for t in son:
+            kod, yer, rakip, skor = bulunan[t]
+            print(f"      {t}  {kod:4} {yer}  {rakip:22} {skor}")
+        print("SINAMA TAMAM — kaynak bu sunucudan okunabiliyor.")
+        return
     icerik = io.open(HEDEF, encoding="utf-8").read()
     orijinal = icerik
 
