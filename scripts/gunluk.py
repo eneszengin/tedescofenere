@@ -42,6 +42,10 @@ except Exception:
     pass
 
 HEDEF = Path(__file__).resolve().parent.parent / "index.html"
+# Fiksturde olmayan oynanmis mac bulunursa buraya yazilir. Is akisi bu dosyayi
+# gorurse commit'ten SONRA isi kirmizi yakar; GitHub boylece e-posta atar.
+# Commit'lenmez, repoya girmez.
+ISARET_DOSYASI = Path(__file__).resolve().parent.parent / ".yeni-mac-uyarisi"
 DONEM_ID = "fb-simdi"
 BIZ = "Fenerbahçe"
 KALIP = "https://arsiv.mackolik.com/Team/Default.aspx?id=2&season={sezon}"
@@ -281,14 +285,16 @@ def main():
     print(f"Guncel donem: {len(satirlar)} satir, "
           f"{sum(1 for s in satirlar if s[4] != 'null')} oynanmis")
 
-    if not bekleyen:
-        print("Skoru bekleyen oynanmis mac yok. Dosyaya dokunulmadi.")
-        return
+    if bekleyen:
+        print(f"Skoru bekleyen {len(bekleyen)} mac:")
+        for t, k, y, r, _s, _l in bekleyen:
+            print(f"   {t}  {k:4} {y}  {r}")
+    else:
+        print("Skoru bekleyen mac yok.")
 
-    print(f"Skoru bekleyen {len(bekleyen)} mac:")
-    for t, k, y, r, _s, _l in bekleyen:
-        print(f"   {t}  {k:4} {y}  {r}")
-
+    # Bekleyen olmasa da kaynagi okuyoruz: fiksturde hic olmayan bir mac
+    # (kupa kurasi, eklenen hazirlik maci) ancak boyle farkedilir.
+    # Gunde bir sayfa, kaynaga yuk degil.
     sezon = sezon_adi(bugun)
     print(f"\nKaynak taraniyor: {sezon}")
     bulunan, toplam = sezonu_cek(sezon)
@@ -324,6 +330,24 @@ def main():
         print("\nKaynakta skoru henuz olmayanlar (sonraki calismada tekrar denenir):")
         for t, r in eksik:
             print(f"   {t}  {r}")
+
+    # Kaynakta oynanmis ama fikstürümüzde hic bulunmayan maclar: kupa kurasi
+    # cekilmis ya da hazirlik maci eklenmis olabilir. Elle bakilmasi gerekir.
+    bizdeki = {s[0] for s in satirlar}
+    yeni = {t: v for t, v in bulunan.items() if t not in bizdeki}
+    if yeni:
+        print("\nUYARI: kaynakta oynanmis ama fiksturde olmayan mac var.")
+        print("Bunlar kendiliginden eklenmez, index.html'e elle girilmeli:")
+        for t in sorted(yeni):
+            kod, yer, rakip, skor = yeni[t]
+            print(f'   ["{t}","{kod}","{yer}","{rakip}","{skor}"]')
+        try:
+            io.open(ISARET_DOSYASI, "w", encoding="utf-8").write(
+                "\n".join(f'["{t}","{yeni[t][0]}","{yeni[t][1]}",'
+                          f'"{yeni[t][2]}","{yeni[t][3]}"]'
+                          for t in sorted(yeni)) + "\n")
+        except Exception:
+            pass
 
     if not yazilan:
         print("\nYazilacak yeni skor yok. Dosyaya dokunulmadi.")

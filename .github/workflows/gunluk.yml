@@ -60,3 +60,16 @@ jobs:
             git pull --rebase origin main || exit 1
           done
           exit 1
+
+      # Fikstürde hiç olmayan oynanmış maç bulunduysa (kupa kurası çekilmiş
+      # olabilir) işi kasten kırmızı yakıyoruz. Skorlar yukarıda zaten
+      # commit'lendi; bu adım sadece GitHub'ın e-posta atmasını sağlıyor.
+      - name: Elle eklenmesi gereken maç var mı
+        if: ${{ !inputs.sinama }}
+        run: |
+          if [[ -f .yeni-mac-uyarisi ]]; then
+            echo "::error::Fikstürde olmayan oynanmış maç var. index.html'e elle eklenmeli:"
+            cat .yeni-mac-uyarisi
+            exit 1
+          fi
+          echo "Fikstür dışı maç yok."
