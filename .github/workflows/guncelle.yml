@@ -1,11 +1,11 @@
 name: Fikstürü güncelle
 
+# DEVRE DIŞI. Bu iş API-Football'u kullanıyor ve ücretsiz plan 2026 sezonunu
+# kapsamadığı için her çalışmada hata veriyordu. Yerini "Günlük skor kontrolü"
+# (gunluk.yml) aldı; o Mackolik arşivinden okuyor ve anahtar istemiyor.
+# Zamanlayıcı kaldırıldı, yalnızca elle çalıştırılabilir durumda bırakıldı.
 on:
-  schedule:
-    # 48 saatte bir, 06:00 UTC (Türkiye saatiyle 09:00)
-    # Ayın tek günlerinde çalışır: 1, 3, 5, ... 31
-    - cron: "0 6 */2 * *"
-  workflow_dispatch:        # "Run workflow" düğmesiyle elle de çalıştırılabilir
+  workflow_dispatch:
 
 permissions:
   contents: write

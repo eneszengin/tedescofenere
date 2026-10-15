@@ -1,0 +1,51 @@
+name: Günlük skor kontrolü
+
+on:
+  schedule:
+    # Her gün 06:40 UTC (Türkiye saatiyle 09:40).
+    # Akşam maçları gece yarısından önce biter, sabah kontrolü hepsini yakalar.
+    - cron: "40 6 * * *"
+  workflow_dispatch:        # "Run workflow" düğmesiyle elle de çalıştırılabilir
+
+permissions:
+  contents: write
+
+concurrency:
+  # Elle çalıştırma ile zamanlı çalışma çakışıp aynı dosyaya iki kez
+  # yazmaya çalışmasın.
+  group: gunluk-skor
+  cancel-in-progress: false
+
+jobs:
+  skorlar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Gerekli paketler
+        run: pip install requests beautifulsoup4
+
+      - name: Skoru bekleyen maç var mı, varsa doldur
+        run: python3 scripts/gunluk.py
+
+      - name: Değişiklik varsa commit'le
+        run: |
+          if [[ -z "$(git status --porcelain index.html)" ]]; then
+            echo "Değişiklik yok, commit atlanmadı — bu normal."
+            exit 0
+          fi
+          git config user.name  "skor-bot"
+          git config user.email "actions@github.com"
+          git add index.html
+          git commit -m "Skorlar güncellendi ($(date +%d.%m.%Y))"
+          # Bu arada başka bir commit geldiyse üstüne bindirmeden tekrar dene.
+          for i in 1 2 3; do
+            git push && exit 0
+            echo "Push reddedildi, rebase edip tekrar deneniyor ($i/3)"
+            git pull --rebase origin main || exit 1
+          done
+          exit 1
