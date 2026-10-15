@@ -13,7 +13,7 @@ Teknik direktörler — 2010-11'den bugüne maç başına puan tablosu.
 Domenico Tedesco — kısa özgeçmiş ve kariyer tablosu.
 
 Güncelleme
-Site her gün kendini kontrol eder. scripts/gunluk.py tarihi geçmiş ama skoru boş maçları bulur, Mackolik arşivinden doldurur, teknik direktör karnesini fikstürden yeniden hesaplar ve "son güncelleme" tarihini tazeler. Maç yoksa hiçbir şey yapmaz, boş commit atmaz. Anahtar ya da hesap gerekmez. Çalışma saati 09:40 (TR); akşam maçları ertesi sabahki çalışmada girer.
+Site her gün kendini kontrol eder. scripts/gunluk.py tarihi geçmiş ama skoru boş maçları bulur, Mackolik arşivinden doldurur, teknik direktör karnesini fikstürden yeniden hesaplar ve "son güncelleme" tarihini tazeler. Maç yoksa hiçbir şey yapmaz, boş commit atmaz. Anahtar ya da hesap gerekmez. Çalışma saati gece 01:00 (TR); akşam maçları aynı gece girer.
 
 Güvenlik frenleri: var olan bir skoru asla ezmez, kaynaktan beklenenden az maç dönerse dosyaya dokunmaz, yazmadan önce tırnaksız skor / tarih sırası / karne tutarlılığı doğrulanır. Fikstürde hiç olmayan oynanmış bir maç görürse (kupa kurası çekilmiş olabilir) işi kasten kırmızı yakar ve eklenecek satırı günlüğe yazar.
 

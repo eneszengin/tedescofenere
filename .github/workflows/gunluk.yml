@@ -2,9 +2,10 @@ name: Günlük skor kontrolü
 
 on:
   schedule:
-    # Her gün 06:40 UTC (Türkiye saatiyle 09:40).
-    # Akşam maçları gece yarısından önce biter, sabah kontrolü hepsini yakalar.
-    - cron: "40 6 * * *"
+    # Her gün 22:00 UTC = Türkiye saatiyle gece 01:00.
+    # (Türkiye yıl boyu UTC+3, yaz saati uygulaması yok — kayma olmaz.)
+    # Akşam maçları ~23:50'de biter, 01:00 kontrolü aynı geceye yetişir.
+    - cron: "0 22 * * *"
   workflow_dispatch:        # "Run workflow" düğmesiyle elle de çalıştırılabilir
     inputs:
       sinama:
