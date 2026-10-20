@@ -92,8 +92,11 @@ def sezon_adi(bugun):
     return f"{yil}/{yil + 1}"
 
 
-def sayfayi_al(url, deneme=4):
-    bekleme = [5, 15, 30, 60]
+def sayfayi_al(url, deneme=5):
+    """Arsiv sunucusu arada 500/502 veriyor; 403 ise sunucu IP'lerine kapi
+    kapatmasi. 403 bazen gecici oldugu icin o da tekrar denenir, ama daha
+    uzun aralikla. Kalici 403'te is kirmizi yanar, sessizce gecilmez."""
+    bekleme = [5, 20, 45, 90]
     son = None
     for i in range(deneme):
         try:
@@ -103,13 +106,25 @@ def sayfayi_al(url, deneme=4):
         except requests.HTTPError as e:
             kod = e.response.status_code if e.response is not None else 0
             son = e
-            if kod not in (500, 502, 503, 504):
+            if kod == 403:
+                print("   (403 — kaynak bu IP'yi reddetti, tekrar denenecek)",
+                      flush=True)
+            elif kod not in (500, 502, 503, 504):
                 raise
         except requests.RequestException as e:
             son = e
         if i < deneme - 1:
-            print(f"   (sunucu hatasi, {bekleme[i]} sn sonra tekrar)", flush=True)
+            print(f"   ({bekleme[i]} sn sonra tekrar)", flush=True)
             time.sleep(bekleme[i])
+
+    if isinstance(son, requests.HTTPError) and son.response is not None \
+            and son.response.status_code == 403:
+        raise SystemExit(
+            "HATA: kaynak 403 veriyor — arsiv.mackolik.com sunucu (veri "
+            "merkezi) IP'lerinden gelen istekleri reddediyor. Bu GitHub "
+            "Actions'tan okunamadigi anlamina gelir; index.html'e "
+            "dokunulmadi. Kaynak degistirmek gerekiyor."
+        )
     raise son
 
 
