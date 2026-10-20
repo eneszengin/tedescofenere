@@ -41,7 +41,18 @@ jobs:
 
       - name: Skoru bekleyen maç var mı, varsa doldur
         if: ${{ !inputs.sinama }}
-        run: python3 scripts/gunluk.py
+        run: |
+          set -o pipefail
+          if ! python3 scripts/gunluk.py 2>&1 | tee gunluk.log; then
+            # Gerekçeyi ek nota (annotation) taşı: GitHub günlüğünü API'den
+            # okumak mümkün değil, ek notlar okunabiliyor.
+            while IFS= read -r satir; do
+              [[ -n "$satir" ]] && echo "::error title=gunluk.py::$satir"
+            done < <(grep -E '^(HATA|SINAMA|   -)' gunluk.log | head -12)
+            echo "::error title=gunluk.py son satırlar::$(tail -3 gunluk.log | tr '\n' ' ')"
+            exit 1
+          fi
+          cat gunluk.log
 
       - name: Değişiklik varsa commit'le
         if: ${{ !inputs.sinama }}
@@ -69,8 +80,13 @@ jobs:
         if: ${{ !inputs.sinama }}
         run: |
           if [[ -f .yeni-mac-uyarisi ]]; then
-            echo "::error::Fikstürde olmayan oynanmış maç var. index.html'e elle eklenmeli:"
             cat .yeni-mac-uyarisi
+            # Her satırı kendi ek notuna yaz, yoksa hangi maç olduğu
+            # yalnızca günlükte kalıyor ve API'den okunamıyor.
+            while IFS= read -r satir; do
+              [[ -n "$satir" ]] && \
+                echo "::error title=Fikstüre elle eklenecek maç::$satir"
+            done < .yeni-mac-uyarisi
             exit 1
           fi
           echo "Fikstür dışı maç yok."
