@@ -31,6 +31,7 @@ import io
 import re
 import sys
 import time
+import unicodedata
 from pathlib import Path
 
 import requests
@@ -209,6 +210,54 @@ def karne(satirlar):
     return n, g, b, m, ((g * 3 + b) / n if n else 0.0)
 
 
+def sadelestir(ad):
+    """Rakip adlarini kabaca karsilastirmak icin: kucuk harf, aksansiz,
+    sponsor eki atilmis. 'Corendon Alanyaspor' ile 'Alanyaspor' esleseblir."""
+    ad = unicodedata.normalize("NFKD", ad.lower())
+    ad = "".join(c for c in ad if not unicodedata.combining(c))
+    ad = re.sub(r"[^a-z0-9 ]", " ", ad)
+    atilacak = {"fk", "sk", "as", "ac", "fc", "cf", "spor", "kulubu", "1909",
+                "corendon", "caykur", "trendyol", "gazisehir", "istanbul"}
+    parca = [p for p in ad.split() if p and p not in atilacak]
+    return " ".join(parca) or ad.strip()
+
+
+def ayni_rakip(a, b):
+    sa, sb = sadelestir(a), sadelestir(b)
+    return sa == sb or sa in sb or sb in sa
+
+
+def kaymis_es(tarih, kulvar, yer, rakip, serbest, pencere=10):
+    """Fikstürdeki tarihte kaynak maci yoksa, ayni rakip/kulvar/saha ile
+    +-pencere gun icinde tek bir aday varsa onu dondurur.
+
+    Tek aday sarti kasitli: iki kez karsilasilan bir rakipte (ic/dis saha)
+    yanlis maca skor yazmaktansa elle bakilmasi yegdir. Saha sarti da ayni
+    sebeple var — ayni rakiple ayni haftada iki mac olmaz."""
+    d0 = dt.date(*map(int, tarih.split("-")))
+    adaylar = []
+    for t, (kod, s_yer, s_rakip, _skor) in serbest.items():
+        d = dt.date(*map(int, t.split("-")))
+        if abs((d - d0).days) > pencere:
+            continue
+        if kod != kulvar or s_yer != yer:
+            continue
+        if not ayni_rakip(rakip, s_rakip):
+            continue
+        adaylar.append(t)
+    return adaylar[0] if len(adaylar) == 1 else None
+
+
+def blogu_sirala(icerik):
+    """fb-simdi satirlarini tarih sirasina sokar, girintiyi korur."""
+    blok = blok_al(icerik)
+    satirlar = [s.strip() for s in blok.strip().split("\n") if s.strip()]
+    sirali = sorted(satirlar, key=lambda s: s[2:12])
+    # blok_al'in dondurdugu metin basta \n ile baslar, sonda yoktur.
+    yeni = "\n" + ",\n".join("      " + s.rstrip(",") for s in sirali)
+    return icerik.replace(blok, yeni, 1)
+
+
 def dogrula(icerik):
     """Yazmadan onceki son kontrol. Sorun varsa gerekce listesi doner."""
     sorun = []
@@ -307,33 +356,53 @@ def main():
             f"index.html'e dokunulmadi."
         )
 
-    # Skorlari yaz
-    yazilan, eksik = [], []
+    # Skorlari yaz. Tarih tutmazsa kaymis fikstürü ara: lig maci oynatinca
+    # bizdeki tarih eskir, satir sonsuza kadar bos kalir.
+    bizdeki = {s[0] for s in satirlar}
+    serbest = {t: v for t, v in bulunan.items() if t not in bizdeki}
+
+    yazilan, eksik, kaydirilan = [], [], []
     for t, k, y, r, _s, link in bekleyen:
-        if t not in bulunan:
-            eksik.append((t, r))
-            continue
-        kod, yer, rakip_kaynak, skor = bulunan[t]
+        hedef_tarih, kaynak = t, bulunan.get(t)
+
+        if kaynak is None:
+            es = kaymis_es(t, k, y, r, serbest)
+            if es is None:
+                eksik.append((t, r))
+                continue
+            hedef_tarih, kaynak = es, serbest.pop(es)
+            kaydirilan.append((t, hedef_tarih, r))
+
+        kod, yer, _rakip_kaynak, skor = kaynak
         eski = f'["{t}","{k}","{y}","{r}",null{link}]'
-        yeni = f'["{t}","{k}","{y}","{r}","{skor}"{link}]'
+        yeni_satir = f'["{hedef_tarih}","{k}","{y}","{r}","{skor}"{link}]'
         if eski not in icerik:
             raise SystemExit(f"HATA: {t} satiri yerinde bulunamadi, yazilmadi.")
-        icerik = icerik.replace(eski, yeni, 1)
+        icerik = icerik.replace(eski, yeni_satir, 1)
         not_ = ""
         if kod != k:
             not_ += f"  [kulvar farki: kaynak {kod}]"
         if yer != y:
             not_ += f"  [saha farki: kaynak {yer}]"
-        yazilan.append((t, r, skor, not_))
+        yazilan.append((hedef_tarih, r, skor, not_))
+
+    if kaydirilan:
+        print("\nTarihi kaymis mac (fikstur tarihi kaynaga gore duzeltildi):")
+        for eski_t, yeni_t, r in kaydirilan:
+            print(f"   {r:22} {eski_t} -> {yeni_t}")
 
     if eksik:
         print("\nKaynakta skoru henuz olmayanlar (sonraki calismada tekrar denenir):")
         for t, r in eksik:
             print(f"   {t}  {r}")
 
+    # Satirlari tarih sirasina sok: kaydirma siralamayi bozmus olabilir.
+    if kaydirilan:
+        icerik = blogu_sirala(icerik)
+
     # Kaynakta oynanmis ama fikstürümüzde hic bulunmayan maclar: kupa kurasi
     # cekilmis ya da hazirlik maci eklenmis olabilir. Elle bakilmasi gerekir.
-    bizdeki = {s[0] for s in satirlar}
+    bizdeki = {s[0] for s in satirlari_oku(blok_al(icerik))}
     yeni = {t: v for t, v in bulunan.items() if t not in bizdeki}
     if yeni:
         print("\nUYARI: kaynakta oynanmis ama fiksturde olmayan mac var.")
