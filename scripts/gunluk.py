@@ -47,6 +47,7 @@ HEDEF = Path(__file__).resolve().parent.parent / "index.html"
 # gorurse commit'ten SONRA isi kirmizi yakar; GitHub boylece e-posta atar.
 # Commit'lenmez, repoya girmez.
 ISARET_DOSYASI = Path(__file__).resolve().parent.parent / ".yeni-mac-uyarisi"
+HARITA = Path(__file__).resolve().parent.parent / "sitemap.xml"
 DONEM_ID = "fb-simdi"
 BIZ = "Fenerbahçe"
 KALIP = "https://arsiv.mackolik.com/Team/Default.aspx?id=2&season={sezon}"
@@ -475,6 +476,20 @@ def main():
 
     io.open(HEDEF, "w", encoding="utf-8").write(icerik)
     print("index.html guncellendi.")
+
+    # sitemap'teki ana sayfa lastmod'u index.html ile birlikte tazelenmeli,
+    # yoksa bir hafta icinde yanlis tarih gostermeye baslar.
+    try:
+        if HARITA.exists():
+            h = io.open(HARITA, encoding="utf-8").read()
+            yeni_h, adet = re.subn(r"<lastmod>[^<]*</lastmod>",
+                                   f"<lastmod>{bugun.isoformat()}</lastmod>",
+                                   h, count=1)
+            if adet and yeni_h != h:
+                io.open(HARITA, "w", encoding="utf-8").write(yeni_h)
+                print(f"sitemap.xml lastmod -> {bugun.isoformat()}")
+    except Exception as e:
+        print("UYARI: sitemap.xml guncellenemedi:", e)
 
 
 if __name__ == "__main__":

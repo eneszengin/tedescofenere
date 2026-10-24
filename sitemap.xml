@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://tedescofenere.com/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://tedescofenere.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tedescofenere.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tedescofenere.com/?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://tedescofenere.com/?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tedescofenere.com/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tedescofenere.com/"/>
+  </url>
+
+  <url>
+    <loc>https://tedescofenere.com/gizlilik.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://tedescofenere.com/gizlilik.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tedescofenere.com/gizlilik.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tedescofenere.com/gizlilik.html?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://tedescofenere.com/gizlilik.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tedescofenere.com/gizlilik.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tedescofenere.com/gizlilik.html"/>
+  </url>
+
+</urlset>

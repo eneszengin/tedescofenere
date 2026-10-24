@@ -57,13 +57,13 @@ jobs:
       - name: Değişiklik varsa commit'le
         if: ${{ !inputs.sinama }}
         run: |
-          if [[ -z "$(git status --porcelain index.html)" ]]; then
+          if [[ -z "$(git status --porcelain index.html sitemap.xml)" ]]; then
             echo "Değişiklik yok, commit atlanmadı — bu normal."
             exit 0
           fi
           git config user.name  "skor-bot"
           git config user.email "actions@github.com"
-          git add index.html
+          git add index.html sitemap.xml
           git commit -m "Skorlar güncellendi ($(date +%d.%m.%Y))"
           # Bu arada başka bir commit geldiyse üstüne bindirmeden tekrar dene.
           for i in 1 2 3; do

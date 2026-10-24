@@ -1,0 +1,7 @@
+# tedescofenere.com
+# Bağımsız taraftar sayfası. Tüm içerik taranabilir.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tedescofenere.com/sitemap.xml
