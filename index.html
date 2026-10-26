@@ -379,18 +379,23 @@ footer a:hover{border-bottom-color:var(--sari)}
   .hocalar{font-size:13.5px}
 }
 
-/* ---------- fikstür hizalama ve sütun genişlikleri ---------- */
-.fikstur{table-layout:fixed}
+/* ---------- fikstür hizalama ve sütun genişlikleri ----------
+   DİKKAT: sütun genişlikleri ve kırpma YALNIZCA geniş ekrana aittir.
+   Bunlar koşulsuz yazılırsa yukarıdaki mobil kuralları ezer (aynı
+   özgüllük, sonra geldiği için kazanır) ve iki şey birden bozulur:
+   rakip adı "Ga..." diye kırpılır, ayrıca gizlenen kulvar/saha
+   sütunları table-layout:fixed altında yerini korumaya devam ettiği
+   için ekranın sağ yarısı boşa gider. */
 .fikstur th,.fikstur td{text-align:center}
 .fikstur .rakip,.fikstur th.rakip-basligi{text-align:left}
-.fikstur col.s-tarih{width:88px}
-.fikstur col.s-kulvar{width:104px}
-.fikstur col.s-saha{width:86px}
-.fikstur col.s-skor{width:82px}
-.fikstur .rakip{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-@media(max-width:560px){
-  .fikstur col.s-tarih{width:74px}
-  .fikstur col.s-skor{width:72px}
+
+@media(min-width:561px){
+  .fikstur{table-layout:fixed}
+  .fikstur col.s-tarih{width:88px}
+  .fikstur col.s-kulvar{width:104px}
+  .fikstur col.s-saha{width:86px}
+  .fikstur col.s-skor{width:82px}
+  .fikstur .rakip{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
 
 /* ---------- dil seçici ---------- */
@@ -762,7 +767,7 @@ function dilDegistir(kod){
    Alanlar: [tarih, kulvar, yer(İ/D), rakip, skor]
    ============================================================ */
 
-const SON_GUNCELLEME = "20 Ekim 2026";
+const SON_GUNCELLEME = "26 Ekim 2026";
 
 const KULVAR = new Proxy({}, { get: (_,k) => S("k_" + String(k)) });
 
@@ -843,7 +848,7 @@ const SETLER = [
       ["2026-10-14","SAM","D","Aston Villa","0-6","co19/uefa-champions-league/ma12517863/aston-villa_fenerbahce/"],
       ["2026-10-17","SL","İ","Alanyaspor","3-0","co116/turkey-sueperlig/ma12280144/fenerbahce_alanyaspor/"],
       ["2026-10-20","SAM","İ","Slavia Prag","2-2","co19/uefa-champions-league/ma12518007/fenerbahce_slavia-praha/"],
-      ["2026-10-25","SL","D","Galatasaray",null,"co116/turkey-sueperlig/ma12280174/galatasaray_fenerbahce/"],
+      ["2026-10-26","SL","D","Galatasaray","1-2","co116/turkey-sueperlig/ma12280174/galatasaray_fenerbahce/"],
       ["2026-11-01","SL","İ","Göztepe",null,"co116/turkey-sueperlig/ma12280195/fenerbahce_goeztepe/"],
       ["2026-11-04","SAM","İ","Liverpool",null,"co19/uefa-champions-league/ma12517779/fenerbahce_liverpool-fc/"],
       ["2026-11-08","SL","D","Çorum FK",null,"co116/turkey-sueperlig/ma12280225/corum-fk_fenerbahce/"],
@@ -1282,7 +1287,7 @@ document.getElementById("guncelleme").textContent = SON_GUNCELLEME;
 /* Teknik direktör karnesi (2010-11'den bugüne, tam yetkili hocalar).
    [ad, dönem, maç, maç başına puan, satır sınıfı, set kimliği, veri kimliği] */
 const HOCALAR = [
-  ["İsmail Kartal",    "2026–",     17, 1.88, "suruyor", "fb-simdi"],
+  ["İsmail Kartal",    "2026–",     18, 1.78, "suruyor", "fb-simdi"],
   ["Domenico Tedesco", "2025–26",   45, 2.00, "tedesco", "ted-fb"],
   ["José Mourinho",    "2024–25",   62, 2.02, "", "", "mourinho-2024"],
   ["İsmail Kartal",    "2023–24",   57, 2.47, "", "", "kartal-2023"],
