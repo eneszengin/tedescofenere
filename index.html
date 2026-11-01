@@ -771,7 +771,7 @@ function dilDegistir(kod){
    Alanlar: [tarih, kulvar, yer(İ/D), rakip, skor]
    ============================================================ */
 
-const SON_GUNCELLEME = "26 Ekim 2026";
+const SON_GUNCELLEME = "1 Kasım 2026";
 
 const KULVAR = new Proxy({}, { get: (_,k) => S("k_" + String(k)) });
 
@@ -830,7 +830,7 @@ const SETLER = [
     ]
   },
   {
-    id:"kartal-2026",
+    id:"kartal-2026", sekmeGizli:true,
     sekme:"Fenerbahçe", sekmeAlt:"Kartal 2026-27", donemYili:"2026",
     baslik:"İsmail Kartal · Fenerbahçe",
     donem:S("p_kartal"),
@@ -861,7 +861,7 @@ const SETLER = [
     baslik:"Dirk Kuyt · Fenerbahçe",
     donem:S("p_kuyt"),
     maclar:[
-      ["2026-11-01","SL","İ","Göztepe",null,"co116/turkey-sueperlig/ma12280195/fenerbahce_goeztepe/"],
+      ["2026-10-31","SL","İ","Göztepe","1-2","co116/turkey-sueperlig/ma12280195/fenerbahce_goeztepe/"],
       ["2026-11-04","SAM","İ","Liverpool",null,"co19/uefa-champions-league/ma12517779/fenerbahce_liverpool-fc/"],
       ["2026-11-08","SL","D","Çorum FK",null,"co116/turkey-sueperlig/ma12280225/corum-fk_fenerbahce/"],
       ["2026-11-22","SL","D","Kocaelispor",null,"co116/turkey-sueperlig/ma12280261/kocaelispor_fenerbahce/"],
@@ -1198,10 +1198,18 @@ document.getElementById("karne").innerHTML = SETLER.filter(s=>s.oneCik!==false).
 const sekmelerEl = document.getElementById("sekmeler");
 const panelEl = document.getElementById("panel");
 
-sekmelerEl.innerHTML = SETLER.map((s,i)=>
-  `<button class="sekme" role="tab" id="sekme-${s.id}" aria-controls="panel-icerik"
-     aria-selected="${i===0}" data-i="${i}">${s.sekme}<small>${s.sekmeAlt}</small></button>`
-).join("");
+/* Fikstür iki sekme: Tedesco ve görevdeki teknik direktör.
+   Görevden ayrılan hocanın seti SETLER'de kalır — karşılaştırmada ve
+   teknik direktörler tablosunda adına tıklanınca kullanılıyor — ama
+   sekme çubuğuna çıkmaz. data-i gerçek SETLER sırasını taşımalı,
+   yoksa yanlış panel açılır. */
+sekmelerEl.innerHTML = SETLER
+  .map((s,i)=>({s,i}))
+  .filter(({s})=>!s.sekmeGizli)
+  .map(({s,i},sira)=>
+    `<button class="sekme" role="tab" id="sekme-${s.id}" aria-controls="panel-icerik"
+       aria-selected="${sira===0}" data-i="${i}">${s.sekme}<small>${s.sekmeAlt}</small></button>`
+  ).join("");
 
 const KOK = "https://www.worldfootball.net/match-report/";
 
@@ -1299,7 +1307,7 @@ document.getElementById("guncelleme").textContent = SON_GUNCELLEME;
 /* Teknik direktör karnesi (2010-11'den bugüne, tam yetkili hocalar).
    [ad, dönem, maç, maç başına puan, satır sınıfı, set kimliği, veri kimliği] */
 const HOCALAR = [
-  ["Dirk Kuyt",        "2026–",      0, 0.00, "suruyor", "fb-simdi"],
+  ["Dirk Kuyt",        "2026–",      1, 0.00, "suruyor", "fb-simdi"],
   ["İsmail Kartal",    "2026",      18, 1.78, "", "kartal-2026"],
   ["Domenico Tedesco", "2025–26",   45, 2.00, "tedesco", "ted-fb"],
   ["José Mourinho",    "2024–25",   62, 2.02, "", "", "mourinho-2024"],
