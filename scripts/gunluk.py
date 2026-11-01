@@ -375,7 +375,14 @@ def main():
     # Skorlari yaz. Tarih tutmazsa kaymis fikstürü ara: lig maci oynatinca
     # bizdeki tarih eskir, satir sonsuza kadar bos kalir.
     bizdeki = {s[0] for s in satirlar}
-    serbest = {t: v for t, v in bulunan.items() if t not in bizdeki}
+    # Kaydirma adaylari da bu donemle sinirli olmali: onceki hocanin
+    # maclari kaynakta duruyor ve ayni rakiple eslesip yanlis satira
+    # skor yazilmasina yol acabilir. Donem basindan 10 gun oncesine
+    # kadar bakiyoruz (ilk mac geriye kaymis olabilir).
+    _bas = dt.date(*map(int, min(s[0] for s in satirlar).split("-")))
+    _esik = (_bas - dt.timedelta(days=10)).isoformat()
+    serbest = {t: v for t, v in bulunan.items()
+               if t not in bizdeki and t >= _esik}
 
     yazilan, eksik, kaydirilan = [], [], []
     for t, k, y, r, _s, link in bekleyen:
@@ -418,8 +425,16 @@ def main():
 
     # Kaynakta oynanmis ama fikstürümüzde hic bulunmayan maclar: kupa kurasi
     # cekilmis ya da hazirlik maci eklenmis olabilir. Elle bakilmasi gerekir.
-    bizdeki = {s[0] for s in satirlari_oku(blok_al(icerik))}
-    yeni = {t: v for t, v in bulunan.items() if t not in bizdeki}
+    #
+    # Kaynak sezonun TAMAMINI veriyor, biz ise yalnizca gorevdeki hocanin
+    # donemini tutuyoruz. Teknik direktor degisince onceki hocanin maclari
+    # bu blokta degil, kendi setinde kalir; onlari "fikstur disi" sanmamak
+    # icin donem baslangicindan oncesini hic bakmiyoruz.
+    guncel_satirlar = satirlari_oku(blok_al(icerik))
+    donem_basi = min(s[0] for s in guncel_satirlar)
+    bizdeki = {s[0] for s in guncel_satirlar}
+    yeni = {t: v for t, v in bulunan.items()
+            if t not in bizdeki and t >= donem_basi}
     if yeni:
         print("\nUYARI: kaynakta oynanmis ama fiksturde olmayan mac var.")
         print("Bunlar kendiliginden eklenmez, index.html'e elle girilmeli:")

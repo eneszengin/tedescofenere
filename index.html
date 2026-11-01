@@ -623,8 +623,12 @@ p_tedfb:{ tr:"14 Eylül 2025 – 26 Nisan 2026", en:"14 September 2025 – 26 Ap
   fr:"14 septembre 2025 – 26 avril 2026" },
 p_tedbol:{ tr:"2 Haziran 2026'dan bu yana", en:"Since 2 June 2026", de:"Seit 2. Juni 2026",
   it:"Dal 2 giugno 2026", fr:"Depuis le 2 juin 2026" },
-p_kartal:{ tr:"18 Haziran 2026'dan bu yana", en:"Since 18 June 2026", de:"Seit 18. Juni 2026",
-  it:"Dal 18 giugno 2026", fr:"Depuis le 18 juin 2026" },
+p_kartal:{ tr:"18 Haziran – 27 Ekim 2026", en:"18 June – 27 October 2026",
+  de:"18. Juni – 27. Oktober 2026", it:"18 giugno – 27 ottobre 2026",
+  fr:"18 juin – 27 octobre 2026" },
+p_kuyt:{ tr:"28 Ekim 2026'dan bu yana · vekâleten", en:"Since 28 October 2026 · caretaker",
+  de:"Seit 28. Oktober 2026 · interimsweise", it:"Dal 28 ottobre 2026 · ad interim",
+  fr:"Depuis le 28 octobre 2026 · par intérim" },
 
 /* --- Tedesco bölümü --- */
 td_dogum:{ tr:"12 Eylül 1985, Rossano · İtalyan-Alman", en:"12 September 1985, Rossano · Italian-German",
@@ -826,8 +830,8 @@ const SETLER = [
     ]
   },
   {
-    id:"fb-simdi",
-    sekme:"Fenerbahçe", sekmeAlt:"Kartal 2026-27", donemYili:"2026–",
+    id:"kartal-2026",
+    sekme:"Fenerbahçe", sekmeAlt:"Kartal 2026-27", donemYili:"2026",
     baslik:"İsmail Kartal · Fenerbahçe",
     donem:S("p_kartal"),
     maclar:[
@@ -848,7 +852,15 @@ const SETLER = [
       ["2026-10-14","SAM","D","Aston Villa","0-6","co19/uefa-champions-league/ma12517863/aston-villa_fenerbahce/"],
       ["2026-10-17","SL","İ","Alanyaspor","3-0","co116/turkey-sueperlig/ma12280144/fenerbahce_alanyaspor/"],
       ["2026-10-20","SAM","İ","Slavia Prag","2-2","co19/uefa-champions-league/ma12518007/fenerbahce_slavia-praha/"],
-      ["2026-10-26","SL","D","Galatasaray","1-2","co116/turkey-sueperlig/ma12280174/galatasaray_fenerbahce/"],
+      ["2026-10-26","SL","D","Galatasaray","1-2","co116/turkey-sueperlig/ma12280174/galatasaray_fenerbahce/"]
+    ]
+  },
+  {
+    id:"fb-simdi",
+    sekme:"Fenerbahçe", sekmeAlt:"Kuyt 2026-27", donemYili:"2026–",
+    baslik:"Dirk Kuyt · Fenerbahçe",
+    donem:S("p_kuyt"),
+    maclar:[
       ["2026-11-01","SL","İ","Göztepe",null,"co116/turkey-sueperlig/ma12280195/fenerbahce_goeztepe/"],
       ["2026-11-04","SAM","İ","Liverpool",null,"co19/uefa-champions-league/ma12517779/fenerbahce_liverpool-fc/"],
       ["2026-11-08","SL","D","Çorum FK",null,"co116/turkey-sueperlig/ma12280225/corum-fk_fenerbahce/"],
@@ -1287,7 +1299,8 @@ document.getElementById("guncelleme").textContent = SON_GUNCELLEME;
 /* Teknik direktör karnesi (2010-11'den bugüne, tam yetkili hocalar).
    [ad, dönem, maç, maç başına puan, satır sınıfı, set kimliği, veri kimliği] */
 const HOCALAR = [
-  ["İsmail Kartal",    "2026–",     18, 1.78, "suruyor", "fb-simdi"],
+  ["Dirk Kuyt",        "2026–",      0, 0.00, "suruyor", "fb-simdi"],
+  ["İsmail Kartal",    "2026",      18, 1.78, "", "kartal-2026"],
   ["Domenico Tedesco", "2025–26",   45, 2.00, "tedesco", "ted-fb"],
   ["José Mourinho",    "2024–25",   62, 2.02, "", "", "mourinho-2024"],
   ["İsmail Kartal",    "2023–24",   57, 2.47, "", "", "kartal-2023"],
@@ -1312,13 +1325,17 @@ let acikHoca = null;   // açık olan hoca satırının indeksi
   const govde = document.getElementById("hocalar");
 
   govde.innerHTML = HOCALAR.map(([ad,donem,mac,ort,sinif],i)=>{
-    const en = Math.max(4, Math.round(100*(ort-TABAN)/(TAVAN-TABAN)));
+    /* Göreve yeni başlamış hocanın henüz maçı yoktur. 0.00 yazmak onu
+       sıralamanın en dibinde göstermek olur; oysa ortalaması yok, sıfır
+       değil. Maç oynanana kadar çizgi koyuyoruz. */
+    const bos = !mac;
+    const en = bos ? 0 : Math.max(4, Math.round(100*(ort-TABAN)/(TAVAN-TABAN)));
     return `<tr class="${sinif||""} acilir" data-i="${i}">
       <td class="ad"><button class="hoca-dugme" aria-expanded="false"
         aria-controls="hoca-detay-${i}">${ad}<span class="ok" aria-hidden="true"></span></button></td>
       <td class="donem">${donem}</td>
       <td class="mac">${mac} ${S("mac")}</td>
-      <td class="ort">${ort.toFixed(2)}</td>
+      <td class="ort">${bos ? "—" : ort.toFixed(2)}</td>
       <td class="cubuk"><i style="width:${en}%"></i></td>
     </tr>
     <tr class="hoca-detay" id="hoca-detay-${i}" hidden><td colspan="5"></td></tr>`;
@@ -1438,7 +1455,10 @@ HOCALAR.forEach(([ad, donem, mac, ort, , setId, veriId]) => {
   });
 });
 
-let secili = [0, 1];       // varsayılan: Tedesco 2025–26 ile Kartal 2026–
+/* ADAYLAR önce SETLER sırasıyla dolar: 0=Tedesco, 1=Kartal 2026, 2=Kuyt.
+   Varsayılanı Tedesco–Kartal tutuyoruz; Kuyt seçili gelse sağ sütun
+   maçı olmadığı için baştan aşağı boş görünürdü. */
+let secili = [0, 1];
 let kapsam = "hepsi";
 
 function karneKapsamli(set, kapsam){

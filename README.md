@@ -7,7 +7,7 @@ Yayında: https://tedescofenere.com
 Bağımsız bir sayfadır. Fenerbahçe Spor Kulübü, Bologna FC 1909 ya da Domenico Tedesco ile resmî bir bağı, izni veya ortaklığı yoktur.
 
 Sayfada ne var
-Fikstürler — iki sekme: Tedesco'nun Fenerbahçe dönemi (45 maç, tamamı) ve Fenerbahçe'nin güncel hocası Kartal. Skora tıklayınca o maçın raporu açılır.
+Fikstürler — üç sekme: Tedesco'nun Fenerbahçe dönemi (45 maç, tamamı), İsmail Kartal'ın 2026-27 dönemi (18 maç) ve görevdeki hoca Dirk Kuyt. Skora tıklayınca o maçın raporu açılır. Teknik direktör değişince görevdeki hocanın seti kapatılıp yeni bir set açılır; gece botu her zaman "fb-simdi" kimlikli sete ve teknik direktörler tablosundaki "sürüyor" satırına yazar.
 Karşılaştırma — 2010-11'den bugüne 16 teknik direktör dönemi arasından seçim yapıp yan yana koyma. Kulvar süzgeci: tüm maçlar, sadece lig, sadece Avrupa, sadece derbi. Derbi seçilince maç listesi de gelir.
 Teknik direktörler — 2010-11'den bugüne maç başına puan tablosu.
 Domenico Tedesco — kısa özgeçmiş ve kariyer tablosu.
