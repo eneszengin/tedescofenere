@@ -898,7 +898,12 @@ const SETLER = [
 
 const ANKETLER = [
   {
-    id:"memnuniyet",
+    /* Kimlik Kuyt için yenilendi: oylar D1'de poll_id ile tutuluyor,
+       eski kimlik (memnuniyet) Kartal dönemine ait 38 oyu taşıyordu.
+       Yeni kimlik sıfırdan başlar; eski satırlar veritabanında durur,
+       hiçbir yerde görünmez. Sunucu poll_id'yi doğrulamıyor, yeni
+       kimlik için ayrıca bir şey yapmak gerekmez. */
+    id:"memnuniyet-kuyt",
     soru:S("a_soru_kuyt"),
     secenekler:[S("a_evet"), S("a_hayir"), S("a_kararsiz")]
   },
@@ -971,7 +976,13 @@ async function anketSonuclariYukle(){
     // Validate the complete response before painting any results.
     const records = ANKETLER.map(anket => {
       const p = data.polls?.[anket.id];
-      if(!p || !Array.isArray(p.counts) || p.counts.length !== anket.secenekler.length ||
+      /* Hiç oy almamış anket sunucudan hiç gelmez: sayım GROUP BY ile
+         yapılıyor, satır yoksa anahtar da yok. Bunu hata saymak yeni
+         açılan bir anketin ilk oyuna kadar İKİ anketin sonucunu birden
+         karartıyordu. Yoksa sıfır kabul ediyoruz. */
+      if(p == null)
+        return {anket, p:{counts: anket.secenekler.map(() => 0), total: 0}};
+      if(!Array.isArray(p.counts) || p.counts.length !== anket.secenekler.length ||
          p.counts.some(n => !Number.isSafeInteger(n) || n < 0) ||
          p.total !== p.counts.reduce((a,b) => a+b, 0)) throw new Error("Sonuç verisi geçersiz.");
       return {anket, p};
