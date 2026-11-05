@@ -626,9 +626,13 @@ p_tedbol:{ tr:"2 Haziran 2026'dan bu yana", en:"Since 2 June 2026", de:"Seit 2. 
 p_kartal:{ tr:"18 Haziran – 27 Ekim 2026", en:"18 June – 27 October 2026",
   de:"18. Juni – 27. Oktober 2026", it:"18 giugno – 27 ottobre 2026",
   fr:"18 juin – 27 octobre 2026" },
-p_kuyt:{ tr:"28 Ekim 2026'dan bu yana · vekâleten", en:"Since 28 October 2026 · caretaker",
-  de:"Seit 28. Oktober 2026 · interimsweise", it:"Dal 28 ottobre 2026 · ad interim",
-  fr:"Depuis le 28 octobre 2026 · par intérim" },
+p_kuyt:{ tr:"28 Ekim – 5 Kasım 2026 · vekâleten", en:"28 October – 5 November 2026 · caretaker",
+  de:"28. Oktober – 5. November 2026 · interimsweise",
+  it:"28 ottobre – 5 novembre 2026 · ad interim",
+  fr:"28 octobre – 5 novembre 2026 · par intérim" },
+p_belozoglu:{ tr:"5 Kasım 2026'dan bu yana", en:"Since 5 November 2026",
+  de:"Seit 5. November 2026", it:"Dal 5 novembre 2026",
+  fr:"Depuis le 5 novembre 2026" },
 
 /* --- Tedesco bölümü --- */
 td_dogum:{ tr:"12 Eylül 1985, Rossano · İtalyan-Alman", en:"12 September 1985, Rossano · Italian-German",
@@ -681,9 +685,11 @@ f_guncelleme:{ tr:"Son güncelleme:", en:"Last updated:", de:"Zuletzt aktualisie
   it:"Ultimo aggiornamento:", fr:"Dernière mise à jour :" },
 
 /* --- anket --- */
-a_soru_kuyt:{ tr:"Dirk Kuyt'tan memnun musunuz?", en:"Are you satisfied with Dirk Kuyt?",
-  de:"Sind Sie mit Dirk Kuyt zufrieden?", it:"Sei soddisfatto di Dirk Kuyt?",
-  fr:"Êtes-vous satisfait de Dirk Kuyt ?" },
+a_soru_belozoglu:{ tr:"Emre Belözoğlu'ndan memnun musunuz?",
+  en:"Are you satisfied with Emre Belözoğlu?",
+  de:"Sind Sie mit Emre Belözoğlu zufrieden?",
+  it:"Sei soddisfatto di Emre Belözoğlu?",
+  fr:"Êtes-vous satisfait d'Emre Belözoğlu ?" },
 a_soru_aday:{ tr:"Fenerbahçe'nin teknik direktörü kim olmalı?", en:"Who should be Fenerbahçe's head coach?",
   de:"Wer sollte Fenerbahçes Cheftrainer sein?", it:"Chi dovrebbe essere l'allenatore del Fenerbahçe?",
   fr:"Qui devrait être l'entraîneur du Fenerbahçe ?" },
@@ -771,7 +777,7 @@ function dilDegistir(kod){
    Alanlar: [tarih, kulvar, yer(İ/D), rakip, skor]
    ============================================================ */
 
-const SON_GUNCELLEME = "4 Kasım 2026";
+const SON_GUNCELLEME = "5 Kasım 2026";
 
 const KULVAR = new Proxy({}, { get: (_,k) => S("k_" + String(k)) });
 
@@ -856,13 +862,21 @@ const SETLER = [
     ]
   },
   {
-    id:"fb-simdi",
-    sekme:"Fenerbahçe", sekmeAlt:"Kuyt 2026-27", donemYili:"2026–",
+    id:"kuyt-2026", sekmeGizli:true,
+    sekme:"Fenerbahçe", sekmeAlt:"Kuyt 2026-27", donemYili:"2026",
     baslik:"Dirk Kuyt · Fenerbahçe",
     donem:S("p_kuyt"),
     maclar:[
       ["2026-10-31","SL","İ","Göztepe","1-2","co116/turkey-sueperlig/ma12280195/fenerbahce_goeztepe/"],
-      ["2026-11-04","SAM","İ","Liverpool","3-2","co19/uefa-champions-league/ma12517779/fenerbahce_liverpool-fc/"],
+      ["2026-11-04","SAM","İ","Liverpool","3-2","co19/uefa-champions-league/ma12517779/fenerbahce_liverpool-fc/"]
+    ]
+  },
+  {
+    id:"fb-simdi",
+    sekme:"Fenerbahçe", sekmeAlt:"Belözoğlu 2026-27", donemYili:"2026–",
+    baslik:"Emre Belözoğlu · Fenerbahçe",
+    donem:S("p_belozoglu"),
+    maclar:[
       ["2026-11-08","SL","D","Çorum FK",null,"co116/turkey-sueperlig/ma12280225/corum-fk_fenerbahce/"],
       ["2026-11-22","SL","D","Kocaelispor",null,"co116/turkey-sueperlig/ma12280261/kocaelispor_fenerbahce/"],
       ["2026-11-25","SAM","D","Shakhtar Donetsk",null,"co19/uefa-champions-league/ma12517962/shakhtar-donetsk_fenerbahce/"],
@@ -903,8 +917,8 @@ const ANKETLER = [
        Yeni kimlik sıfırdan başlar; eski satırlar veritabanında durur,
        hiçbir yerde görünmez. Sunucu poll_id'yi doğrulamıyor, yeni
        kimlik için ayrıca bir şey yapmak gerekmez. */
-    id:"memnuniyet-kuyt",
-    soru:S("a_soru_kuyt"),
+    id:"memnuniyet-belozoglu",
+    soru:S("a_soru_belozoglu"),
     secenekler:[S("a_evet"), S("a_hayir"), S("a_kararsiz")]
   },
   {
@@ -1318,7 +1332,8 @@ document.getElementById("guncelleme").textContent = SON_GUNCELLEME;
 /* Teknik direktör karnesi (2010-11'den bugüne, tam yetkili hocalar).
    [ad, dönem, maç, maç başına puan, satır sınıfı, set kimliği, veri kimliği] */
 const HOCALAR = [
-  ["Dirk Kuyt",        "2026–",      2, 1.50, "suruyor", "fb-simdi"],
+  ["Emre Belözoğlu",   "2026–",      0, 0.00, "suruyor", "fb-simdi"],
+  ["Dirk Kuyt",        "2026",       2, 1.50, "", "kuyt-2026"],
   ["İsmail Kartal",    "2026",      18, 1.78, "", "kartal-2026"],
   ["Domenico Tedesco", "2025–26",   45, 2.00, "tedesco", "ted-fb"],
   ["José Mourinho",    "2024–25",   62, 2.02, "", "", "mourinho-2024"],
