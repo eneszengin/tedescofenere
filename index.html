@@ -777,7 +777,7 @@ function dilDegistir(kod){
    Alanlar: [tarih, kulvar, yer(İ/D), rakip, skor]
    ============================================================ */
 
-const SON_GUNCELLEME = "5 Kasım 2026";
+const SON_GUNCELLEME = "9 Kasım 2026";
 
 const KULVAR = new Proxy({}, { get: (_,k) => S("k_" + String(k)) });
 
@@ -877,7 +877,7 @@ const SETLER = [
     baslik:"Emre Belözoğlu · Fenerbahçe",
     donem:S("p_belozoglu"),
     maclar:[
-      ["2026-11-08","SL","D","Çorum FK",null,"co116/turkey-sueperlig/ma12280225/corum-fk_fenerbahce/"],
+      ["2026-11-08","SL","D","Çorum FK","5-0","co116/turkey-sueperlig/ma12280225/corum-fk_fenerbahce/"],
       ["2026-11-22","SL","D","Kocaelispor",null,"co116/turkey-sueperlig/ma12280261/kocaelispor_fenerbahce/"],
       ["2026-11-25","SAM","D","Shakhtar Donetsk",null,"co19/uefa-champions-league/ma12517962/shakhtar-donetsk_fenerbahce/"],
       ["2026-11-29","SL","İ","Erzurumspor FK",null,"co116/turkey-sueperlig/ma12280285/fenerbahce_erzurumspor-fk/"],
@@ -1332,7 +1332,7 @@ document.getElementById("guncelleme").textContent = SON_GUNCELLEME;
 /* Teknik direktör karnesi (2010-11'den bugüne, tam yetkili hocalar).
    [ad, dönem, maç, maç başına puan, satır sınıfı, set kimliği, veri kimliği] */
 const HOCALAR = [
-  ["Emre Belözoğlu",   "2026–",      0, 0.00, "suruyor", "fb-simdi"],
+  ["Emre Belözoğlu",   "2026–",      1, 3.00, "suruyor", "fb-simdi"],
   ["Dirk Kuyt",        "2026",       2, 1.50, "", "kuyt-2026"],
   ["İsmail Kartal",    "2026",      18, 1.78, "", "kartal-2026"],
   ["Domenico Tedesco", "2025–26",   45, 2.00, "tedesco", "ted-fb"],
