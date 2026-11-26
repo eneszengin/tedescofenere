@@ -99,7 +99,9 @@ h1 em{font-style:normal;color:var(--sari)}
 
 /* karne */
 .karne{
-  display:grid;grid-template-columns:repeat(3,1fr);
+  /* Sütun sayısı kart sayısı kadar; JS --karne-n'i veriyor. Sabit 3
+     olduğunda iki kartta boş sütun, dörtte ikinci satır kalıyordu. */
+  display:grid;grid-template-columns:repeat(var(--karne-n,3),1fr);
   margin:36px 0 0;border-top:1px solid var(--cizgi-koyu);
 }
 .karne div{padding:20px 18px 26px 0}
@@ -836,7 +838,7 @@ const SETLER = [
     ]
   },
   {
-    id:"kartal-2026", sekmeGizli:true,
+    id:"kartal-2026", sekmeGizli:true, oneCik:false,
     sekme:"Fenerbahçe", sekmeAlt:"Kartal 2026-27", donemYili:"2026",
     baslik:"İsmail Kartal · Fenerbahçe",
     donem:S("p_kartal"),
@@ -862,7 +864,7 @@ const SETLER = [
     ]
   },
   {
-    id:"kuyt-2026", sekmeGizli:true,
+    id:"kuyt-2026", sekmeGizli:true, oneCik:false,
     sekme:"Fenerbahçe", sekmeAlt:"Kuyt 2026-27", donemYili:"2026",
     baslik:"Dirk Kuyt · Fenerbahçe",
     donem:S("p_kuyt"),
@@ -1206,8 +1208,11 @@ function guvenli(ad, is){
 }
 
 /* üstteki karne şeridi */
-guvenli("karne", () =>
-document.getElementById("karne").innerHTML = SETLER.filter(s=>s.oneCik!==false).map(s=>{
+guvenli("karne", () => {
+const karneSetleri = SETLER.filter(s=>s.oneCik!==false);
+const karneEl = document.getElementById("karne");
+karneEl.style.setProperty("--karne-n", karneSetleri.length);
+karneEl.innerHTML = karneSetleri.map(s=>{
   const k = karneHesapla(s);
   const [kisi, kulup] = s.baslik.split(" · ");
   return `<div>
@@ -1217,7 +1222,8 @@ document.getElementById("karne").innerHTML = SETLER.filter(s=>s.oneCik!==false).
     <span>${k.g} ${S("galibiyet")} · ${k.b} ${S("beraberlik")} · ${k.m} ${S("maglubiyet")}</span>
     <span>${k.ag} ${S("atilan_gol")} · ${k.yg} ${S("yenilen_gol")}</span>
   </div>`;
-}).join(""));
+}).join("");
+});
 
 /* sekmeler + panel */
 const sekmelerEl = document.getElementById("sekmeler");
